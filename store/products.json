@@ -1,0 +1,47 @@
+[
+  {
+    "title": "Portfolio Template",
+    "description": "A clean and modern portfolio website starter.",
+    "price": "Free",
+    "image": "/images /9b4833dcce1a9e7e04755cded2b5e8f0.jpg",
+    "category": "Templates",
+    "actionType": "download",
+    "link": "https://github.com/yourrepo/portfolio-template"
+  },
+  {
+    "title": "E-Commerce Starter Kit",
+    "description": "A boilerplate for launching your online shop fast.",
+    "price": "$29",
+    "image": "/images /9b4833dcce1a9e7e04755cded2b5e8f0.jpg",
+    "category": "Templates",
+    "actionType": "buy",
+    "link": "https://gumroad.com/yourproduct"
+  },
+  {
+    "title": "AI Text Generator",
+    "description": "A simple AI-powered writing demo built in JS.",
+    "price": "Demo",
+    "image": "/images /9b4833dcce1a9e7e04755cded2b5e8f0.jpg",
+    "category": "Experiments",
+    "actionType": "demo",
+    "link": "https://yourdomain.com/ai-demo"
+  },
+  {
+    "title": "Cybersecurity Bootcamp",
+    "description": "An immersive program training elite security professionals.",
+    "price": "Coming Soon",
+    "image": "/images /9b4833dcce1a9e7e04755cded2b5e8f0.jpg",
+    "category": "Programs",
+    "actionType": "enroll",
+    "link": "https://yourdomain.com/bootcamp"
+  },
+  {
+    "title": "Custom Software Development",
+    "description": "Hire me for tailored solutions for your company.",
+    "price": "Request Quote",
+    "image": "/images /9b4833dcce1a9e7e04755cded2b5e8f0.jpg",
+    "category": "Services",
+    "actionType": "hire",
+    "link": "mailto:youremail@example.com"
+  }
+]
