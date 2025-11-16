@@ -3,36 +3,36 @@
     "title": "x86 puzzle",
     "description": "A Capture The Flag x86 assembly challenge. You can download it for free, and edit the x86 simulator as you wish.",
     "price": "Free",
-    "image": "/SVG /x86.svg",
+    "image": "x86.svg",
     "category": "Templates",
     "actionType": "download",
-    "link": "https://raw.githubusercontent.com/USERNAME/REPO/BRANCH/path/to/file.ext"
+    "link": "https://github.com/Rickclmnt/x86-CTF-/archive/refs/tags/v1.0.0.zip"
   },
   {
     "title": "KAIMERA",
     "description": "Cinematic camera rig and creature AI.",
     "price": "$200",
-    "image": "/SVG /kaimera.svg",
+    "image": "kaimera.svg",
     "category": "Experiments",
     "actionType": "",
-    "link": "/kaimera.html"
+    "link": "kaimera.html"
   },
   {
     "title": "Cybersecurity Bootcamp",
     "description": "An immersive program training elite security professionals.",
     "price": "Coming Soon",
-    "image": "/SVG /cybersec.svg",
+    "image": "cybersec.svg",
     "category": "Programs",
     "actionType": "enroll",
-    "link": "/error.html"
+    "link": "error.html"
   },
   {
     "title": "Custom Software Development",
     "description": "Hire me to design and create tailored apps or solutions for your business.",
     "price": "Request Quote",
-    "image": "/SVG /freelance.svg",
+    "image": "freelance.svg",
     "category": "Services",
     "actionType": "hire",
-    "link": "/contact.html"
+    "link": "contact.html"
   }
 ]
