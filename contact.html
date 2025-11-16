@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PMQSS6KR');</script>
+<!-- End Google Tag Manager -->
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Me</title>
+  <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(135deg, #f9f9f9, #ececec);
+      color: #333;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem 1rem 1rem;
+    }
+
+    header h1 {
+      font-size: 2.2rem;
+      margin-bottom: 0.5rem;
+      letter-spacing: 1px;
+    }
+
+    header p {
+      font-size: 1.1rem;
+      color: #555;
+    }
+
+    /* Container */
+    .contact-container {
+      max-width: 800px;
+      margin: 3rem auto;
+      padding: 2rem;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-container h2 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #111;
+    }
+
+    .contact-container p {
+      text-align: center;
+      color: #555;
+      margin-bottom: 2rem;
+    }
+
+    /* Form */
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: #2a9df4;
+      box-shadow: 0 0 8px rgba(0,119,255,0.2);
+    }
+
+    textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    button {
+      align-self: center;
+      padding: 0.8rem 2rem;
+      background: #2a9df4;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    button:hover {
+      background: #2a9df4;
+      transform: scale(1.05);
+    }
+
+    /* Extras */
+    .alt-contact {
+      margin-top: 2.5rem;
+      text-align: center;
+      font-size: 0.95rem;
+      color: #555;
+    }
+
+    .alt-contact a {
+      color: #2a9df4;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .alt-contact a:hover {
+      text-decoration: underline;
+    }
+    
+    .top-nav {
+      margin-bottom: 2rem;
+    }
+    .top-nav a {
+      text-decoration: none;
+      color: #111;
+      background: #eee;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      transition: 0.2s;
+    }
+    .top-nav a:hover {
+      background: #111;
+      color: #fff;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 1.8rem;
+      }
+      .contact-container {
+        margin: 1rem;
+        padding: 1.5rem;
+      }
+    }
+  footer { border-top: 1px solid #eee; padding: 20px 20px; text-align: center; font-size: 0.85rem; color: #666; }
+  </style>
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PMQSS6KR"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<br>
+<div class="top-nav">
+  <a href="index.html#contact">← Back</a>
+</div>
+
+  <div class="contact-container">
+    <p></p>
+
+    <form action="https://formsubmit.co/Rabbitmailbox@proton.me" method="POST">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email or Whatsapp ..." required>
+      <textarea name="message" placeholder="How can I help..." required></textarea>
+      <button type="submit">Send Message</button>
+      <input type="hidden" name="_captcha" value="false">
+    </form>
+  </div>
+<br><br>
+  <footer>© 2025 Patrick Clement. All rights reserved.</footer>
+</body>
+</html>

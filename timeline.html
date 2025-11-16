@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PMQSS6KR');</script>
+<!-- End Google Tag Manager -->
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project Archive Timeline</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f7f8fa;
+      color: #222;
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem 1rem 1rem;
+    }
+
+    header h1 {
+      text-align: center;
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+    }
+
+    header p {
+      color: #555;
+    }
+
+    .timeline {
+      position: relative;
+      max-width: 1000px;
+      margin: auto;
+      padding: 2rem 0;
+    }
+
+    /* Vertical line */
+    .timeline::after {
+      content: '';
+      position: absolute;
+      width: 3px;
+      background-color: #ccc;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      margin-left: -1.5px;
+    }
+
+    .timeline-item {
+      position: relative;
+      width: 50%;
+      padding: 1rem 2rem;
+      box-sizing: border-box;
+      min-height: 120px;
+    }
+
+    .timeline-item.left {
+      left: 0;
+      text-align: right;
+    }
+
+    .timeline-item.right {
+      left: 50%;
+      text-align: left;
+    }
+
+    .timeline-content {
+      display: inline-block;
+      background: #fff;
+      border-radius: 6px;
+      padding: 1rem 1.5rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      border: 1px solid #eee;
+      max-width: 300px;
+      position: relative;
+      text-align: left;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      top: 1.5rem;
+      width: 14px;
+      height: 14px;
+      background-color: #0073e6;
+      border-radius: 50%;
+      z-index: 2;
+    }
+
+    .timeline-item.left .timeline-dot {
+      right: -7px;
+    }
+
+    .timeline-item.right .timeline-dot {
+      left: -7px;
+    }
+
+    /* Year opposite to the card */
+    .timeline-year {
+      position: absolute;
+      top: 1.2rem;
+      font-size: 0.85rem;
+      font-weight: bold;
+      color: #555;
+      background: #f7f8fa;
+      padding: 2px 6px;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+
+    .timeline-item.left .timeline-year {
+      left: calc(100% + 20px);
+    }
+
+    .timeline-item.right .timeline-year {
+      right: calc(100% + 20px);
+    }
+
+    .timeline-content h3 {
+      font-size: 1rem;
+      margin: 0;
+      color: #0073e6;
+    }
+
+    .tag {
+      display: block;
+      margin: 0.3rem 0 0.5rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      width: fit-content;
+    }
+    
+    /*remember to color code tags later*/
+    .prototype { background: whitesmoke; color: black; }
+    .research { background: whitesmoke; color: black; }
+    .concept { background: whitesmoke; color: ; }
+
+    .timeline-content p {
+      font-size: 0.9rem;
+      color: #444;
+      margin-bottom: 0.5rem;
+    }
+
+    .timeline-content a {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #0073e6;
+      text-decoration: none;
+    }
+
+    .timeline-content a:hover {
+      text-decoration: underline;
+    }
+   
+   /* Year gap spacing classes */
+.year-gap-1 { margin-top: 80px; }   /* 1 year apart */
+.year-gap-2 { margin-top: 160px; }  /* 2 years apart */
+.year-gap-3 { margin-top: 240px; }  /* 3 years apart */
+.year-gap-4 { margin-top: 320px; }  /* 4 years apart */
+
+    /* Shrink layout for smaller screens but keep alternating */
+    @media screen and (max-width: 768px) {
+      .timeline {
+        padding: 1rem 0;
+      }
+
+      .timeline-item {
+        width: 50%;
+        padding: 1rem;
+      }
+
+      .timeline-content {
+        max-width: 90%;
+        font-size: 0.85rem;
+      }
+
+      .timeline-year {
+        font-size: 0.75rem;
+        padding: 2px 4px;
+      }
+
+      .timeline-dot {
+        width: 12px;
+        height: 12px;
+      }
+
+      .timeline-content h3 {
+        font-size: 0.95rem;
+      }
+
+      .timeline-content p {
+        font-size: 0.8rem;
+      }
+    }
+
+    /* Extra tweak for very small phones */
+    @media screen and (max-width: 480px) {
+      .timeline-item {
+        padding: 0.5rem;
+      }
+
+      .timeline-content {
+        max-width: 95%;
+        padding: 0.8rem 1rem;
+      }
+
+      .timeline-year {
+        font-size: 0.7rem;
+      }
+
+      .timeline-content h3 {
+        font-size: 0.9rem;
+      }
+    }
+    
+    .top-nav {
+      margin-bottom: 2rem;
+    }
+    .top-nav a {
+      text-decoration: none;
+      color: #111;
+      background: #eee;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      transition: 0.2s;
+    }
+    .top-nav a:hover {
+      background: #111;
+      color: #fff;
+    }
+    
+footer { border-top: 1px solid #eee; padding: 20px 20px; text-align: center; font-size: 0.85rem; color: #666; }
+  </style>
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PMQSS6KR"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<br>
+    <div class="top-nav">
+      <a href="index.html#projects">← Back</a>
+    </div>
+  <header>
+    <h1>My Project Archive</h1>
+    <p>A record of projects, prototypes, research, and concepts over the years.</p> <br><br><strong>*This list is not exhaustive, I've lost a significant number of project files and prototypes through the years.</strong>
+  </header><br><br>
+
+  <div class="timeline">
+    
+  
+  <div class="timeline-item left">
+    <span class="timeline-dot"></span>
+    <span class="timeline-year">2022</span>
+    <div class="timeline-content">
+      <h3>Rheingold</h3>
+      <span class="tag research">Research Project</span>
+      <p>Trading bot experiment.</p>
+      <a href="project.html#rheingold">View →</a>
+    </div>
+  </div>
+  
+  <div class="timeline-item right year-gap-3">
+    <span class="timeline-dot"></span>
+    <span class="timeline-year">April 2024</span>
+    <div class="timeline-content">
+      <h3>PAL</h3>
+      <span class="tag concept">Concept</span>
+      <p>A “Personality chip” to give AIs unique identities.</p>
+      <a href="project.html#pal">View →</a>
+    </div>
+  </div>
+  
+  <div class="timeline-item left">
+    <span class="timeline-dot"></span>
+    <span class="timeline-year">2024</span>
+    <div class="timeline-content">
+      <h3>E3N</h3>
+      <span class="tag research">Prototype</span>
+      <p>Project notebook. One of my personal AI projects.</p><a href="project.html#e3n">View →</a>
+    </div>
+  </div>
+  
+  <div class="timeline-item right">
+    <span class="timeline-dot"></span>
+    <span class="timeline-year">2024</span>
+    <div class="timeline-content">
+      <h3>M.A.R.K. IV</h3>
+      <span class="tag research">Research Project</span>
+      <p>Self-repairing AI assistant inspired by JARVIS.</p>
+    </div>
+  </div>
+  
+  <div class="timeline-item left">
+    <span class="timeline-dot"></span>
+    <span class="timeline-year">2024</span>
+    <div class="timeline-content">
+      <h3>Project KAIMERA</h3>
+      <span class="tag concept">Concept</span>
+      <p>Video game inspired by the Love death and robots episode sonnie's edge.</p>
+    </div>
+  </div>
+  
+  <div class="timeline-item right">
+    <span class="timeline-dot"></span>
+    <span class="timeline-year">2024</span>
+    <div class="timeline-content">
+      <h3>Wraith OS</h3>
+      <span class="tag prototype">Research project</span>
+      <p>Privacy-focused amnesic on-flash operating system based on the way Tails OS works.</p>
+    </div>
+  </div>
+  
+  <div class="timeline-item left">
+    <span class="timeline-dot"></span>
+    <span class="timeline-year">2024</span>
+    <div class="timeline-content">
+      <h3>A.E.G.I.S.</h3>
+      <span class="tag concept">Research</span>
+      <p>Automated emergency governance system.</p>
+    </div>
+  </div>
+  
+  <div class="timeline-item right">
+    <span class="timeline-dot"></span>
+    <span class="timeline-year">2024</span>
+    <div class="timeline-content">
+      <h3>R.E.S.C.U.E.</h3>
+      <span class="tag research">Concept</span>
+      <p>Drone network for disaster response operations.</p>
+    </div>
+  </div>
+  
+  <div class="timeline-item left">
+    <span class="timeline-dot"></span>
+    <span class="timeline-year">2024</span>
+    <div class="timeline-content">
+      <h3>Labyrinth</h3>
+      <span class="tag concept">Concept</span>
+      <p>Maze Runner–inspired exploration game.</p>
+    </div>
+  </div>
+  
+  <div class="timeline-item right">
+    <span class="timeline-dot"></span>
+    <span class="timeline-year">2024</span>
+    <div class="timeline-content">
+      <h3>RICKCLMNT</h3>
+      <span class="tag concept">Concept</span>
+    </div>
+  </div>
+  
+  <div class="timeline-item left year-gap-2">
+    <span class="timeline-dot"></span>
+    <span class="timeline-year">Feb 2025</span>
+    <div class="timeline-content">
+      <h3>Kaleidoscope</h3>
+      <span class="tag research">Anthology Series (Literature)</span>
+      <p>Experimental anthology series.</p>
+      <!--a href="kaleidoscope.html">View →</a-->
+    </div>
+  </div>
+  
+  <div class="timeline-item right">
+    <span class="timeline-dot"></span>
+    <span class="timeline-year">May 2025</span>
+    <div class="timeline-content">
+      <h3>MAADE</h3>
+      <span class="tag research">Research Project</span>
+      <p>Rust-based compression algorithm for streaming.</p>
+    </div>
+  </div>
+  
+  <div class="timeline-item right">
+    <span class="timeline-dot"></span>
+    <span class="timeline-year">May 2025</span>
+    <div class="timeline-content">
+      <h3>RICKCLMNT</h3>
+      <span class="tag concept">Company</span>
+      <p>Launched 2/5/25</p>
+      <a href="https://rickclmnt.github.io/RICKCLMNT/">View →</a>
+    </div>
+  </div>
+  
+  <div class="timeline-item left">
+    <span class="timeline-dot"></span>
+    <span class="timeline-year">July 2025</span>
+    <div class="timeline-content">
+      <h3>NLP25</h3><span class="tag concept">Research</span>
+      <p>Natural language processing engine.<br>Purpose: lightweight low resource AI assistant that i could run offline.</p>
+    </div>
+  </div>
+  
+  <div class="timeline-item left">
+    <span class="timeline-dot"></span>
+    <span class="timeline-year">July 2025</span>
+    <div class="timeline-content">
+      <h3>KAIMERA</h3><span class="tag concept">Prototype</span>
+      <p>I designed brains for the creatures that mimic animal behavior, and an arena camera rig system all in Godot's GDscript. The code will be available in my shop.<a href="/store/marketplace.html">View →</a>
+</p>
+    </div>
+  </div>
+  
+  <div class="timeline-item left">
+    <span class="timeline-dot"></span>
+    <span class="timeline-year">July 2025</span>
+    <div class="timeline-content">
+      <h3>Firelike</h3>
+      <span class="tag prototype">Prototype</span>
+      <p>AI-powered school management + learning platform.</p>
+      <a href="project.html#firelike">View →</a>
+    </div>
+  </div>
+  
+  <div class="timeline-item right">
+    <span class="timeline-dot"></span>
+    <span class="timeline-year">2025</span>
+    <div class="timeline-content">
+      <h3>USB launcher</h3>
+      <span class="tag prototype">Prototype</span>
+      <p>Intelligent USB hosted file launcher that you can query on file and folder content. It can retrieve your files and tell you jokes.</p>
+    </div>
+  </div>
+  
+  <div class="timeline-item left">
+    <span class="timeline-dot"></span>
+    <span class="timeline-year">Sept 2025</span>
+    <div class="timeline-content">
+      <h3>Project Anvil</h3>
+      <span class="tag concept">Ongoing Project</span>
+      <p>My personal website.</p>
+      <a href="index.html#project">View →</a>
+    </div>
+  </div>
+  
+  <div class="timeline-item right">
+    <span class="timeline-dot"></span>
+    <span class="timeline-year">Oct 2025</span>
+    <div class="timeline-content">
+      <h3>AETHER - [emergent intelligence]</h3>
+      <span class="tag concept">Ongoing Project</span>
+      <p>Introspective reasoning and self evolving AI architecture.</p>
+      <a href="notebook.html">View →</a>
+    </div>
+  </div>
+</div>
+<br><br>
+<br><br>
+  <footer>© 2025 Patrick Clement. All rights reserved.</footer>
+</body>
+</html>
