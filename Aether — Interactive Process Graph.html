@@ -220,7 +220,7 @@ h3{ margin:6px 0 10px; font-weight:600; color:#eaf6ff }
       <div style="flex:1">Drag nodes to reposition. Click a node to inspect internals and run microcalls.</div>
       <button id="reset" class="small-btn">Reset View</button>
     </div>
-    <p>P.S. I'm finishing this at 2am so if i find any bugs or errors i made later I'll fix them </p>
+    <p>P.S. I'm finishing this at 2am so if i find any bugs or errors I'll fix them later.</p>
 
     <div style="margin-top:12px">
       <div style="margin-bottom:8px"><button id="runDemo" class="small-btn">Run Demo Trace</button></div>
@@ -256,16 +256,6 @@ function setView() {
 }
 setView();
 
-/* Mobile viewport scaling */
-function adjustForMobile() {
-  if (window.innerWidth < 760) {
-    const ratio = window.innerHeight / window.innerWidth;
-    view.w = 1600;
-    view.h = 1600 * ratio * 0.9;   // keeps nodes visible
-    setView();
-  }
-}
-
 adjustForMobile();
 window.addEventListener("resize", adjustForMobile);
 
@@ -291,23 +281,22 @@ const trace = document.getElementById('trace');
 const resetBtn = document.getElementById('reset');
 const runDemoBtn = document.getElementById('runDemo');
 
-if (window.innerWidth < 760) {
-  const ratio = window.innerHeight / window.innerWidth;
-  view = { x: 0, y: 0, w: 1600, h: 1600 * ratio };
-  setView();
-}
-
-
-let view = {x:0,y:0,w:1600,h:900};
-function setView(){ svg.setAttribute('viewBox', `${view.x} ${view.y} ${view.w} ${view.h}`); }
-setView();
-
 /* Convert screen/event point to SVG coordinates (accounting viewBox) */
 function screenToSvg(evt){
   const pt = svg.createSVGPoint();
   pt.x = evt.clientX; pt.y = evt.clientY;
   const ctm = svg.getScreenCTM().inverse();
   return pt.matrixTransform(ctm);
+}
+
+/* Mobile viewport scaling */
+function adjustForMobile() {
+  if (window.innerWidth < 760) {
+    const ratio = window.innerHeight / window.innerWidth;
+    view.w = 1600;
+    view.h = 1600 * ratio * 0.9;   // keeps nodes visible
+    setView();
+  }
 }
 
 /* Aether graph data (nodes arranged vertically) */
