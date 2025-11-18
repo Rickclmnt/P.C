@@ -137,13 +137,20 @@ h3{ margin:6px 0 10px; font-weight:600; color:#eaf6ff }
   font-size:13px;
 }
         
+/* override SVG for scroll container */
 #scroll-container {
   width: 100%;
   height: 100%;
-  overflow: scroll;       
-  -webkit-overflow-scrolling: touch; 
-  touch-action: auto; 
+  overflow: auto; /* allow scrolling */
+  touch-action: auto; /* allow touch scrolling */
 }
+
+#scroll-container svg {
+  width: 2000px;   /* ensure overflow */
+  height: 2000px;
+  touch-action: auto;
+}
+
 
 @media (max-width: 760px) {
   #scroll-container {
