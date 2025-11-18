@@ -372,23 +372,37 @@ function describe(s){
 
 function runSubstep(nodeId, substep){ trace.style.display='block'; trace.textContent+=`\n[${nodeId}] Running ${substep}... done.`; trace.scrollTop=trace.scrollHeight; }
 
-/* -------------------- Packets -------------------- */
+/* -------------------- Packets (animated circles along flows) -------------------- */
 const packets = [];
-function spawnPacket(pathEl){
+
+function spawnPacket(pathEl, delay=0){
   const circle = document.createElementNS('http://www.w3.org/2000/svg','circle');
-  circle.setAttribute('r',6); circle.setAttribute('fill','white'); circle.classList.add('packet');
+  circle.setAttribute('r',6);
+  circle.setAttribute('fill','white');
+  circle.classList.add('packet');
   packetsG.appendChild(circle);
-  packets.push({el:circle,path:pathEl,t:0,speed:0.008+Math.random()*0.012});
+  packets.push({el:circle, path:pathEl, t:delay, speed:0.008 + Math.random()*0.012});
 }
+
 function animatePackets(){
   packets.forEach(p=>{
-    p.t+=p.speed;
-    if(p.t>1){ p.t=0; }
-    const len=p.path.getTotalLength(); const pt=p.path.getPointAtLength(p.t*len);
-    p.el.setAttribute('cx',pt.x); p.el.setAttribute('cy',pt.y);
+    p.t += p.speed;
+    if(p.t > 1) p.t = 0;
+    const len = p.path.getTotalLength();
+    const pt = p.path.getPointAtLength(p.t * len);
+    p.el.setAttribute('cx', pt.x);
+    p.el.setAttribute('cy', pt.y);
   });
   requestAnimationFrame(animatePackets);
 }
+
+// Spawn packets along all main flow paths (layer 0) with slight random offsets
+pathMap.forEach(e => {
+  if(e.layer === 0){
+    spawnPacket(e.path, Math.random() * 0.5);
+  }
+});
+
 
 /* -------------------- Buttons -------------------- */
 resetBtn.addEventListener('click', adjustViewForScreen);
