@@ -35,6 +35,75 @@
   /* GPU only hover scale (won't trigger reflow of other elements because transform is isolated) */
   .nodeGroup .visual{transform-origin:center center; transition:transform .18s cubic-bezier(.2,.9,.2,1), filter .18s}
   .nodeGroup:hover .visual{transform:scale(1.06); filter:brightness(1.05) saturate(1.05);}
+/* ----- MOBILE OPTIMIZATION ----- */
+@media (max-width: 760px) {
+
+  .wrap {
+    flex-direction: column;
+    padding: 8px;
+    gap: 8px;
+  }
+
+  .viz {
+    min-width: 100%;
+    height: 60vh;
+    border-radius: 10px;
+  }
+
+  .panel {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    padding: 14px;
+    border-radius: 10px;
+    font-size: 15px;
+  }
+
+  .panel h3 {
+    font-size: 18px;
+  }
+
+  /* Text scaling */
+  .labelText {
+    font-size: 11px;
+  }
+
+  /* Node scaling */
+  .nodeRing { r: 46 !important; }
+  .nodeCore { r: 24 !important; }
+
+  /* Buttons */
+  .small-btn {
+    padding: 6px 10px;
+    font-size: 14px;
+  }
+
+  /* Micrograph */
+  .micrograph {
+    height: 160px;
+  }
+
+  /* The hint bubble */
+  .hint {
+    font-size: 11px;
+    bottom: 8px;
+    left: 8px;
+    padding: 4px 6px;
+  }
+
+  /* Reduce excessive margins */
+  .substep {
+    padding: 6px;
+  }
+}
+@media (max-width: 760px) {
+  #svg {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+
 </style>
 </head>
 <body>
@@ -113,6 +182,11 @@ const trace = document.getElementById('trace');
 
 const resetBtn = document.getElementById('reset');
 const runDemoBtn = document.getElementById('runDemo');
+
+if (window.innerWidth < 760) {
+  view = { x: 0, y: 0, w: 1200, h: 900 };  // tighter horizontal scaling
+  setView();
+}
 
 let view = {x:0,y:0,w:1600,h:900};
 function setView(){ svg.setAttribute('viewBox', `${view.x} ${view.y} ${view.w} ${view.h}`); }
