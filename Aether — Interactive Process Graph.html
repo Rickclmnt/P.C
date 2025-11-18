@@ -45,10 +45,11 @@
   }
 
   .viz {
-    min-width: 100%;
-    height: 60vh;
-    border-radius: 10px;
-  }
+  width: 100%;
+  height: 65vh;
+  min-height: 340px;
+}
+
 
   .panel {
     width: 100%;
@@ -68,9 +69,19 @@
     font-size: 11px;
   }
 
-  /* Node scaling */
-  .nodeRing { r: 46 !important; }
-  .nodeCore { r: 24 !important; }
+  .nodeGroup .visual {
+  transform-origin: center center;
+}
+
+@media (max-width: 760px) {
+  .nodeGroup .visual {
+    transform: scale(0.7);
+  }
+  .labelText {
+    font-size: 10px;
+    transform: translateY(6px);
+  }
+}
 
   /* Buttons */
   .small-btn {
@@ -184,9 +195,11 @@ const resetBtn = document.getElementById('reset');
 const runDemoBtn = document.getElementById('runDemo');
 
 if (window.innerWidth < 760) {
-  view = { x: 0, y: 0, w: 1200, h: 900 };  // tighter horizontal scaling
+  const ratio = window.innerHeight / window.innerWidth;
+  view = { x: 0, y: 0, w: 1600, h: 1600 * ratio };
   setView();
 }
+
 
 let view = {x:0,y:0,w:1600,h:900};
 function setView(){ svg.setAttribute('viewBox', `${view.x} ${view.y} ${view.w} ${view.h}`); }
