@@ -140,9 +140,9 @@ h3{ margin:6px 0 10px; font-weight:600; color:#eaf6ff }
 #scroll-container {
   width: 100%;
   height: 100%;
-  overflow: scroll;          /* enables scrolling */
-  -webkit-overflow-scrolling: touch; /* smooth iOS scrolling */
-  touch-action: pan-x pan-y; /* allows finger dragging */
+  overflow: scroll;       
+  -webkit-overflow-scrolling: touch; 
+  touch-action: auto; 
 }
 
 @media (max-width: 760px) {
@@ -151,7 +151,7 @@ h3{ margin:6px 0 10px; font-weight:600; color:#eaf6ff }
   }
 
   #svg {
-    width: 2000px;     /* make it big enough to scroll around */
+    width: 2000px;  
     height: 2000px;
   }
 }
