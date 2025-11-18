@@ -1,0 +1,550 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script data-goatcounter="https://rickclmnt.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Aether — Interactive Node Graph (Draggable, Stable Hover)</title>
+<style>
+  :root{
+    --bg:#071028; --muted:#8fb7d8; --panel:#071831;
+    --accent:#5c8cff; --glass: rgba(255,255,255,0.03);
+    --node-fill: #071a2a; --node-ring: #05273e; --node-stroke: #224b7a;
+  }
+  html,body{height:100%;margin:0;background:var(--bg);font-family:Inter,system-ui,Segoe UI,Roboto,Arial; -webkit-font-smoothing:antialiased;}
+  .wrap{display:flex;flex-direction:row;height:100vh;gap:12px;padding:12px;box-sizing:border-box}
+  .viz{flex:1;min-width:360px;border-radius:12px;overflow:hidden;background:linear-gradient(180deg,#041323,#08182b);box-shadow:0 8px 30px rgba(0,0,0,.6);position:relative}
+  svg{width:100%;height:100%;display:block;touch-action:none;user-select:none}
+  .panel{width:420px;max-width:45vw;min-width:260px;background:var(--panel);border-radius:12px;padding:16px;color:#dff1ff;box-shadow:0 8px 30px rgba(0,0,0,.6);overflow:auto}
+  h3{margin:6px 0 10px 0;font-weight:600;color:#eaf6ff}
+  .nodeGroup{cursor:grab; will-change:transform;}
+  .nodeGroup.dragging{cursor:grabbing;}
+  .nodeRing{fill:none;stroke:var(--node-ring);stroke-width:12;opacity:0.55;}
+  .nodeCore{fill:var(--node-fill);stroke:var(--node-stroke);stroke-width:2;}
+  .labelText{fill:#dff1ff;font-weight:700;font-size:13px;text-anchor:middle;pointer-events:none}
+  .flow{stroke-linecap:round;stroke-linejoin:round;opacity:0.92;pointer-events:none}
+  .packet{pointer-events:none}
+  .substep{background:rgba(255,255,255,0.03);padding:8px;border-radius:8px;margin-bottom:8px;border:1px solid rgba(255,255,255,0.03)}
+  .small-btn{background:#0e2b44;border:none;padding:6px 8px;border-radius:8px;color:#dff1ff;cursor:pointer}
+  .trace{font-family:monospace;background:rgba(0,0,0,0.12);padding:8px;border-radius:6px;margin-top:8px;white-space:pre-wrap;font-size:12px;color:#bfe6ff;max-height:260px;overflow:auto}
+  .inspector { margin-top:12px; background: linear-gradient(180deg, rgba(9,17,28,0.6), rgba(6,12,20,0.6)); padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.04) }
+  .micrograph{width:100%;height:200px;background:rgba(0,0,0,0.06);border-radius:6px;margin-top:8px;overflow:hidden;position:relative}
+  .hint{position:absolute;left:12px;bottom:12px;color:#9fd8ff;background:rgba(0,0,0,0.25);padding:6px 8px;border-radius:10px;font-size:13px}
+  @media (max-width:980px){ .wrap{flex-direction:column} .panel{width:100%;max-width:100%;min-width:0} }
+  /* GPU only hover scale (won't trigger reflow of other elements because transform is isolated) */
+  .nodeGroup .visual{transform-origin:center center; transition:transform .18s cubic-bezier(.2,.9,.2,1), filter .18s}
+  .nodeGroup:hover .visual{transform:scale(1.06); filter:brightness(1.05) saturate(1.05);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="viz" id="viz">
+    <svg id="svg" viewBox="0 0 1600 900" xmlns="http://www.w3.org/2000/svg" aria-label="Aether interactive graph">
+      <defs>
+        <linearGradient id="bg" x1="0" x2="1">
+          <stop offset="0" stop-color="#041323"/>
+          <stop offset="1" stop-color="#071028"/>
+        </linearGradient>
+        <filter id="glow"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+      </defs>
+
+      <rect width="100%" height="100%" fill="url(#bg)"/>
+      <g id="flows"></g>
+      <g id="nodes"></g>
+      <g id="packets"></g>
+      <g id="labels"></g>
+    </svg>
+
+    <div class="hint">Created by <strong>Patrick U. Clement</strong></div>
+  </div>
+
+  <div class="panel">
+    <h3>Aether — Interactive Process Graph</h3>
+    <div style="display:flex;gap:8px;align-items:center">
+      <div style="flex:1">Drag nodes to reposition. Click a node to inspect internals and run microcalls.</div>
+      <button id="reset" class="small-btn">Reset View</button>
+    </div>
+    <p>P.S. I'm finishing this at 2am so if i find any bugs or errors i made later I'll fix them </p>
+
+    <div style="margin-top:12px">
+      <div style="margin-bottom:8px"><button id="runDemo" class="small-btn">Run Demo Trace</button></div>
+      <div id="details"></div>
+
+      <div id="inspector" class="inspector" style="display:none">
+        <strong id="inspectorTitle"></strong>
+        <div id="inspectorInfo" style="margin-top:8px;color:#bfe6ff"></div>
+        <div style="margin-top:8px;display:flex;gap:8px">
+          <button id="openMicro" class="small-btn">Open Micrograph</button>
+          <button id="playMicro" class="small-btn">Play Microcalls</button>
+        </div>
+        <div id="microArea" class="micrograph"></div>
+      </div>
+
+      <div id="trace" class="trace" style="display:none"></div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+/* -----------------------------
+  Robust interactive node graph
+  - draggable SVG nodes
+  - precomputed path endpoints
+  - stable hover (GPU-only transforms)
+  - inspector + microcall visualizer
+------------------------------*/
+
+const svg = document.getElementById('svg');
+const flowsG = document.getElementById('flows');
+const nodesG = document.getElementById('nodes');
+const labelsG = document.getElementById('labels');
+const packetsG = document.getElementById('packets');
+
+const details = document.getElementById('details');
+const inspector = document.getElementById('inspector');
+const inspectorTitle = document.getElementById('inspectorTitle');
+const inspectorInfo = document.getElementById('inspectorInfo');
+const microArea = document.getElementById('microArea');
+const openMicro = document.getElementById('openMicro');
+const playMicro = document.getElementById('playMicro');
+const trace = document.getElementById('trace');
+
+const resetBtn = document.getElementById('reset');
+const runDemoBtn = document.getElementById('runDemo');
+
+let view = {x:0,y:0,w:1600,h:900};
+function setView(){ svg.setAttribute('viewBox', `${view.x} ${view.y} ${view.w} ${view.h}`); }
+setView();
+
+/* Convert screen/event point to SVG coordinates (accounting viewBox) */
+function screenToSvg(evt){
+  const pt = svg.createSVGPoint();
+  pt.x = evt.clientX; pt.y = evt.clientY;
+  const ctm = svg.getScreenCTM().inverse();
+  return pt.matrixTransform(ctm);
+}
+
+/* Aether graph data (nodes arranged vertically) */
+const nodesData = [
+  { id:'INPUT', x:140, y:150, subs: ['tokenizer_normalizer','parser_dependency_pos_phrase','embedding_mapper','intent_classifier','semantic_similarity','ner_relation_extractor'], libs:['tokenizers','spaCy','transformers'] },
+  { id:'MEMORY', x:520, y:150, subs: ['triplet_graph_store','crud_ops','weighted_edges','indexing_hashing','persistence_json_graphdb','retrieval_by_relevance'], libs:['networkx','rdflib','sqlite'] },
+  { id:'REASONER', x:520, y:420, subs: ['symbolic_inference','causal_chain_constructor','hypothesis_generator','goal_planner','meta_reasoning','scoring_confidence'], libs:['sympy','custom_infer'] },
+  { id:'SELF_MODEL', x:920, y:320, subs: ['introspection','consistency_validation','confidence_adjustment','identity_memory','self_updates','error_reflection'], libs:['numpy','custom_meta'] },
+  { id:'RESPONSEGEN', x:1260, y:260, subs: ['compositional_grammar_engine','templates_rule_syntax','word_meaning_dict','stochastic_variation','tense_detection','aggregation_weighting','nl_mapping'], libs:['jinja2'] },
+  { id:'OUTPUT', x:1460, y:320, subs: ['formatting','serialization_json','dispatch_ui_api'], libs:['json','http'] }
+];
+
+const flowPairs = [
+  ['INPUT','MEMORY'], ['MEMORY','REASONER'], ['REASONER','SELF_MODEL'], ['SELF_MODEL','RESPONSEGEN'], ['RESPONSEGEN','OUTPUT']
+];
+
+const palettes = [
+  ['#13c2ff','#9f5bff','#ff6ec7'],
+  ['#7effc7','#00d09c','#00a88a'],
+  ['#8eb6ff','#6f9cff','#9d7aff'],
+  ['#ffdd57','#ff7a00','#ff3d00']
+];
+
+let pathMap = []; // {from,to,path,layerIndex, endpoints}
+
+/* Create smooth cubic path */
+function makePath(from,to, curvature=0.36){
+  const fx=from.x, fy=from.y, tx=to.x, ty=to.y;
+  const dx = tx-fx, dy = ty-fy;
+  const cx1 = fx + dx*0.3 + dy*curvature;
+  const cy1 = fy + dy*0.3 - dx*curvature;
+  const cx2 = fx + dx*0.7 - dy*curvature;
+  const cy2 = fy + dy*0.7 + dx*curvature;
+  return `M ${fx} ${fy} C ${cx1} ${cy1}, ${cx2} ${cy2}, ${tx} ${ty}`;
+}
+
+/* Create gradients for flows */
+let gradCount=0;
+function createGradient(colors){
+  const id = 'g'+(++gradCount);
+  const defs = svg.querySelector('defs');
+  const lg = document.createElementNS('http://www.w3.org/2000/svg','linearGradient');
+  lg.setAttribute('id', id); lg.setAttribute('x1','0'); lg.setAttribute('y1','0'); lg.setAttribute('x2','1'); lg.setAttribute('y2','0');
+  colors.forEach((c,i)=>{
+    const stop = document.createElementNS('http://www.w3.org/2000/svg','stop');
+    stop.setAttribute('offset', (i/(colors.length-1))*100 + '%');
+    stop.setAttribute('stop-color', c);
+    lg.appendChild(stop);
+  });
+  defs.appendChild(lg);
+  return id;
+}
+
+/* Draw flows once and remember endpoints (no expensive path.getPointAtLength on hover) */
+function drawFlows(){
+  flowPairs.forEach((pair, idx)=>{
+    const from = nodesData.find(n=>n.id===pair[0]);
+    const to = nodesData.find(n=>n.id===pair[1]);
+    const pal = palettes[idx % palettes.length];
+    for(let layer=0; layer<4; layer++){
+      const d = makePath(from,to, 0.22 + layer*0.06);
+      const path = document.createElementNS('http://www.w3.org/2000/svg','path');
+      path.setAttribute('d', d);
+      const gid = createGradient(pal);
+      path.setAttribute('stroke', 'url(#'+gid+')');
+      path.setAttribute('stroke-width', 6 - layer);
+      path.setAttribute('fill','none');
+      if(layer===0) path.setAttribute('filter','url(#glow)');
+      path.classList.add('flow');
+      flowsG.appendChild(path);
+
+      // Precompute endpoints from node coords (cheap)
+      const endpoints = { sx: from.x, sy: from.y, ex: to.x, ey: to.y };
+      pathMap.push({ from: pair[0], to: pair[1], path, layer, endpoints });
+    }
+  });
+}
+
+/* Update all paths when nodes move */
+function updateFlowsForNode(nodeId){
+  pathMap.forEach(entry=>{
+    if(entry.from===nodeId || entry.to===nodeId){
+      const from = nodesData.find(n=>n.id===entry.from);
+      const to = nodesData.find(n=>n.id===entry.to);
+      const d = makePath(from,to, 0.22 + entry.layer*0.06);
+      entry.path.setAttribute('d', d);
+      entry.endpoints = { sx: from.x, sy: from.y, ex: to.x, ey: to.y };
+    }
+  });
+}
+
+/* Draw nodes as groups (ring + core + label) */
+function drawNodes(){
+  nodesData.forEach(n=>{
+    const g = document.createElementNS('http://www.w3.org/2000/svg','g');
+    g.setAttribute('class','nodeGroup');
+    g.setAttribute('transform', `translate(${n.x},${n.y})`);
+    g.dataset.id = n.id;
+
+    const visual = document.createElementNS('http://www.w3.org/2000/svg','g');
+    visual.setAttribute('class','visual');
+
+    const ring = document.createElementNS('http://www.w3.org/2000/svg','circle');
+    ring.setAttribute('r',56); ring.setAttribute('class','nodeRing');
+
+    const core = document.createElementNS('http://www.w3.org/2000/svg','circle');
+    core.setAttribute('r',30); core.setAttribute('class','nodeCore');
+
+    const label = document.createElementNS('http://www.w3.org/2000/svg','text');
+    label.setAttribute('y',72); label.setAttribute('class','labelText'); label.textContent = n.id.replace('_',' ');
+
+    visual.appendChild(ring);
+    visual.appendChild(core);
+    g.appendChild(visual);
+    g.appendChild(label);
+
+    nodesG.appendChild(g);
+    n.el = g;
+    n.visual = visual;
+    n.label = label;
+
+    // interactions: click, hover (handled by CSS), drag
+    g.addEventListener('click', (e)=>{
+      // avoid click when dragging
+      if(g.dataset.dragging === '1') { g.dataset.dragging='0'; return; }
+      openInspector(n);
+      e.stopPropagation();
+    });
+
+    // dragging with pointer events
+    g.addEventListener('pointerdown', (evt)=>{
+      evt.preventDefault();
+      g.setPointerCapture(evt.pointerId);
+      g.classList.add('dragging');
+      g.dataset.dragging = '0';
+      const start = screenToSvg(evt);
+      const startX = start.x, startY = start.y;
+      const origX = n.x, origY = n.y;
+      function move(ev){
+        const cur = screenToSvg(ev);
+        const dx = cur.x - startX, dy = cur.y - startY;
+        n.x = origX + dx; n.y = origY + dy;
+        g.setAttribute('transform', `translate(${n.x},${n.y})`);
+        n.label && n.label.setAttribute('y', 72); // label kept relative
+        updateFlowsForNode(n.id);
+        // mark as dragging (so single click doesn't open inspector immediately)
+        g.dataset.dragging = '1';
+      }
+      function up(ev){
+        svg.removeEventListener('pointermove', move);
+        svg.removeEventListener('pointerup', up);
+        try{ g.releasePointerCapture(evt.pointerId); }catch(e){}
+        g.classList.remove('dragging');
+      }
+      svg.addEventListener('pointermove', move);
+      svg.addEventListener('pointerup', up);
+    });
+  });
+}
+
+/* -------------------- Inspector / Panel -------------------- */
+function openInspector(node){
+  details.innerHTML = '';
+  inspector.style.display = 'block';
+  inspectorTitle.textContent = node.id.replace('_',' ') + ' — Substeps';
+  inspectorInfo.textContent = 'Dependencies: ' + (node.libs||[]).join(', ');
+
+  const frag = document.createDocumentFragment();
+  node.subs.forEach(s=>{
+    const box = document.createElement('div'); box.className = 'substep';
+    const pretty = prettify(s);
+    box.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center"><div><strong>${pretty}</strong><div style="color:#bfe6ff;margin-top:6px;font-size:13px">${describe(s)}</div></div><div><button data-sub="${s}" data-node="${node.id}" class="small-btn">Run</button></div></div>`;
+    frag.appendChild(box);
+  });
+  details.appendChild(frag);
+
+  // attach run listeners
+  details.querySelectorAll('button.small-btn').forEach(btn=>{
+    btn.addEventListener('click', e=>{
+      const sub = e.currentTarget.dataset.sub;
+      runSubstep(node.id, sub);
+    });
+  });
+
+  // micrograph open/play
+  openMicro.onclick = ()=> buildMicrograph(node.id, node.subs[0]);
+  playMicro.onclick = ()=> {
+    if(node.subs && node.subs.length) {
+      node.subs.forEach((s,i)=> setTimeout(()=> runSubstep(node.id,s), i*600) );
+    }
+  };
+}
+
+function prettify(s){ return s.replace(/_/g,' ').replace(/\b\w/g, c=>c.toUpperCase()); }
+
+function describe(s){
+  const map = {
+    tokenizer_normalizer: 'Split tokens, normalize casing, strip noise.',
+    parser_dependency_pos_phrase: 'Build dependency graph, POS tags, phrase chunks.',
+    embedding_mapper: 'Map tokens to semantic vectors.',
+    intent_classifier: 'Determine user intent (probabilities).',
+    semantic_similarity: 'Score semantic similarity to memories/concepts.',
+    ner_relation_extractor: 'Extract entities and candidate relations.',
+    triplet_graph_store: 'Store and index Subject–Relation–Object triples.',
+    crud_ops: 'Create/Read/Update/Delete graph fragments.',
+    weighted_edges: 'Assign/update weights (confidence, recency).',
+    indexing_hashing: 'Fast lookup via indexes and hashes.',
+    persistence_json_graphdb: 'Serialize snapshots to persistent storage.',
+    retrieval_by_relevance: 'Fetch relevant subgraphs by context.',
+    symbolic_inference: 'Apply symbolic rules and patterns.',
+    causal_chain_constructor: 'Assemble cause-effect chains.',
+    hypothesis_generator: 'Propose candidate hypotheses to test.',
+    goal_planner: 'Plan multi-step strategies for goals.',
+    meta_reasoning: 'Evaluate strategy & reasoning quality.',
+    scoring_confidence: 'Compute confidence scores for conclusions.',
+    introspection: 'Self checks, scan recent traces.',
+    consistency_validation: 'Find contradictions and cycles.',
+    confidence_adjustment: 'Recalibrate belief confidences.',
+    identity_memory: 'Persist identity, creator, goals metadata.',
+    self_updates: 'Update internal heuristics from feedback.',
+    error_reflection: 'Log error context and propose fixes.',
+    compositional_grammar_engine: 'Template & rule-based surface realization.',
+    templates_rule_syntax: 'Template application & syntax shaping.',
+    word_meaning_dict: 'Lexical semantic mappings.',
+    stochastic_variation: 'Phrase variation to improve realism.',
+    tense_detection: 'Temporal detection and conjugation.',
+    aggregation_weighting: 'Combine candidates and pick best.',
+    nl_mapping: 'Map internal structures to natural language.',
+    formatting: 'Format output for target channel.',
+    serialization_json: 'Produce structured JSON payloads.',
+    dispatch_ui_api: 'Dispatch result to UI / API / sinks.'
+  };
+  return map[s] || 'Executes pipeline microstep.';
+}
+
+/* -------------------- Microcalls (micrograph) -------------------- */
+const microcalls = {
+  'symbolic_inference': [{fn:'parse_rules',lib:'custom_infer'},{fn:'match_patterns',lib:'networkx'},{fn:'apply_transforms',lib:'sympy'},{fn:'record_trace',lib:'json'}],
+  'triplet_graph_store': [{fn:'node_create',lib:'networkx'},{fn:'edge_create',lib:'networkx'},{fn:'assign_weight',lib:'custom_meta'},{fn:'serialize_node',lib:'json'}],
+  'compositional_grammar_engine': [{fn:'select_template',lib:'jinja2'},{fn:'map_meanings',lib:'worddict'},{fn:'realize_surface',lib:'custom_nlg'}],
+  'retrieval_by_relevance': [{fn:'query_index',lib:'sqlite'},{fn:'score_results',lib:'numpy'},{fn:'fetch_subgraph',lib:'networkx'}]
+};
+
+function buildMicrograph(nodeId, sub){
+  microArea.innerHTML = '';
+  const calls = microcalls[sub] || [
+    {fn: sub + '_step1', lib:'(internal)'},
+    {fn: sub + '_step2', lib:'(internal)'},
+    {fn: sub + '_step3', lib:'(internal)'}
+  ];
+
+  const w = microArea.clientWidth, h = microArea.clientHeight;
+  const ms = document.createElementNS('http://www.w3.org/2000/svg','svg');
+  ms.setAttribute('width','100%'); ms.setAttribute('height','100%');
+  microArea.appendChild(ms);
+
+  const margin=12;
+  const stepW = (w - margin*2) / Math.max(3,calls.length);
+  const nodesEl=[];
+  calls.forEach((c,i)=>{
+    const x = margin + i*stepW + stepW/2;
+    const y = h/2;
+    const g = document.createElementNS('http://www.w3.org/2000/svg','g');
+    g.setAttribute('transform', `translate(${x},${y})`);
+    const circ = document.createElementNS('http://www.w3.org/2000/svg','circle');
+    circ.setAttribute('r',18); circ.setAttribute('fill','#071a2a'); circ.setAttribute('stroke','#2b6aa0'); circ.setAttribute('stroke-width',2);
+    const txt = document.createElementNS('http://www.w3.org/2000/svg','text'); txt.setAttribute('y',6); txt.setAttribute('text-anchor','middle'); txt.setAttribute('fill','#dff1ff'); txt.setAttribute('font-size','10'); txt.textContent = c.fn;
+    const lib = document.createElementNS('http://www.w3.org/2000/svg','text'); lib.setAttribute('y',34); lib.setAttribute('text-anchor','middle'); lib.setAttribute('fill','#9fd8ff'); lib.setAttribute('font-size','8'); lib.textContent = c.lib;
+    g.appendChild(circ); g.appendChild(txt); g.appendChild(lib);
+    ms.appendChild(g);
+    nodesEl.push({g,x,y,c});
+  });
+  for(let i=0;i<nodesEl.length-1;i++){
+    const a = nodesEl[i], b = nodesEl[i+1];
+    const p = document.createElementNS('http://www.w3.org/2000/svg','path');
+    const d = `M ${a.x} ${a.y} C ${a.x+30} ${a.y-30}, ${b.x-30} ${b.y-30}, ${b.x} ${b.y}`;
+    p.setAttribute('d', d); p.setAttribute('stroke','#5c8cff'); p.setAttribute('stroke-width',2); p.setAttribute('fill','none');
+    ms.insertBefore(p, ms.firstChild);
+  }
+  return ms;
+}
+
+/* -------------------- Packet animation along a path (uses pathMap endpoints approximate) -------------------- */
+function spawnPacketAlongPair(fromId,toId,label='●'){
+  // choose one matching path (layer 0 preferred)
+  const candidate = pathMap.find(p=>p.from===fromId && p.to===toId && p.layer===0) || pathMap.find(p=>p.from===fromId && p.to===toId);
+  if(!candidate) return;
+  const pathEl = candidate.path;
+  // Using path.getTotalLength only once per packet (ok)
+  let len=0;
+  try{ len = pathEl.getTotalLength(); }catch(e){ len = Math.hypot(candidate.endpoints.ex-candidate.endpoints.sx, candidate.endpoints.ey-candidate.endpoints.sy); }
+  const g = document.createElementNS('http://www.w3.org/2000/svg','g');
+  const circ = document.createElementNS('http://www.w3.org/2000/svg','circle');
+  circ.setAttribute('r',6); circ.setAttribute('fill','#fffb'); circ.setAttribute('class','packet');
+  const txt = document.createElementNS('http://www.w3.org/2000/svg','text');
+  txt.setAttribute('x',10); txt.setAttribute('y',4); txt.setAttribute('font-size',10); txt.setAttribute('fill','#00111a'); txt.textContent = label;
+  g.appendChild(circ); g.appendChild(txt);
+  packetsG.appendChild(g);
+
+  const speed = 60 + Math.random()*120;
+  let start = performance.now();
+  let alive = true;
+  function frame(now){
+    if(!alive){ try{ g.remove(); }catch(e){}; return; }
+    const t = ((now - start)/1000)*speed;
+    const pos = (t % len);
+    try{
+      const p = pathEl.getPointAtLength(pos);
+      g.setAttribute('transform', `translate(${p.x},${p.y})`);
+    }catch(e){
+      // fallback linear
+      const f = (pos/len);
+      const x = candidate.endpoints.sx + (candidate.endpoints.ex - candidate.endpoints.sx) * f;
+      const y = candidate.endpoints.sy + (candidate.endpoints.ey - candidate.endpoints.sy) * f;
+      g.setAttribute('transform', `translate(${x},${y})`);
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+  setTimeout(()=> alive=false, 2800 + Math.random()*2400);
+}
+
+/* -------------------- run substep (packets + trace) -------------------- */
+function runSubstep(nodeId, sub){
+  trace.style.display = 'block';
+  trace.textContent = `Running ${nodeId} → ${prettify(sub)}...\n` + (trace.textContent||'');
+  // produce payloads
+  const payloads = payloadFor(sub);
+  // pick forward pair
+  const forward = flowPairs.find(p=>p[0]===nodeId) || flowPairs.find(p=>p[1]===nodeId);
+  if(forward){
+    payloads.forEach(p=> spawnPacketAlongPair(forward[0], forward[1], p.label));
+  }
+  // open micrograph if exists shortly
+  if(microcalls[sub]) {
+    inspector.style.display='block';
+    inspectorTitle.textContent = `${nodeId} · ${prettify(sub)} — Microcalls`;
+    inspectorInfo.textContent = 'Libraries: ' + (nodesData.find(x=>x.id===nodeId).libs || []).join(', ');
+    buildMicrograph(nodeId, sub);
+  }
+}
+
+function payloadFor(sub){
+  if(/tokenizer|normalizer/i.test(sub)) return [{label:'["what","is","aether"]'}];
+  if(/embedding|mapper/i.test(sub)) return [{label:'v[0.12,-0.3,...]'}];
+  if(/intent/i.test(sub)) return [{label:'intent:ask'}];
+  if(/ner|relation/i.test(sub)) return [{label:'(Aether,describes,process)'}];
+  if(/triplet|crud|retrieval/i.test(sub)) return [{label:'(P->Q,causes,R)'}];
+  if(/symbolic_inference|symbolic/i.test(sub)) return [{label:'A->B,B->C => A->C'}];
+  if(/causal_chain/i.test(sub)) return [{label:'if x->y'}];
+  if(/confidence|scoring/i.test(sub)) return [{label:'0.87'}];
+  if(/compositional_grammar_engine|nl_mapping|serialization/i.test(sub)) return [{label:'{\"resp\":\"...\"}'}];
+  return [{label:'ok'}];
+}
+
+/* -------------------- Demo trace */
+runDemoBtn.addEventListener('click', ()=>{
+  const demo = [
+    ['INPUT','tokenizer_normalizer'], ['INPUT','parser_dependency_pos_phrase'], ['INPUT','embedding_mapper'],
+    ['MEMORY','triplet_graph_store'], ['MEMORY','indexing_hashing'],
+    ['REASONER','symbolic_inference'], ['REASONER','causal_chain_constructor'],
+    ['SELF_MODEL','introspection'], ['SELF_MODEL','consistency_validation'],
+    ['RESPONSEGEN','compositional_grammar_engine'], ['RESPONSEGEN','aggregation_weighting'],
+    ['OUTPUT','serialization_json'], ['OUTPUT','dispatch_ui_api']
+  ];
+  let t=0;
+  demo.forEach(([n,s],i)=>{
+    setTimeout(()=> runSubstep(n,s), t);
+    t += 800;
+  });
+});
+
+/* -------------------- Pan & zoom (viewBox-based) -------------------- */
+svg.addEventListener('wheel', (e)=>{
+  e.preventDefault();
+  const rect = svg.getBoundingClientRect();
+  const mx = e.clientX - rect.left;
+  const my = e.clientY - rect.top;
+  const zoomFactor = e.deltaY > 0 ? 1.08 : 0.92;
+  const wx = view.x + (mx / rect.width) * view.w;
+  const wy = view.y + (my / rect.height) * view.h;
+  view.w *= zoomFactor; view.h *= zoomFactor;
+  view.x = wx - (mx / rect.width) * view.w;
+  view.y = wy - (my / rect.height) * view.h;
+  setView();
+}, {passive:false});
+
+let panning=false, pStart={}, vStart={};
+svg.addEventListener('mousedown', (e)=>{
+  // if clicked on a node, node handles pointerdown; otherwise start pan
+  if(e.target.closest('.nodeGroup')) return;
+  panning=true; pStart={x:e.clientX,y:e.clientY}; vStart={...view}; svg.style.cursor='grabbing';
+});
+window.addEventListener('mousemove', (e)=>{
+  if(!panning) return;
+  const dx = (e.clientX - pStart.x) * (vStart.w / svg.clientWidth);
+  const dy = (e.clientY - pStart.y) * (vStart.h / svg.clientHeight);
+  view.x = vStart.x - dx; view.y = vStart.y - dy;
+  setView();
+});
+window.addEventListener('mouseup', ()=>{ panning=false; svg.style.cursor='default'; });
+
+resetBtn.addEventListener('click', ()=> { view = {x:0,y:0,w:1600,h:900}; setView(); });
+
+/* -------------------- Initialization -------------------- */
+drawFlows();
+drawNodes();
+
+/* Safety: limit active packets by culling old ones */
+setInterval(()=>{
+  const children = Array.from(packetsG.childNodes);
+  if(children.length > 80){
+    for(let i=0;i<children.length-40;i++) try{ children[i].remove(); }catch(e){}
+  }
+}, 1200);
+
+/* clicking outside closes inspector */
+document.addEventListener('click', (e)=>{
+  if(!e.target.closest('.panel') && !e.target.closest('.nodeGroup')) { inspector.style.display='none'; details.innerHTML=''; }
+});
+
+</script>
+</body>
+</html>

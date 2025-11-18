@@ -1,0 +1,523 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script data-goatcounter="https://rickclmnt.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>aether overview</title>
+  <meta name="description" content="A.E.T.H.E.R. AI Architecture"/>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      color: #222;
+      background: #fff;
+      line-height: 1.7;
+    }
+    .wrap {
+      max-width: 720px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    h1, h2, h3 {
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      margin: 1.2em 0 0.5em;
+      font-weight: 600;
+    }
+    h1 { font-size: 2.2rem; }
+    h2 { font-size: 1.5rem; }
+    h3 { font-size: 1.15rem; }p.lead {
+  margin-top: 0.5em;
+  font-size: 1.15rem;
+  color: #555;
+}
+
+img {
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 4px 10px;
+  font-size: 0.8rem;
+  border-radius: 20px;
+  background: #f2f2f2;
+  color: #555;
+}
+
+a.btn {
+  display: inline-block;
+  padding: 10px 16px;
+  border: 1px solid #000;
+  text-decoration: none;
+  color: #000;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  margin-right: 8px;
+}
+a.btn.fill {
+  background: #000;
+  color: #fff;
+}
+
+ul, ol {
+  margin-left: 20px;
+}
+
+pre {
+  background: #f7f7f7;
+  padding: 12px;
+  overflow-x: auto;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.section {
+  margin-top: 50px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0 2rem 0;
+}
+
+th, td {
+  border: 1px solid whitesmoke;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  background-color: white;
+  color: black;
+}
+
+footer {
+  margin-top: 60px;
+  padding: 20px 0;
+  font-size: 0.85rem;
+  color: #777;
+  text-align: center;
+  border-top: 1px solid #eee;
+}
+
+@media (max-width: 600px) {
+  h1 { font-size: 1.8rem; }
+  p.lead { font-size: 1.05rem; }
+}
+
+  </style>
+</head>
+<body>
+  <div class="wrap"><div class="badge">A.E.T.H.E.R. Architecture Overview</div>
+<h1>Aether: A Hybrid Cognitive Architecture for Semantic-Compositional Intelligence</h1>
+<p class="lead">Author: Patrick U. Clement<br>
+Affiliation: RICKCLMNT Technologies<br>
+Date: 2025</p>
+
+<div class="section">
+  <h2>Abstract</h2>
+<p>Aether is a novel cognitive AI architecture designed to enable true understanding, reasoning, and self-reflective adaptation beyond statistical language modeling. Unlike traditional large language models (LLMs), which rely on next-token prediction, Aether uses a triple-based semantic graph, compositional reasoning, and a modular cognitive pipeline to achieve introspective, explainable intelligence. The system integrates symbolic inference, contextual learning, and natural language generation through a compositional grammar engine, allowing it to reason, explain, and adapt in human-like ways. Aether represents a step toward self-contained digital cognition — a “digital person” capable of autonomous reasoning, self-modeling, and multi-domain adaptability.
+</p>
+</div>
+
+<div class="section">
+  <h2>1. Introduction</h2>
+  <p>The field of artificial intelligence has seen rapid advances through statistical models such as GPT and Gemini. However, these systems lack <strong>true</strong> semantic understanding, compositional reasoning, and self-awareness. Aether addresses these limitations by combining structured symbolic representation with adaptive cognitive mechanisms to create a self-contained reasoning entity.
+<br><br>
+The vision of Aether is to build [at least] a digital recreation of a human reasoning process — an artificial mind that can learn, reason, introspect, and express itself coherently within any domain. Its architecture merges classical cognitive principles (symbolic AI) with modern data structures and adaptive logic to enable self-consistent cognition.</p>
+</div>
+
+<div class="section">
+  <h2>2. Architectural Overview</h2>
+<p>Aether is composed of five major cognitive modules interconnected through a shared semantic memory graph:</p>
+<ol>
+  <h3>NLU (Natural Language Understanding):</h3>
+    <li>Parses input into structured meaning representations using tokenization, normalization, intent classification, and semantic similarity scoring.</li>
+
+  <h3>Memory System:</h3>
+    <li>Implements a triplet-based knowledge graph (Subject → Relation → Object) using weighted edges and persistence layers (JSON or graph database). Supports CRUD operations, retrieval, indexing, and scoring.</li>
+
+  <h3>Reasoner:</h3>
+    <li>Performs symbolic inference, causal chaining, and hypothesis generation using both deterministic logic and probabilistic weighting. Supports multi-hop reasoning and contextual inference.</li>
+
+  <h3>Self-Model:</h3>
+    <li>A reflective subsystem that stores and reasons about Aether’s own structure, purpose, creator, world model (how it understands the world around it) and performance metrics. Enables self-assessment, confidence scoring, and adaptive response weighting.</li>
+
+  <h3>Response Generator:</h3>
+    <li>Realizes semantic intentions into natural language using a compositional grammar engine. Combines lexical meaning, template-based syntax, and stochastic variation to produce coherent sentences guided by semantic intent rather than token prediction.</li>
+</ol>
+</div>
+
+<div class="section">
+  <h2>3. Compositional Grammar Engine</h2>
+  <p>The Compositional Grammar Engine (CGE) converts structured meanings into grammatically coherent natural language. It relies on:
+<br>
+  <ul>
+    <li>Semantic templates: “{agent} {verb} {object} {context}”</li>
+    <li>Lexical dictionary: word meanings, forms, and categories</li>
+    <li>Tense detection: automatic mapping of time attributes to verb conjugations</li>
+    <li>Modifiers: adverbs and intensifiers for expressive variation</li>
+    <li>Persistence: learned templates are stored and reused for adaptive generation</li>
+  </ul>
+<br>Unlike neural text generation, the CGE deterministically constructs sentences by reasoning about what each word means in the context of the intended message.</p>
+
+<div class="section">
+  <h2>4. Reasoning Pipeline
+The reasoning process follows this general pipeline:</h2>
+
+  <pre>NLU → Semantic Graph Update → Reasoning Chain → Self-Model Check → Response Realization</pre> 
+Each stage passes structured data (triplets, scores, meanings) rather than raw text.
+Aether can explain every inference step and trace reasoning paths, enabling transparency and interpretability — two qualities often absent in LLM-based systems.</div>
+
+<div class="section">
+  <h2>5. Cognitive Features</h2>
+<table class="table">
+   <thead>
+      <tr>
+         <th>Capability</th>
+         <th>Description</th>
+      </tr>
+   </thead>
+   <tbody>
+       <tr>
+          <td>Compositional Reasoning</td>
+          <td>Generates new inferences from relational knowledge.</td>
+       </tr>
+       <tr>
+          <td>Contextual Adaptation</td>
+          <td>Adjusts reasoning weights based on user interaction and environmental data.</td>
+       </tr>
+       <tr>
+          <td>Self-Reflection</td>
+          <td>Maintains internal representation of its own goals and state.</td>
+       </tr>
+       <tr>
+          <td>Explainability</td>
+          <td>Can articulate the reasoning chain behind each output.</td>
+       </tr>
+       <tr>
+          <td>Persistence & Learning</td>
+          <td>Updates and stores new relations and templates over time.</td>
+       </tr>
+       <tr>
+          <td>Semantic Language Generation</td>
+          <td>Produces interpretable sentences guided by meaning, not probability.</td>
+       </tr>
+   </tbody>
+</table>
+</div>
+
+<div class="section">
+  <h2>6. Comparison with Existing Architectures</h2>
+<table class="table">
+   <thead>
+      <tr>
+         <th>Feature</th>
+         <th>LLMs (e.g., GPT)</th>
+         <th>Symbolic AI (rule based)</th>
+         <th>Aether</th>
+      </tr>
+   </thead>
+   <tbody>
+       <tr>
+          <td>Knowledge Representation</td>
+          <td>Embeddings</td>
+          <td>Logic rules</td>
+          <td>Triplet graph (semantic)</td>
+       </tr>
+       <tr>
+          <td>Learning Style</td>
+          <td>Gradient descent</td>
+          <td>Rule authoring</td>
+          <td>Contextual, persistent</td>
+       </tr>
+       <tr>
+          <td>Reasoning Type</td>
+          <td>Statistical</td>
+          <td>Deductive</td>
+          <td>Compositional + causal</td>
+       </tr>
+       <tr>
+          <td>Explainability</td>
+          <td>Low</td>
+          <td>High</td>
+          <td>High + self-reflective</td>
+       </tr>
+       <tr>
+          <td>Language Output</td>
+          <td>Probabilistic</td>
+          <td>Scripted</td>
+          <td>Meaning-driven</td>
+       </tr>
+       <tr>
+          <td>Adaptability</td>
+          <td>High (data-scale)</td>
+          <td>Low</td>
+          <td>Modular domain expansion</td>
+       </tr>
+       <tr>
+          <td>Self-awareness</td>
+          <td>None</td>
+          <td>Limited (rule-based self knowledge)</td>
+          <td>Explicit self-model</td>
+       </tr>
+   </tbody>
+</table>
+</div>
+
+<div class="section">
+  <h2>7. Applications</h2>
+  <ul>
+    <li>Adaptive tutoring and reasoning assistants</li>
+    <li>Scientific and philosophical reasoning engines</li>
+    <li>Domain-specialized digital experts (law, medicine, cybersecurity)</li>
+    <li>Self-modeling simulation agents for research</li>
+    <li>Autonomous, introspective digital beings</li>
+    <li>etc. (i'll add more use cases as the project progresses)</li>
+  </ul>
+</div>
+
+<div class="section">
+  <h2>8. Future Work</h2>
+  <ul>
+    <li>Integration of neural perception (vision/speech) into the reasoning loop</li>
+    <li>Dynamic memory consolidation (long-term vs short-term)</li>
+    <li>Emotional modeling and affective state representation</li>
+    <li>Collaborative multi-agent reasoning networks (multiple instances of aether working together)</li>
+    <li>Reinforcement-based self-improvement</li>
+    <li>I plan on optimizing it even further. Right now it's self-contained, capable being run offline on limited resources (4GB of RAM), but after finalization I would probably write runtime primitives, interfacing etc. in C (because I like pain :])</li>
+  </ul>
+</div>
+
+<div class="section">
+  <h2>9. Conclusion</h2>
+  <p>Aether [in my opinion] represents a fundamental rethinking of AI cognition — from statistical prediction to semantic understanding. Its architecture blends structured reasoning, contextual learning, and self-awareness into a unified framework capable of introspective and explainable intelligence. As development continues, Aether will serve as both a conceptual and technical foundation for the next generation of intelligent digital systems — systems that understand, reason, and reflect rather than merely predict. I'll release the technical (research) paper when I'm done building (and have successfully tested) something I'm satisfied with, something that is close to my original end goal for this project.</p>
+</div>
+<br><br>
+<p>I created a visual of aether's process. <br>It looks cool :]</p>
+  <a class="btn" href="Aether — Interactive Process Graph.html">View visualization</a>
+<br><br>leave an emoji if you read the whole thing. 
+<!-- Integrated P2P Synced Reaction System with Confetti, Floating Emojis, One-Vote Lock, Metadata, and GunDB WebRTC Mesh -->
+
+<script src="https://cdn.jsdelivr.net/npm/gun/gun.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gun/sea.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gun/lib/webrtc.js"></script>
+
+<style>
+  #reactions {
+    display: flex;
+    gap: 25px;
+    font-size: 2.2rem;
+    cursor: pointer;
+    align-items: center;
+  }
+  .reaction {
+    position: relative;
+    user-select: none;
+    transition: transform 0.25s ease;
+  }
+  .reaction:hover { transform: scale(1.3); }
+  .count {
+    font-size: 1rem;
+    text-align: center;
+    display: block;
+    margin-top: 4px;
+    opacity: 0.7;
+  }
+  .floaty {
+    position: absolute;
+    animation: float-up 1s ease-out forwards;
+    pointer-events: none;
+    z-index: 9999;
+    font-size: 2rem;
+  }
+  @keyframes float-up {
+    0% { opacity: 1; transform: translateY(0) scale(1); }
+    100% { opacity: 0; transform: translateY(-80px) scale(1.8); }
+  }
+  #discord-picker {
+    position: relative;
+    display: inline-block;
+    margin-top: 40px;
+  }
+  #discord-main-btn {
+    font-size: 1.4rem;
+    cursor: pointer;
+    padding: 10px 14px;
+    border-radius: 10px;
+    transition: 0.2s;
+    user-select: none;
+    background: #f2f2f2;
+  }
+  #discord-main-btn:hover { transform: scale(1.12); }
+  #discord-menu {
+    position: absolute;
+    bottom: 110%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fff;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    border-radius: 14px;
+    padding: 12px;
+    display: none;
+    gap: 14px;
+    font-size: 2rem;
+    z-index: 9999;
+    backdrop-filter: blur(8px);
+  }
+  #discord-menu span {
+    cursor: pointer;
+    transition: transform 0.25s;
+  }
+  #discord-menu span:hover { transform: scale(1.22); }
+</style>
+
+<form id="reactionForm" method="POST" action="https://formspree.io/f/mldzrzvb" style="display:none;">
+  <input type="hidden" name="reaction" id="reactionInput">
+  <input type="hidden" name="timestamp" id="timestampInput">
+  <input type="hidden" name="pageID" id="pageIDInput">
+  <input type="hidden" name="url" id="urlInput">
+  <input type="hidden" name="userAgent" id="userAgentInput">
+</form>
+
+<div id="discord-picker">
+  <div id="discord-main-btn">➕</div>
+  <div id="discord-menu">
+    <span class="discord-react" data-reaction="❤️">❤️</span>
+    <span class="discord-react" data-reaction="🗿">🗿</span>
+    <span class="discord-react" data-reaction="👍">👍</span>
+    <span class="discord-react" data-reaction="🔥">🔥</span>
+    <span class="discord-react" data-reaction="👀">👀</span>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+  function confettiBurst(x, y) {
+    const colors = ["#ff4d4d", "#ffd93b", "#6dd47e", "#4d88ff", "#ff66cc"]; 
+    const count = 18;
+    for (let i = 0; i < count; i++) {
+      const particle = document.createElement('span');
+      particle.textContent = '•';
+      particle.style.position = 'fixed';
+      particle.style.left = x + (Math.random() * 60 - 30) + 'px';
+      particle.style.top = y + (Math.random() * 60 - 30) + 'px';
+      particle.style.fontSize = (Math.random() * 18 + 10) + 'px';
+      particle.style.color = colors[Math.floor(Math.random() * colors.length)];
+      particle.style.opacity = '1';
+      particle.style.transform = `translateY(0) rotate(0deg)`;
+      particle.style.transition = 'transform 900ms cubic-bezier(.2,.7,0,1), opacity 900ms ease';
+      document.body.appendChild(particle);
+      const dx = (Math.random() - 0.5) * 200;
+      const dy = - (Math.random() * 160 + 40);
+      const rot = (Math.random() - 0.5) * 720;
+      requestAnimationFrame(() => {
+        particle.style.transform = `translate(${dx}px, ${dy}px) rotate(${rot}deg)`;
+        particle.style.opacity = '0';
+      });
+      setTimeout(() => particle.remove(), 1000);
+    }
+  }
+
+  function spawnFloatingEmoji(target, emoji) {
+    const float = document.createElement('div');
+    float.className = 'floaty';
+    float.textContent = emoji;
+    const rect = target.getBoundingClientRect();
+    float.style.left = rect.left + rect.width / 2 + window.scrollX + 'px';
+    float.style.top = rect.top + window.scrollY - 10 + 'px';
+    document.body.appendChild(float);
+    setTimeout(() => float.remove(), 1000);
+  }
+
+  const gun = Gun({ peers: ['https://gun-manhattan.herokuapp.com/gun'] });
+  const pageID = 'REACTION_PAGE_' + (document.title || location.pathname);
+  const store = gun.get(pageID);
+
+  const emojis = ['❤️','🗿','👍','🔥','👀'];
+  let counts = {};
+  emojis.forEach(e => counts[e] = 0);
+
+  store.map().on((value, emoji) => {
+    const v = (typeof value === 'number') ? value : (value && value['#'] ? value['#'] : value);
+    counts[emoji] = Number(v) || 0;
+    document.querySelectorAll('.reaction').forEach(r => {
+      const em = r.dataset.reaction;
+      const c = counts[em] || 0;
+      r.querySelector('.count').textContent = c;
+    });
+  });
+
+  const votedKey = 'voted_' + pageID;
+  const reactionsDiv = document.getElementById('reactions');
+
+  const form = document.getElementById('reactionForm');
+  const reactionInput = document.getElementById('reactionInput');
+  const timestampInput = document.getElementById('timestampInput');
+  const pageIDInput = document.getElementById('pageIDInput');
+  const urlInput = document.getElementById('urlInput');
+  const userAgentInput = document.getElementById('userAgentInput');
+
+  if (localStorage.getItem(votedKey) && reactionsDiv) {
+    reactionsDiv.style.opacity = '0.45';
+    reactionsDiv.style.pointerEvents = 'none';
+  }
+
+  function submitReaction(emoji) {
+    reactionInput.value = emoji;
+    timestampInput.value = new Date().toISOString();
+    pageIDInput.value = pageID;
+    urlInput.value = location.href;
+    userAgentInput.value = navigator.userAgent;
+    fetch(form.action, { method: 'POST', body: new FormData(form) });
+  }
+
+  document.querySelectorAll('.discord-react').forEach(el => {
+    el.addEventListener('click', () => {
+      const reaction = el.dataset.reaction;
+      document.getElementById('discord-main-btn').textContent = reaction;
+      document.getElementById('discord-menu').style.display = 'none';
+      spawnFloatingEmoji(el, reaction);
+      const rect = el.getBoundingClientRect();
+      confettiBurst(rect.left + rect.width/2, rect.top + rect.height/2);
+      const newCount = (counts[reaction] || 0) + 1;
+      store.get(reaction).put(newCount);
+      localStorage.setItem(votedKey, reaction);
+      submitReaction(reaction);
+    });
+  });
+
+  const mainBtn = document.getElementById("discord-main-btn");
+  const menu = document.getElementById("discord-menu");
+  let open = false;
+  mainBtn.addEventListener("click", () => {
+    open = !open;
+    menu.style.display = open ? "flex" : "none";
+  });
+  window.addEventListener("click", (e) => {
+    if (!document.getElementById("discord-picker").contains(e.target)) {
+      menu.style.display = "none";
+      open = false;
+    }
+  });
+
+});
+</script>
+<footer>
+  © 2025 Patrick Clement. All rights reserved.
+</footer>
+
+  </div>  <script>
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', ev => {
+        ev.preventDefault();
+        const id = a.getAttribute('href').slice(1);
+        if (id === 'buy') alert('Replace with checkout');
+        if (id === 'demo') alert('Replace with demo link');
+      });
+    });
+  </script></body>
+</html>
