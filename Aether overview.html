@@ -225,7 +225,7 @@ Aether can explain every inference step and trace reasoning paths, enabling tran
           <td>Knowledge Representation</td>
           <td>Embeddings</td>
           <td>Logic rules</td>
-          <td>Triplet graph (semantic)</td>
+          <td>Triple graph (semantic)</td>
        </tr>
        <tr>
           <td>Learning Style</td>
@@ -353,20 +353,37 @@ Aether can explain every inference step and trace reasoning paths, enabling tran
   }
   #discord-main-btn:hover { transform: scale(1.12); }
   #discord-menu {
-    position: absolute;
-    bottom: 110%;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #fff;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-    border-radius: 14px;
-    padding: 12px;
-    display: none;
-    gap: 14px;
-    font-size: 2rem;
-    z-index: 9999;
-    backdrop-filter: blur(8px);
+  position: absolute;
+  bottom: 110%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fff;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  border-radius: 14px;
+  padding: 12px;
+  display: none;
+  gap: 14px;
+  font-size: 2rem;
+  z-index: 9999;
+  backdrop-filter: blur(8px);
+
+  /* NEW — phone-friendly layout */
+  display: none;
+  flex-wrap: wrap;
+  max-width: 85vw;
+  justify-content: center;
+}
+
+/* Optional but recommended for super small screens */
+@media (max-width: 480px) {
+  #discord-menu {
+    font-size: 1.6rem;
+    padding: 10px;
+    gap: 10px;
+    max-width: 90vw;
   }
+}
+
   #discord-menu span {
     cursor: pointer;
     transition: transform 0.25s;
