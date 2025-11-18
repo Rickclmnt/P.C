@@ -8,113 +8,188 @@
 <title>Aether — Interactive Node Graph (Draggable, Stable Hover)</title>
 <style>
   :root{
-    --bg:#071028; --muted:#8fb7d8; --panel:#071831;
-    --accent:#5c8cff; --glass: rgba(255,255,255,0.03);
-    --node-fill: #071a2a; --node-ring: #05273e; --node-stroke: #224b7a;
-  }
-  html,body{height:100%;margin:0;background:var(--bg);font-family:Inter,system-ui,Segoe UI,Roboto,Arial; -webkit-font-smoothing:antialiased;}
-  .wrap{display:flex;flex-direction:row;height:100vh;gap:12px;padding:12px;box-sizing:border-box}
-  .viz{flex:1;min-width:360px;border-radius:12px;overflow:hidden;background:linear-gradient(180deg,#041323,#08182b);box-shadow:0 8px 30px rgba(0,0,0,.6);position:relative}
-  svg{width:100%;height:100%;display:block;touch-action:none;user-select:none}
-  .panel{width:420px;max-width:45vw;min-width:260px;background:var(--panel);border-radius:12px;padding:16px;color:#dff1ff;box-shadow:0 8px 30px rgba(0,0,0,.6);overflow:auto}
-  h3{margin:6px 0 10px 0;font-weight:600;color:#eaf6ff}
-  .nodeGroup{cursor:grab; will-change:transform;}
-  .nodeGroup.dragging{cursor:grabbing;}
-  .nodeRing{fill:none;stroke:var(--node-ring);stroke-width:12;opacity:0.55;}
-  .nodeCore{fill:var(--node-fill);stroke:var(--node-stroke);stroke-width:2;}
-  .labelText{fill:#dff1ff;font-weight:700;font-size:13px;text-anchor:middle;pointer-events:none}
-  .flow{stroke-linecap:round;stroke-linejoin:round;opacity:0.92;pointer-events:none}
-  .packet{pointer-events:none}
-  .substep{background:rgba(255,255,255,0.03);padding:8px;border-radius:8px;margin-bottom:8px;border:1px solid rgba(255,255,255,0.03)}
-  .small-btn{background:#0e2b44;border:none;padding:6px 8px;border-radius:8px;color:#dff1ff;cursor:pointer}
-  .trace{font-family:monospace;background:rgba(0,0,0,0.12);padding:8px;border-radius:6px;margin-top:8px;white-space:pre-wrap;font-size:12px;color:#bfe6ff;max-height:260px;overflow:auto}
-  .inspector { margin-top:12px; background: linear-gradient(180deg, rgba(9,17,28,0.6), rgba(6,12,20,0.6)); padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.04) }
-  .micrograph{width:100%;height:200px;background:rgba(0,0,0,0.06);border-radius:6px;margin-top:8px;overflow:hidden;position:relative}
-  .hint{position:absolute;left:12px;bottom:12px;color:#9fd8ff;background:rgba(0,0,0,0.25);padding:6px 8px;border-radius:10px;font-size:13px}
-  @media (max-width:980px){ .wrap{flex-direction:column} .panel{width:100%;max-width:100%;min-width:0} }
-  /* GPU only hover scale (won't trigger reflow of other elements because transform is isolated) */
-  .nodeGroup .visual{transform-origin:center center; transition:transform .18s cubic-bezier(.2,.9,.2,1), filter .18s}
-  .nodeGroup:hover .visual{transform:scale(1.06); filter:brightness(1.05) saturate(1.05);}
-/* ----- MOBILE OPTIMIZATION ----- */
-@media (max-width: 760px) {
-
-  .wrap {
-    flex-direction: column;
-    padding: 8px;
-    gap: 8px;
-  }
-
-  .viz {
-  width: 100%;
-  height: 65vh;
-  min-height: 340px;
+  --bg:#071028; --muted:#8fb7d8; --panel:#071831;
+  --accent:#5c8cff; --glass: rgba(255,255,255,0.03);
+  --node-fill: #071a2a; --node-ring: #05273e; --node-stroke: #224b7a;
 }
 
-
-  .panel {
-    width: 100%;
-    max-width: 100%;
-    min-width: 0;
-    padding: 14px;
-    border-radius: 10px;
-    font-size: 15px;
-  }
-
-  .panel h3 {
-    font-size: 18px;
-  }
-
-  /* Text scaling */
-  .labelText {
-    font-size: 11px;
-  }
-
-  .nodeGroup .visual {
-  transform-origin: center center;
+html,body{
+  height:100%; margin:0;
+  background:var(--bg);
+  font-family:Inter,system-ui,Segoe UI,Roboto,Arial;
+  -webkit-font-smoothing:antialiased;
 }
 
-@media (max-width: 760px) {
-  .nodeGroup .visual {
-    transform: scale(0.7);
-  }
-  .labelText {
-    font-size: 10px;
-    transform: translateY(6px);
-  }
+.wrap{
+  display:flex;
+  flex-direction:row;
+  height:100vh;
+  gap:12px;
+  padding:12px;
+  box-sizing:border-box;
 }
 
-  /* Buttons */
-  .small-btn {
-    padding: 6px 10px;
-    font-size: 14px;
-  }
-
-  /* Micrograph */
-  .micrograph {
-    height: 160px;
-  }
-
-  /* The hint bubble */
-  .hint {
-    font-size: 11px;
-    bottom: 8px;
-    left: 8px;
-    padding: 4px 6px;
-  }
-
-  /* Reduce excessive margins */
-  .substep {
-    padding: 6px;
-  }
-}
-@media (max-width: 760px) {
-  #svg {
-    width: 100%;
-    height: 100%;
-  }
+.viz{
+  flex:1;
+  min-width:360px;
+  border-radius:12px;
+  overflow:hidden;
+  background:linear-gradient(180deg,#041323,#08182b);
+  box-shadow:0 8px 30px rgba(0,0,0,.6);
+  position:relative;
 }
 
+svg{
+  width:100%;
+  height:100%;
+  display:block;
+  touch-action:none;
+  user-select:none;
+}
 
+.panel{
+  width:420px;
+  max-width:45vw;
+  min-width:260px;
+  background:var(--panel);
+  border-radius:12px;
+  padding:16px;
+  color:#dff1ff;
+  box-shadow:0 8px 30px rgba(0,0,0,.6);
+  overflow:auto;
+}
+
+h3{ margin:6px 0 10px; font-weight:600; color:#eaf6ff }
+
+.nodeGroup{ cursor:grab; will-change:transform; }
+.nodeGroup.dragging{ cursor:grabbing; }
+
+.nodeRing{ fill:none; stroke:var(--node-ring); stroke-width:12; opacity:0.55; }
+.nodeCore{ fill:var(--node-fill); stroke:var(--node-stroke); stroke-width:2; }
+
+.labelText{
+  fill:#dff1ff;
+  font-weight:700;
+  font-size:13px;
+  text-anchor:middle;
+  pointer-events:none;
+}
+
+.flow{ stroke-linecap:round; stroke-linejoin:round; opacity:0.92; pointer-events:none }
+.packet{ pointer-events:none }
+
+.substep{
+  background:rgba(255,255,255,0.03);
+  padding:8px;
+  border-radius:8px;
+  margin-bottom:8px;
+  border:1px solid rgba(255,255,255,0.03);
+}
+
+.small-btn{
+  background:#0e2b44;
+  border:none;
+  padding:6px 8px;
+  border-radius:8px;
+  color:#dff1ff;
+  cursor:pointer;
+}
+
+.trace{
+  font-family:monospace;
+  background:rgba(0,0,0,0.12);
+  padding:8px;
+  border-radius:6px;
+  margin-top:8px;
+  white-space:pre-wrap;
+  font-size:12px;
+  color:#bfe6ff;
+  max-height:260px;
+  overflow:auto;
+}
+
+.inspector{
+  margin-top:12px;
+  background:linear-gradient(180deg,rgba(9,17,28,0.6),rgba(6,12,20,0.6));
+  padding:10px;
+  border-radius:8px;
+  border:1px solid rgba(255,255,255,0.04);
+}
+
+.micrograph{
+  width:100%;
+  height:200px;
+  background:rgba(0,0,0,0.06);
+  border-radius:6px;
+  margin-top:8px;
+  overflow:hidden;
+  position:relative;
+}
+
+.hint{
+  position:absolute;
+  left:12px;
+  bottom:12px;
+  color:#9fd8ff;
+  background:rgba(0,0,0,0.25);
+  padding:6px 8px;
+  border-radius:10px;
+  font-size:13px;
+}
+
+/* ---------- RESPONSIVE FIX ---------- */
+@media (max-width:980px){
+  .wrap{ flex-direction:column; }
+  .panel{ width:100%; max-width:100%; min-width:0; }
+}
+
+/* ---------- MOBILE VIEW ---------- */
+@media (max-width:760px){
+
+  .wrap{
+    flex-direction:column;
+    padding:8px;
+    gap:8px;
+  }
+
+  .viz{
+    width:100%;
+    height:65vh;
+    min-height:330px;
+  }
+
+  .panel{
+    width:100%;
+    padding:14px;
+    font-size:15px;
+  }
+
+  h3{ font-size:18px; }
+
+  /* Node scaling */
+  .nodeGroup .visual{ transform:scale(0.75); }
+
+  .labelText{
+    font-size:10px;
+    transform:translateY(8px);
+  }
+
+  .small-btn{
+    padding:6px 10px;
+    font-size:14px;
+  }
+
+  .micrograph{ height:160px; }
+
+  .hint{
+    font-size:11px;
+    bottom:8px;
+    left:8px;
+    padding:4px 6px;
+  }
+
+  .substep{ padding:6px; }
+}
 </style>
 </head>
 <body>
@@ -168,19 +243,41 @@
 </div>
 
 <script>
-/* -----------------------------
-  Robust interactive node graph
-  - draggable SVG nodes
-  - precomputed path endpoints
-  - stable hover (GPU-only transforms)
-  - inspector + microcall visualizer
-------------------------------*/
-
 const svg = document.getElementById('svg');
 const flowsG = document.getElementById('flows');
 const nodesG = document.getElementById('nodes');
 const labelsG = document.getElementById('labels');
 const packetsG = document.getElementById('packets');
+
+let view = { x:0, y:0, w:1600, h:900 };
+
+function setView() {
+  svg.setAttribute("viewBox", `${view.x} ${view.y} ${view.w} ${view.h}`);
+}
+setView();
+
+/* Mobile viewport scaling */
+function adjustForMobile() {
+  if (window.innerWidth < 760) {
+    const ratio = window.innerHeight / window.innerWidth;
+    view.w = 1600;
+    view.h = 1600 * ratio * 0.9;   // keeps nodes visible
+    setView();
+  }
+}
+
+adjustForMobile();
+window.addEventListener("resize", adjustForMobile);
+
+/* Convert screen -> SVG coords */
+function screenToSvg(evt){
+  const pt = svg.createSVGPoint();
+  pt.x = evt.clientX; 
+  pt.y = evt.clientY;
+  const ctm = svg.getScreenCTM().inverse();
+  return pt.matrixTransform(ctm);
+}
+
 
 const details = document.getElementById('details');
 const inspector = document.getElementById('inspector');
