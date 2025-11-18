@@ -146,6 +146,16 @@ h3{ margin:6px 0 10px; font-weight:600; color:#eaf6ff }
 /* ---------- MOBILE VIEW ---------- */
 @media (max-width:760px){
 
+#svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Compute a narrower viewBox so objects grow larger on small screens */
+  .viz.mobile-scale svg {
+    viewBox: 0 0 900 900; /* zoomed-in region */
+  }
+        
   .wrap{
     flex-direction:column;
     padding:8px;
@@ -291,13 +301,21 @@ function screenToSvg(evt){
 
 /* Mobile viewport scaling */
 function adjustForMobile() {
+  const viz = document.getElementById("viz");
+
   if (window.innerWidth < 760) {
-    const ratio = window.innerHeight / window.innerWidth;
+    viz.classList.add("mobile-scale");
+    view.w = 900;   // zoom width (smaller = larger rendering)
+    view.h = 900 * (window.innerHeight / window.innerWidth);
+  } else {
+    viz.classList.remove("mobile-scale");
     view.w = 1600;
-    view.h = 1600 * ratio * 0.9;   // keeps nodes visible
-    setView();
+    view.h = 900;
   }
+
+  setView();
 }
+
 
 /* Aether graph data (nodes arranged vertically) */
 const nodesData = [
