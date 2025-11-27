@@ -3,7 +3,6 @@
 <head>
   <script data-goatcounter="https://rickclmnt.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
-
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Notebook</title>
@@ -59,7 +58,38 @@
       font-size: 1.2rem;
     }
 
-    .grid {
+    .search-container {
+      max-width: 400px;
+      margin: 0 auto 40px auto;
+      display: flex;
+    }
+
+    .search-container input {
+      flex: 1;
+      padding: 10px 15px;
+      font-size: 1rem;
+      border: 3px solid black;
+      border-radius: 4px 0 0 4px;
+      outline: none;
+    }
+
+    .search-container button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: 3px solid black;
+      border-left: none;
+      background-color: #2a9df4;
+      color: white;
+      border-radius: 0 4px 4px 0;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .search-container button:hover {
+      background-color: #2a9df4;
+    }
+
+    .blog-container {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 2rem;
@@ -68,45 +98,32 @@
       margin: auto;
     }
 
-    .card {
+    .blog-card {
       background: #fff;
       border: 1px solid #eee;
-      border-radius: 10px;
+      border-radius: 0px;
       padding: 1.5rem;
       box-shadow: 0 2px 6px rgba(0,0,0,0.05);
       transition: transform 0.2s, box-shadow 0.2s;
     }
-    .card:hover {
+    .blog-card:hover {
       transform: translateY(-5px);
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
 
-    .card h3 {
+    .blog-card h3 {
       margin-bottom: 0.6rem;
       font-size: 1.3rem;
       color: #111;
     }
-    .card p {
+    .blog-card p {
       font-size: 1rem;
       color: #555;
     }
     footer { border-top: 1px solid #eee; padding: 20px 20px; text-align: center; font-size: 0.85rem; color: #666; }
   </style>
-    <!-- Google tag(gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-N4NGTP8WXB"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-N4NGTP8WXB');
-</script>
 </head>
 <body>
-  <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PMQSS6KR"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
 
   <header>
     <h1>Notebook</h1>
@@ -115,37 +132,66 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <div class="hero">
     <h2>My Notebook</h2>
-    <p>
-    </p>
+    <p>Welcome to my notebook.<br> Explore my collection of notes on various topics.</p><br><br>
+
+  <div class="search-container">
+    <input type="text" id="searchInput" placeholder="Search notes...">
+    <button onclick="searchBlogs()">Search</button>
+  </div>
   </div>
 
-  <div class="grid">
-    <div class="card">
-      <h3>✨ Project AETHER Overview</h3>
-      <p>Adaptive Engine for Thought Hierarchies, and Evolving Reasoning.</p>
-      <a href="Aether overview.html">Read →</a>
-    </div>
-
-    <!--div class="card">
-      <h3>🎨 Visual Experiments</h3>
-      <p>Exploring generative design, color systems, and playful visuals.</p>
-      <a href="#">Explore →</a>
-    </div>
-
-    <div class="card">
-      <h3>🧪 Logic Prototypes</h3>
-      <p>Mini tools, scripts, or logic puzzles made for tinkering.</p>
-      <a href="#">Open →</a>
-    </div>
-
-    <div class="card">
-      <h3>🔮 Future Concepts</h3>
-      <p>Ideas in incubation — raw notes, diagrams, and sketches.</p>
-      <a href="#">Peek →</a>
-    </div-->
+  <div class="blog-container" id="blogContainer">
+    <!-- Blog cards will be dynamically added here -->
   </div>
 
-  
   <footer>© 2025 Patrick Clement. All rights reserved.</footer>
+
+  <script>
+    // Sample blog data
+    const blogs = [
+      {
+        title: "A.E.T.H.E.R. project Overview 🧠",
+        content: "Adaptive Engine for Thought Hierarchies, and Evolving Reasoning.",
+        link: "Aether overview.html"
+      },
+      {
+        title: "Cognitive Agent-Based Predictive Simulation (CABSim) 👾",
+        content: "Agent-based modeling for forecasting daily work patterns and productivity.",
+        link: "CABSim.html"
+      }
+    ];
+
+    const blogContainer = document.getElementById('blogContainer');
+
+    function displayBlogs(blogList) {
+      blogContainer.innerHTML = '';
+      if(blogList.length === 0) {
+        blogContainer.innerHTML = "<p>No notes found.</p>";
+        return;
+      }
+
+      blogList.forEach(blog => {
+        const blogCard = document.createElement('div');
+        blogCard.className = 'blog-card';
+        blogCard.innerHTML = `
+          <h2>${blog.title}</h2>
+          <p>${blog.content}</p>
+          <a href="${blog.link}"><strong>Read</strong></a>
+        `;
+        blogContainer.appendChild(blogCard);
+      });
+    }
+
+    function searchBlogs() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      const filteredBlogs = blogs.filter(blog => 
+        blog.title.toLowerCase().includes(query) || blog.content.toLowerCase().includes(query)
+      );
+      displayBlogs(filteredBlogs);
+    }
+
+    // Initial display
+    displayBlogs(blogs);
+  </script>
 </body>
 </html>
