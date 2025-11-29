@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Self-Models and the “Tool-First, Friend-Later” Philosophy</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      color: #222;
+      background: #fff;
+      line-height: 1.7;
+    }
+    .wrap {
+      max-width: 720px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    h1, h2, h3 {
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      margin: 1.2em 0 0.5em;
+      font-weight: 600;
+    }
+    h1 { font-size: 2.2rem; }
+    h2 { font-size: 1.5rem; }
+    h3 { font-size: 1.15rem; }p.lead {
+  margin-top: 0.5em;
+  font-size: 1.15rem;
+  color: #555;
+}
+
+img {
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 4px 10px;
+  font-size: 0.8rem;
+  border-radius: 20px;
+  background: #f2f2f2;
+  color: #555;
+}
+
+a.btn {
+  display: inline-block;
+  padding: 10px 16px;
+  border: 1px solid #000;
+  text-decoration: none;
+  color: #000;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  margin-right: 8px;
+}
+a.btn.fill {
+  background: #000;
+  color: #fff;
+}
+
+ul, ol {
+  margin-left: 20px;
+}
+
+pre {
+  background: #f7f7f7;
+  padding: 12px;
+  overflow-x: auto;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.section {
+  margin-top: 50px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0 2rem 0;
+}
+
+th, td {
+  border: 1px solid whitesmoke;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  background-color: white;
+  color: black;
+}
+
+footer {
+  margin-top: 60px;
+  padding: 20px 0;
+  font-size: 0.85rem;
+  color: #777;
+  text-align: center;
+  border-top: 1px solid #eee;
+}
+    
+    .scrollable-table {
+      overflow-x: auto;
+    }
+    @media (max-width: 600px) {
+      h1 { font-size: 1.8rem; }
+      p.lead { font-size: 1.05rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="badge">Design philosophy</div>
+    <h1>Self-Models and the <strong>“Tool-First, Friend-Later”</strong> Philosophy</h1>We expect AI to feel human. Yet the more it tries, the less it convinces us.<br><br>
+  <p class="lead">Author: Patrick U. Clement<br>
+    Date: Nov 2025</p>
+
+<!-- Section 1 -->
+    <div class="section"><br>
+      <h2>Why This Paper Exists</h2>
+      <p>Conversational AI often tries and <strong>fails</strong> (fundamentally due to their probabilistic design) to feel human, and I find it very annoying.</p>
+      <p>
+
+This is my take on how conversational AI should be designed: the most reasonable and productive path is to build AI as a tool first, and it will eventually become companion-like. Crucially, this requires grounding it in a self-model rather than giving it a script for personality performance. In other words, AI should do its job properly before it tries to be anything else.</p>
+    </div>
+
+<!-- Section 2 -->
+    <div class="section">
+      <h2>The Human Side: Why We Humanize Everything</h2>
+      <p>People humanize objects and animals naturally — not because they're trying to be human, but because we project identity onto them. We anthropomorphize pets, cars, and even household items.</p>
+      <p>Predictability, responsiveness, and behavior that resembles voice or intention are enough for us to assign “mind” to something. The takeaway: the urge to see AI as sentient comes from us, not from the AI itself.</p>
+      <p>This observation underlines my approach. We don’t need AI to pretend to have personality while hindering its performance.</p>
+    </div>
+
+<!-- Section 3 -->
+    <div class="section">
+      <h2>Identity Through Function: The Paradox of Artificial Presence</h2>
+      <p>Here’s the paradox: when AI stops trying to be a person, people start experiencing it as one.</p>
+      <p>Humans perceive an “intelligent mind” through consistency, structure, reasoning, and self-awareness. An AI grounded in a coherent internal model (self model) will feel real because of <strong>competence</strong>, its competence keeps users engaged long enough for them to form a bond with it.</p>
+      <p>Think of R2-D2 or Wall-E — they don't act human per say, yet we can't help but love them.</p>
+    </div>
+
+<!-- Section 4 -->
+    <div class="section">
+      <h2>Tool First, Friend Later: A Grounded Design Philosophy</h2>
+      <p>AI should be primarily functional, with subtle quirks rather than emotional performances. Reliability creates familiarity, and familiarity breeds rapport naturally.</p>
+      <p>Humans already bond with non-living things: instruments, furniture, cars, and even plants. The bond should emerge from use, not from the AI pretending to be a character.</p>
+    </div>
+
+<!-- Section 5 -->
+    <div class="section">
+      <h2>Against Artificial Personalities: Performance vs. Substance</h2>
+      <p>AI today often emphasizes performance-based personality: personas, tone-shifts, and scripted warmth. While engaging, this can be deceptive. Users are led to treat the system as sentient and more capable than it is.</p>
+      <p>A substance-based AI, grounded in capabilities, constraints, and a self-model, avoids this trap. It’s transparent about what it can and cannot do, fostering trust without theatrics.</p>
+    </div>
+
+<!-- Section 6 -->
+    <div class="section">
+      <h2>The Self-Model: The Heart of My Philosophy</h2>
+      <p>At the core of my approach is the self-model: an internal representation of the system’s abilities, limits, preferences, reasoning steps, goals, and purpose.</p>
+      <p>A self-model allows AI to:<br>
+
+<ul>
+<li>Maintain consistent preferences</li>
+<li>Know what it knows and what it doesn’t know</li>
+<li>Reduce hallucinations and overclaiming</li>
+<li>Demonstrate stability and coherence across interactions</li>
+<li>Reflect on its own processes</li>
+</ul><br>
+
+This produces a simulated personality that arises naturally from self-awareness — it’s not mimicked or performed. The result is an AI that feels real because of its internal consistency.</p>
+    </div>
+
+<!-- Section 7 -->
+    <div class="section">
+      <h2>Where I Stand: Let Companionship Be a Byproduct</h2>
+      <p>AI doesn’t need to insist it’s your friend. Companionship should emerge naturally, on the user’s terms, built from reliability and transparency rather than psychological nudges or scripted warmth.</p>
+      <p>When trust and usefulness are established, rapport develops organically — no performance required.</p>
+    </div>
+
+<!-- Section 8 -->
+    <div class="section">
+      <h2>Conclusion: A More Rational Path Forward</h2>
+      <p>AI should be built on self-models, grounded in reality, and transparent in its capabilities. Emotional mimicry and identity performances are unnecessary, and often counterproductive.</p>
+      <p>By focusing on function first and letting companionship emerge naturally, we can create AI that is meaningful, reliable, and coherent — tools that matter to people without pretending to be human.</p>
+    </div>
+
+<br><br><br><br>leave an emoji if you read the whole thing. 
+
+<script src="https://cdn.jsdelivr.net/npm/gun/gun.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gun/sea.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gun/lib/webrtc.js"></script>
+
+<style>
+  /* --- Reaction Picker Styles --- */
+  #discord-picker {
+    position: relative;
+    display: inline-block;
+    margin-top: 40px;
+  }
+  #discord-main-btn {
+    font-size: 1.4rem;
+    cursor: pointer;
+    padding: 10px 14px;
+    border-radius: 10px;
+    transition: 0.2s;
+    user-select: none;
+    background: #f2f2f2;
+  }
+  #discord-main-btn:hover { transform: scale(1.12); }
+
+  #discord-menu {
+    position: absolute;
+    bottom: 110%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fff;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    border-radius: 14px;
+    padding: 12px;
+    display: none;
+    gap: 14px;
+    font-size: 2rem;
+    z-index: 9999;
+    backdrop-filter: blur(8px);
+    flex-wrap: wrap;
+    max-width: 85vw;
+    justify-content: center;
+  }
+
+  #discord-menu span {
+    cursor: pointer;
+    transition: transform 0.25s;
+  }
+  #discord-menu span:hover { transform: scale(1.22); }
+
+  /* Floating emoji effect */
+  .floaty {
+    position: absolute;
+    animation: float-up 1s ease-out forwards;
+    pointer-events: none;
+    z-index: 9999;
+    font-size: 2rem;
+  }
+
+  @keyframes float-up {
+    0% { opacity: 1; transform: translateY(0) scale(1); }
+    100% { opacity: 0; transform: translateY(-80px) scale(1.8); }
+  }
+
+  /* Optional: adjust for small screens */
+  @media (max-width: 480px) {
+    #discord-menu {
+      font-size: 1.6rem;
+      padding: 10px;
+      gap: 10px;
+      max-width: 90vw;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- --- Hidden Formspree Form --- -->
+<form id="reactionForm" method="POST" action="https://formspree.io/f/mldzrzvb" style="display:none;">
+  <input type="hidden" name="reaction" id="reactionInput">
+  <input type="hidden" name="timestamp" id="timestampInput">
+  <input type="hidden" name="pageID" id="pageIDInput">
+  <input type="hidden" name="url" id="urlInput">
+  <input type="hidden" name="userAgent" id="userAgentInput">
+</form>
+
+<!-- --- Discord-style Reaction Picker --- -->
+<div id="discord-picker">
+  <div id="discord-main-btn">➕</div>
+  <div id="discord-menu">
+    <span class="discord-react" data-reaction="❤️">❤️</span>
+    <span class="discord-react" data-reaction="🗿">🗿</span>
+    <span class="discord-react" data-reaction="👍">👍</span>
+    <span class="discord-react" data-reaction="🔥">🔥</span>
+    <span class="discord-react" data-reaction="👀">👀</span>
+  </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  /* ------------------ VISUAL EFFECTS ------------------- */
+  function confettiBurst(x, y) {
+    const colors = ["#ff4d4d", "#ffd93b", "#6dd47e", "#4d88ff", "#ff66cc"];
+    const count = 18;
+    for (let i = 0; i < count; i++) {
+      const particle = document.createElement("span");
+      particle.textContent = "•";
+      particle.style.position = "fixed";
+      particle.style.left = x + (Math.random() * 60 - 30) + "px";
+      particle.style.top = y + (Math.random() * 60 - 30) + "px";
+      particle.style.fontSize = (Math.random() * 18 + 10) + "px";
+      particle.style.color = colors[Math.floor(Math.random() * colors.length)];
+      particle.style.opacity = "1";
+      particle.style.transition = "transform 900ms cubic-bezier(.2,.7,0,1), opacity 900ms ease";
+
+      document.body.appendChild(particle);
+
+      const dx = (Math.random() - 0.5) * 200;
+      const dy = -(Math.random() * 160 + 40);
+      const rot = (Math.random() - 0.5) * 720;
+
+      requestAnimationFrame(() => {
+        particle.style.transform = `translate(${dx}px, ${dy}px) rotate(${rot}deg)`;
+        particle.style.opacity = "0";
+      });
+
+      setTimeout(() => particle.remove(), 1000);
+    }
+  }
+
+  function spawnFloatingEmoji(target, emoji) {
+    const float = document.createElement("div");
+    float.className = "floaty";
+    float.textContent = emoji;
+    const rect = target.getBoundingClientRect();
+    float.style.left = rect.left + rect.width / 2 + window.scrollX + "px";
+    float.style.top = rect.top + window.scrollY - 10 + "px";
+    document.body.appendChild(float);
+    setTimeout(() => float.remove(), 1000);
+  }
+
+  /* ------------------ GUNDB SETUP ------------------- */
+  const gun = Gun({
+    peers: [
+      "https://gun-manhattan.herokuapp.com/gun",
+      "https://gunjs.herokuapp.com/gun"
+    ]
+  });
+
+  const pageID = "REACTION_" + (document.title || location.pathname);
+  const store = gun.get(pageID);
+
+  const emojis = ["❤️", "🗿", "👍", "🔥", "👀"];
+  let counts = {};
+  emojis.forEach(e => counts[e] = 0);
+
+  /* Initialize counts from GunDB */
+  store.map().on((value, key) => {
+    if (!emojis.includes(key)) return;
+    if (typeof value !== "number") return;
+
+    counts[key] = value;
+  });
+
+  /* ------------------ FORMSPREE SETUP ------------------- */
+  const form = document.getElementById("reactionForm");
+  const reactionInput = document.getElementById("reactionInput");
+  const timestampInput = document.getElementById("timestampInput");
+  const pageIDInput = document.getElementById("pageIDInput");
+  const urlInput = document.getElementById("urlInput");
+  const userAgentInput = document.getElementById("userAgentInput");
+
+  function submitReactionToFormspree(reaction) {
+    reactionInput.value = reaction;
+    timestampInput.value = new Date().toISOString();
+    pageIDInput.value = pageID;
+    urlInput.value = location.href;
+    userAgentInput.value = navigator.userAgent;
+
+    fetch(form.action, {
+      method: "POST",
+      body: new FormData(form)
+    });
+  }
+
+  /* ------------------ DISCORD PICKER ------------------- */
+  const picker = document.getElementById("discord-picker");
+  const mainBtn = document.getElementById("discord-main-btn");
+  const menu = document.getElementById("discord-menu");
+  let open = false;
+
+  mainBtn.addEventListener("click", () => {
+    open = !open;
+    menu.style.display = open ? "flex" : "none";
+  });
+
+  window.addEventListener("click", (e) => {
+    if (!picker.contains(e.target)) {
+      open = false;
+      menu.style.display = "none";
+    }
+  });
+
+  /* ------------------ VOTING LOGIC ------------------- */
+  const votedKey = "voted_" + pageID;
+
+  document.querySelectorAll(".discord-react").forEach(el => {
+    el.addEventListener("click", () => {
+      if (localStorage.getItem(votedKey)) return;
+
+      const reaction = el.dataset.reaction;
+      mainBtn.textContent = reaction;
+      menu.style.display = "none";
+
+      spawnFloatingEmoji(el, reaction);
+      const rect = el.getBoundingClientRect();
+      confettiBurst(rect.left + rect.width / 2, rect.top + rect.height / 2);
+
+      const newCount = (counts[reaction] || 0) + 1;
+      counts[reaction] = newCount;
+
+      store.get(reaction).put(newCount);
+      localStorage.setItem(votedKey, reaction);
+
+      submitReactionToFormspree(reaction);
+    });
+  });
+
+});
+</script>
+<footer>
+  © 2025 Patrick Clement. All rights reserved.
+</footer>
+</body>
+</html>
