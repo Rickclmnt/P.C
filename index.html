@@ -1,419 +1,714 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <script data-goatcounter="https://rickclmnt.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
-
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Patrick Clement</title>
   <style>
-  @font-face { font-family: "Rajdhani-Regular"; src: url("Rajdhani-Regular.ttf") format("truetype"); }
+      @font-face { font-family: "Rajdhani-Regular"; src: url("Rajdhani-Regular.ttf") format("truetype"); }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    :root{
+      --bg:#0f1724;
+      --fg:#e6eef8;
+      --muted:#9fb0c8;
+      --accent-1: #2a9df4;
+      --accent-2: #7dd3fc;
+      --panel-gap: 0;
+      --nav-size: 14px;
+      --nav-gap: 10px;
+      --transition: 420ms cubic-bezier(.2,.9,.2,1);
+      --header-h: 72px;
     }
 
-    body {
-      font-family: 'Segoe UI', Arial, sans-serif;
-      line-height: 1.6;
-      background: #f9f9f9;
-      color: #333;
-      overflow-x: hidden;
-    }
+    *{box-sizing:border-box; margin:0; padding:0}
+    html,body{height:100%; background:var(--bg); color:var(--fg); font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;}
 
-    a {
-      text-decoration: none;
-      color: #111;
-      background: #FFFFFF;
-      padding: 0.5rem 1rem;
-      border-radius: 4px;
-      transition: 0.2s;
-    }
+    a { color: inherit; text-decoration: none; }
 
-    .toggle-btn {
-      cursor: pointer;
-      font-size: 1.1rem;
-      border: none;
-      background: #eee;
-      color: #111;
-      padding: 0.4rem 0.8rem;
-      border-radius: 6px;
-      transition: background 0.3s, transform 0.2s;
-    }
-
-    .toggle-btn:hover {
-      background: #111;
-      color: #fff;
-      transform: scale(1.05);
-    }
-
+    
     header {
-      position: sticky;
-      top: 0;
-      width: 100%;
-      background: transparent;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 2rem;
-      z-index: 1000;
-    }
-
-    header h1 {
-      font-family: 'Rajdhani-Regular';
-      font-size: 1.3rem;
-      font-weight: bold;
-      letter-spacing: 1px;
-    }
-
-    .hamburger {
-      cursor: pointer;
-      font-size: 1.6rem;
-      background: none;
-      border: none;
-      outline: none;
-    }
-
-    .overlay {
       position: fixed;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.4);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-      z-index: 1500;
+      right: 0;
+      height: var(--header-h);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1.5rem;
+      z-index: 2200; /* above everything */
+      background: transparent;
     }
 
-    .overlay.active {
-      opacity: 1;
-      pointer-events: all;
+    header h1{
+      font-family: "Rajdhani-Regular", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      font-size: 1.15rem;
+      letter-spacing: 1px;
+      color: var(--fg);
     }
+
+    .hamburger{
+      cursor:pointer;
+      font-size:1.4rem;
+      background:none;
+      border:none;
+      color:var(--fg);
+      padding:8px;
+      border-radius:8px;
+    }
+    .hamburger:focus{ outline:2px solid rgba(255,255,255,0.08) }
+
+    /* Overlay & Drawer */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.28s ease;
+      z-index: 2100;
+    }
+    .overlay.active { opacity: 1; pointer-events: all; }
 
     .nav-drawer {
       position: fixed;
       top: 0;
       right: -100%;
-      width: 260px;
+      width: 300px;
+      max-width: 85%;
       height: 100%;
-      background: #fff;
-      box-shadow: -2px 0 6px rgba(0,0,0,0.1);
-      transition: right 0.3s ease;
-      z-index: 2000;
-      padding: 2rem 1.5rem;
+      background: rgba(12,14,18,0.98);
+      color: var(--fg);
+      box-shadow: -12px 0 36px rgba(0,0,0,0.6);
+      transition: right 0.32s cubic-bezier(.2,.9,.2,1);
+      z-index: 2300;
+      padding: 2.2rem 1.4rem;
+      border-left: 1px solid rgba(255,255,255,0.03);
+      backdrop-filter: blur(6px);
     }
+    .nav-drawer.active { right: 0; }
 
-    .nav-drawer.active {
-      right: 0;
-    }
-
-    .nav-drawer ul {
-      list-style: none;
-      margin-top: 2rem;
-    }
-
-    .nav-drawer ul li {
-      margin: 1rem 0;
-    }
-
-    .nav-drawer ul li a {
-      color: #111;
-      font-size: 1.1rem;
-      font-weight: 500;
-    }
-
-    .close-btn {
+    .nav-drawer .close-btn {
       background: none;
       border: none;
-      font-size: 1.6rem;
+      font-size: 1.4rem;
+      color: var(--fg);
+      position: absolute;
+      top: 12px;
+      right: 12px;
       cursor: pointer;
+    }
+    .nav-drawer ul { list-style: none; margin-top: 2.6rem; padding-left: 0; }
+    .nav-drawer li { margin: 0.9rem 0; }
+    .nav-drawer a {
+      color: var(--fg);
+      font-weight: 500;
+      font-size: 1.05rem;
+      display:inline-block;
+      padding: 8px 10px;
+      border-radius: 6px;
+    }
+    .nav-drawer a:hover, .nav-drawer a:focus { background: rgba(255,255,255,0.03); outline: none; }
+
+    .skip-link{
       position: absolute;
-      top: 1rem;
-      right: 1rem;
+      left: -9999px;
+      top: auto;
+      background:#fff;
+      color:#000;
+      padding:8px 12px;
+      z-index:3000;
+    }
+    .skip-link:focus{ left:12px; top:12px; border-radius:6px; box-shadow:0 4px 18px rgba(0,0,0,.25); }
+
+    .h-wrap{
+      height:100vh;
+      width:100vw;
+      overflow-x:auto;
+      overflow-y:hidden;
+      scroll-snap-type: x mandatory;
+      display:flex;
+      flex-direction:row;
+      gap: var(--panel-gap);
+      scroll-behavior:smooth;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+      scroll-snap-stop: always;
+      padding-top: var(--header-h);
+    }
+    .h-wrap::-webkit-scrollbar{height:10px}
+    .h-wrap::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12); border-radius:10px}
+
+    .panel{
+      flex:0 0 100%;
+      width:100vw;
+      height:100vh; /* full viewport height (header overlays) */
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      scroll-snap-align:center;
+      position:relative;
+      padding:48px;
+      min-width: 300px;
     }
 
-    .hero {
-      font-family: 'Rajdhani-Regular';
-      position: relative;
-      height: 100vh;
-      overflow: hidden;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: #f1f1f1;
+    .card{
+      max-width:980px;
+      width:100%;
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+      border-radius:12px;
+      padding:36px;
+      box-shadow: 0 8px 30px rgba(2,6,23,0.6);
+      color:var(--fg);
+      border: 1px solid rgba(255,255,255,0.04);
+      margin-top: calc(var(--header-h) / 3);
+    }
+    .panel h1{ margin:0 0 8px 0; font-size: clamp(20px, 3.8vw, 40px); }
+    .panel p{ margin:0 0 16px 0; color:var(--muted); font-size:1.05rem; line-height:1.5 }
+
+    /* Distinct visuals for each panel */
+    .panel:nth-child(1){ background: linear-gradient(135deg,#0f1724,#021123); }
+    .panel:nth-child(2){ background: linear-gradient(135deg,#4788FF,#00bfff); }
+    .panel:nth-child(3){ background: linear-gradient(135deg,#9B9B9B,#E6E6E6); }
+    .panel:nth-child(4){ background: linear-gradient(135deg,#494A4B,#555656); }
+    .panel:nth-child(5){ background: linear-gradient(135deg,#202122,#2F363A); }    .panel:nth-child(6){ background: linear-gradient(135deg,#540712,#9A1629); }
+    .panel:nth-child(7){ background: linear-gradient(135deg,#000,#000); }
+
+    /* Navigation UI (dots & arrows) */
+    .nav{
+      position:fixed;
+      right:20px;
+      top:50%;
+      transform:translateY(-50%);
+      z-index:999;
+      display:flex;
+      flex-direction:column;
+      gap:var(--nav-gap);
+      align-items:center;
+      pointer-events:auto;
+    }
+    .dot{
+      width:2px;
+      height:2px;
+      border-radius:50%;
+      background:rgba(255,255,255,0.08);
+      border:1px solid rgba(255,255,255,0.06);
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+      transition: transform var(--transition), background var(--transition), box-shadow var(--transition);
+    }
+    .dot:focus{ outline: 2px solid rgba(255,255,255,.12); transform:scale(1.06) }
+    .dot[aria-current="true"]{
+      background:linear-gradient(180deg,var(--accent-1),var(--accent-2));
+      box-shadow: 0 6px 18px rgba(0,0,0,0.45), 0 0 18px rgba(125,211,252,0.08);
+      transform:scale(1.18);
     }
 
-    .hero-layer {
-      position: absolute;
-      width: 100%;
-      text-align: center;
-      pointer-events: none;
+    .pager{
+      position:fixed;
+      left:20px;
+      bottom:20px;
+      font-size:0.95rem;
+      color:var(--muted);
+      z-index:999;
+      background: rgba(0,0,0,0.28);
+      padding:8px 12px;
+      border-radius:10px;
+      border:1px solid rgba(255,255,255,0.03);
     }
 
-    .hero-background {
-      top: 20%;
-      font-size: 5rem;
-      font-weight: 900;
-      color: rgba(0,0,0,0.08);
-      white-space: nowrap;
-    }
+    .hero { font-family: 'Rajdhani-Regular', system-ui; position: relative; height: 100vh; overflow: hidden; display:flex; align-items:center; justify-content:center; background: transparent; pointer-events:none; }
+    .whisper { font-size: 13px; color:rgba(255,255,255,0.45); }
 
-    .hero-image {
-      height: 40%;
-      width: 40%;
-      position: relative;
-      z-index: 2;
-    }
+.toggle-btn {padding:8px 10px;background:#2a9df4;color:#000;border:none;cursor:pointer;text-decoration: none;}
 
-    .hero-image img {
-      border-radius: 5%;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
-      opacity: 0;
-      animation: fadeIn 1.8s ease forwards;
-    }
+#page-1 {
+  background: url("IMG_20251214_151848.JPG") center/cover no-repeat;
+}
 
-    @keyframes fadeIn {
-      0% { opacity: 0; }
-      100% { opacity: 1; }
-    }
+.intro-text-1 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 20px;
+  transform: none;
+  text-align: left;
+  color: white;
+}
 
-    .hero-foreground {
-      bottom: 20%;
-      font-size: 3rem;
-      font-weight: lighter bold;
-      color: #111;
-      z-index: 3;
-    }
+.intro-text-1 h1 {
+  color: white;
+  transform: translateY(90px);
+  text-align: left;
+}
 
-    section {
-      max-width: 900px;
-      margin: 5rem auto;
-      padding: 0 2rem;
-      opacity: 0;
-      transform: translateY(60px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
-      position: relative;
-    }
-    
-    .whisper {font-size: 13px; color:grey}
+.intro-text-1 p {
+  color: white;
+  transform: translateY(90px);
+  text-align: left;
+}
 
-    section.active {
-      opacity: 1;
-      transform: translateY(0);
-    }
+.intro-text-2 h1 {
+  color: #000;
+  font-size: 2.8rem;
+  font-weight: 700;
+}
 
-    section::after {
-      content: "";
-      display: block;
-      height: 80px;
-      margin-top: 3rem;
-      background: linear-gradient(to bottom, rgba(249,249,249,0), rgba(249,249,249,1));
-    }
+.intro-text-2 p {
+  margin-top: 0.4rem;
+  font-size: 18px;
+  color: #fff;
+  font-weight: 300;
+}
 
-    section h2, section h3 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-      color: #111;
-    }
+intro-text {
+  position: absolute;
+  left: 8%;
+  top: 10%;
+  transform: translateY(20px);
+  opacity: 0;
+  z-index: 3;
+  color: #111;
+  text-align: left;
+  animation: introTextSlideUp 1.2s ease forwards 1.6s;
+  max-width: 380px;
+}
 
-    section p {
-      font-size: 1.1rem;
-      color: #444;
-    }
+.intro-text h1 {
+  font-size: 2.8rem;
+  font-weight: 700;
+}
 
-    footer { border-top: 1px solid #eee; padding: 20px 20px; text-align: center; font-size: 0.85rem; color: #666; }
+.intro-text p {
+  margin-top: 0.4rem;
+  font-size: 18px;
+  color: #fff;
+  font-weight: 300;
+}
 
-    /* make responsive */
-    @media (max-width: 768px) {
-      .hero-background {
-        font-size: 3rem;
-      }
-      .hero-foreground {
-        font-size: 1.4rem;
-      }
-      .hero-image img {
-        max-width: 200px;
-      }
-    }
+@media (max-width: 768px) {
+  intro-text {
+    left: 5%;
+    top: 55%;
+    max-width: 260px;
+  }
+
+  intro-text h1 {
+    font-size: 2rem;
+  }
+
+  intro-text p {
+    font-size: 1rem;
+  }
+}
+
+/* Scroll / action icon */
+.ico-rotator {
+  position: fixed;
+  bottom: 32px;   /* distance from bottom */
+  right: 32px;    /* distance from right */
+  z-index: 1000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transform: rotate(270deg) scale(0.4);
+}
+
+.ico {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  filter: url("#goo");
+}
+
+/* circles */
+.ico .circle {
+  background: #fff;
+  border-radius: 50%;
+  height: 100px;
+  width: 100px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.ico .circle-top {
+  height: 33.33px;
+  width: 41.66px;
+  top: 0;
+  animation: blob-1-anim 3s cubic-bezier(0.77,0,0.175,1) infinite;
+}
+
+.ico .circle-bottom {
+  height: 33.33px;
+  width: 41.66px;
+  bottom: 0;
+  animation: blob-2-anim 3s cubic-bezier(0.77,0,0.175,1) infinite;
+}
+
+.svg {
+  position: relative;
+  z-index: 1;
+}
+
+.st-arrow {
+  fill: #55544F;
+  animation: scrolly 3s cubic-bezier(0.77,0,0.175,1) infinite;
+  transform-origin: bottom;
+}
+
+/* animations */
+@keyframes blob-1-anim {
+  0%, 24%, 100% { transform: translate(-50%, 0); }
+  14% { transform: translate(-50%, -8px); }
+}
+
+@keyframes blob-2-anim {
+  0%, 30%, 70%, 100% { transform: translate(-50%, 10px); }
+  95% { transform: translate(-50%, 26px); }
+}
+
+@keyframes scrolly {
+  0% {
+    transform: translate3d(0,-150%,0) rotateX(90deg) scale(0.5);
+  }
+  30%, 70% {
+    transform: translate3d(0,0,0) rotateX(0deg) scale(1);
+  }
+  95%, 100% {
+    transform: translate3d(0,50%,0) rotateX(-90deg) scale(0.5);
+  }
+}
   </style>
-    <!-- Google tag(gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-N4NGTP8WXB"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
 
-    gtag('config', 'G-N4NGTP8WXB');
-</script>
 </head>
 <body>
-  <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PMQSS6KR"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
 
-  <header>
+  <!-- Header (dark glass) -->
+  <header role="banner" aria-label="Main header">
     <h1>P.CLEMENT</h1>
-    <button class="hamburger" id="hamburger">☰</button>
+    <button class="hamburger" id="hamburger" aria-label="Open navigation menu">☰</button>
   </header>
 
-  <div class="overlay" id="overlay"></div>
+  <!-- Overlay & Nav Drawer -->
+  <div class="overlay" id="overlay" aria-hidden="true"></div>
 
-  <nav class="nav-drawer" id="navDrawer">
-    <button class="close-btn" id="closeBtn">✕</button>
+  <nav class="nav-drawer" id="navDrawer" aria-label="Site navigation">
+    <button class="close-btn" id="closeBtn" aria-label="Close navigation">✕</button>
     <ul>
       <li><a href="about.html">About</a></li>
       <li><a href="timeline.html">Projects</a></li>
-      <li><a href="notebook.html">Notes</a></li>
+      <li><a href="notebook.html">My Notes</a></li>
       <li><a href="sandbox.html">Sandbox</a></li>
       <li><a href="marketplace.html">Shop</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a href="tutoring.html">Tutoring</a></li>
+      <li><a href="contact.html">Contact</a></li>
     </ul>
   </nav>
 
-  <div class="hero">
-    <div class="hero-layer hero-background" id="heroBg">INTRO</div>
-    <div class="hero-layer hero-image">
-      <img src="IMG_20251116_133830.JPG" alt="profile">
-    </div>
-    <div class="hero-layer hero-foreground" id="heroFg">Hi, I'm Patrick</div>
-  </div>
+  <!-- Horizontal wrapper -->
+  <main id="main" class="h-wrap" tabindex="0" aria-label="Horizontal scroll site with 7 pages">
+    <!-- Page 1 -->
+    <section class="panel" id="page-1" role="region" aria-label="Page 1 — Welcome">
+      <div class="intro-wrapper">
+  
+  <div class="intro-text-1">
+    <h1>Hi, <br>I'm Patrick</h1><br><br>
+    <p>I'm a software engineer <br>and curious mind <br>constantly exploring <br>the intersections of<br> technology, philosophy, <br>and human potential.<br><br><a href="about.html" style="color:black;">[Learn more]</a></p>
+    
+  <div class="ico-rotator">
+    
+  <div class="ico animated">
+  
+  <div class="circle circle-top"></div>
+  <div class="circle circle-main"></div>
+  <div class="circle circle-bottom"></div>
+  
+  <svg class="svg" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 612 612" style="enable-background:new 0 0 612 612;" xml:space="preserve">
+    <defs>
+      <clipPath id="cut-off-arrow">
+        <circle cx="306" cy="306" r="287" />
+      </clipPath>
+      
+      <filter id="goo">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+        <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo" />
+        <feBlend in="SourceGraphic" in2="goo" />
+      </filter>
+      
+    </defs>
+    <path class="st-arrow" d="M317.5,487.6c0.3-0.3,0.4-0.7,0.7-1.1l112.6-112.6c6.3-6.3,6.3-16.5,0-22.7c-6.3-6.3-16.5-6.3-22.7,0
+					l-86,86V136.1c0-8.9-7.3-16.2-16.2-16.2c-8.9,0-16.2,7.3-16.2,16.2v301.1l-86-86c-6.3-6.3-16.5-6.3-22.7,0
+					c-6.3,6.3-6.3,16.5,0,22.7l112.7,112.7c0.3,0.3,0.4,0.7,0.7,1c0.5,0.5,1.2,0.5,1.7,0.9c1.7,1.4,3.6,2.3,5.6,2.9
+					c0.8,0.2,1.5,0.4,2.3,0.4C308.8,492.6,313.8,491.3,317.5,487.6z" />
+  </svg>
+</div>
+</div>
+</div>
+</div>
+    </section>
 
-  <section id="about">
-    <h3>About</h3>
-    <p>
-      I'm a software engineer and <button class="toggle-btn" onclick="window.location.href='about.html'">curious mind</button> constantly exploring the intersections of technology, philosophy, and human potential. This site is both a personal archive and playground where I share projects, reflections, and ideas I'm experimenting with.
-    </p><br>
-    <div class="whisper">* Hint: click on <strong>'curious mind'</strong> it's a button :)</div>
-  </section>
+    <!-- Page 2 -->
+    <section class="panel" id="page-2" role="region" aria-label="Page 2 — Features">
+      <div class="intro-text" tabindex="0">
+        <h1>Projects</h1>
+        <p>Over the years, I've built research projects, prototypes, and concepts that map my growth as a creator.<br><br><a href="timeline.html">[View]</a></p>
+      </div>
+    </section>
 
-  <section id="projects">
-    <h2>Projects</h2>
-    <p>Over the years, I've built research projects, prototypes, and concepts that map my growth as a creator.</p><br>
-    <button class="toggle-btn" onclick="window.location.href='timeline.html'">See them here</button>
-  </section>
-
-  <section id="notes">
-    <h2>Notes</h2>
-    <p>
-      <button class="toggle-btn" onclick="window.location.href='notebook.html'">→This←</button> is my digital notebook: essays, thoughts, and reflections.
+    <!-- Page 3 -->
+    <section class="panel" id="page-3" role="region" aria-label="Page 3 — Gallery">
+      <div class="intro-text-2" tabindex="0">
+        <h1>Notes</h1>
+        <p>This is my digital notebook: essays, thoughts, and reflections.<br><br><a href="notebook.html">[Read]</a>
     </p>
-  </section>
+      </div>
+    </section>
 
-  <section id="sandbox">
-    <h2>Sandbox</h2>
-    <p><button class="toggle-btn" onclick="window.location.href='sandbox.html'">The sandbox</button> is my lab. A place where I display experiments, demos, and half-built prototypes that may one day evolve into full projects.</p>
-  </section>
+    <!-- Page 4 -->
+    <section class="panel" id="page-4" role="region" aria-label="Page 4 — About">
+      <div class="intro-text" tabindex="0">
+        <h1>Sandbox</h1>
+        <p>This sandbox is my lab. A place where I display experiments, demos, and half-built prototypes that may one day evolve into full projects.<br><br><a href="sandbox.html">[Enter]</a></p>
+      </div>
+    </section>
 
-  <section id="store">
-    <h2>Shop</h2>
-    <p><button class="toggle-btn" onclick="window.location.href='marketplace.html'">My shop</button> This is where I share my projects, and weird tech stuff.</p>
-  </section>
+    <!-- Page 5 -->
+    <section class="panel" id="page-6" role="region" aria-label="Page 6 — Contact">
+      <div class="intro-text" tabindex="0">
+        <h1>Shop</h1>
+        <p>My marketplace. This is where I share my projects, and other weird tech stuff.<br><br><a href="marketplace.html">[Visit Shop]</a></p>
+      </div>
+    </section>
 
-  <section id="contact">
-    <h2>Get in touch:</h2>
-    <p>Drop me a message here<button class="toggle-btn" onclick="window.location.href='contact.html'"> mailbox</button></p>
-  </section>
+    <!-- Page 6 -->
+    <section class="panel" id="page-5" role="region" aria-label="Page 5 — Services">
+      <div class="intro-text" tabindex="0">
+        <h1>Tutoring Services</h1><br>
+        <p><strong><em>“Sapientia et virtus.”</em></strong><br><em>Wisdom and excellence.</em><br><br> <a href="tutoring.html">[Learn more]</a></p>
+      </div>
+    </section>
 
-  <footer>© 2025 Patrick Clement. All rights reserved.
-  </footer>
+    <!-- Page 7 -->
+    <section class="panel" id="page-7" role="region" aria-label="Page 7 — Thank you">
+      <div class="intro-text" tabindex="0">
+        <h1>Mailbox</h1>
+        <p>Want to have a chat or collaborate? Drop me a message here<br><br> <button class="toggle-btn" onclick="window.location.href='contact.html'"> →  mailbox</button></p>
+      </div>
+    </section>
+  </main>
 
-<script>
-  // hamburger menu drawer 
-  const hamburger = document.getElementById("hamburger");
-  const navDrawer = document.getElementById("navDrawer");
-  const overlay = document.getElementById("overlay");
-  const closeBtn = document.getElementById("closeBtn");
-  
-  hamburger.addEventListener("click", () => {
-    navDrawer.classList.add("active");
-    overlay.classList.add("active");
-  });
-  
-  closeBtn.addEventListener("click", () => {
-    navDrawer.classList.remove("active");
-    overlay.classList.remove("active");
-  });
-  
-  overlay.addEventListener("click", () => {
-    navDrawer.classList.remove("active");
-    overlay.classList.remove("active");
-  });
-  
-  document.querySelectorAll(".nav-drawer a").forEach(link => {
-    link.addEventListener("click", () => {
-      navDrawer.classList.remove("active");
-      overlay.classList.remove("active");
-    });
-  });
-  
-  // ===== Parallax Effect =====
-  const hero = document.querySelector(".hero");
-  const heroBg = document.getElementById("heroBg");
-  const heroFg = document.getElementById("heroFg");
-  const heroImg = document.querySelector(".hero-image img");
-  
-  let targetScroll = 0;
-  let currentScroll = 0;
-  const ease = 0.08; // lower = smoother
-  
-  function getIntensity() {
-    return window.innerWidth <= 768 ?
-      { bg: 0.15, fg: 0.1, imgY: 0.10, imgScale: 0.02 } :
-      { bg: 0.3, fg: 0.2, imgY: 0.2, imgScale: 0.04 };
-  }
-  
-  window.addEventListener("scroll", () => {
-    targetScroll = window.scrollY;
-  });
-  
-  function animate() {
-    currentScroll += (targetScroll - currentScroll) * ease;
-    const { bg, fg, imgY, imgScale } = getIntensity();
-    
-    // Background + foreground drift
-    heroBg.style.transform = `translateX(${currentScroll * bg}px)`;
-    heroFg.style.transform = `translateX(${-currentScroll * fg}px)`;
-    
-    // Note: image scale based on hero visibility
-    const heroRect = hero.getBoundingClientRect();
-    const viewportHeight = window.innerHeight;
-    
-    let progress = 1 - heroRect.top / viewportHeight;
-    progress = Math.min(Math.max(progress, 0), 1);
-    
-    const scale = 1 + (progress - 0.5) * imgScale;
-    
-    heroImg.style.transform =
-      `translateY(${currentScroll * imgY}px) scale(${scale})`;
-    
-    requestAnimationFrame(animate);
-  }
-  
-  animate();
+  <!-- Dots navigation -->
+  <nav class="nav" aria-label="Page navigation" role="navigation" id="dotNav"></nav>
 
-  // ===== Section Fade/Slide Effect =====
-  function handleSectionFocus() {
-    const sections = document.querySelectorAll("section");
-    const triggerBottom = window.innerHeight * 0.8;
+  <!-- Left/Right arrows -->
+  <button class="arrow left" id="prevBtn" aria-label="Go to previous page">
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+  <button class="arrow right" id="nextBtn" aria-label="Go to next page">
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
 
-    sections.forEach(section => {
-      const rect = section.getBoundingClientRect();
-      if (rect.top < triggerBottom && rect.bottom > 0) {
-        section.classList.add("active");
-      } else {
-        section.classList.remove("active");
+  <script>
+        // ---------- Nav drawer controls ----------
+    (function(){
+      const hamburger = document.getElementById("hamburger");
+      const navDrawer = document.getElementById("navDrawer");
+      const overlay = document.getElementById("overlay");
+      const closeBtn = document.getElementById("closeBtn");
+
+      function openDrawer() {
+        navDrawer.classList.add("active");
+        overlay.classList.add("active");
+        // move focus into the drawer for accessibility
+        setTimeout(()=> closeBtn.focus(), 180);
       }
-    });
-  }
+      function closeDrawer() {
+        navDrawer.classList.remove("active");
+        overlay.classList.remove("active");
+        // return focus to hamburger
+        setTimeout(()=> hamburger.focus(), 80);
+      }
 
-  window.addEventListener("scroll", handleSectionFocus);
-  window.addEventListener("load", handleSectionFocus);
-</script>
+      hamburger.addEventListener("click", openDrawer);
+      closeBtn.addEventListener("click", closeDrawer);
+      overlay.addEventListener("click", closeDrawer);
+
+      // close on Esc
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && navDrawer.classList.contains("active")) {
+          closeDrawer();
+        }
+      });
+
+      document.querySelectorAll(".nav-drawer a").forEach(link => {
+        link.addEventListener("click", () => {
+          closeDrawer();
+        });
+      });
+    })();
+
+    // ---------- Horizontal scroller script ----------
+    (function(){
+      const wrap = document.querySelector('.h-wrap');
+      const panels = Array.from(document.querySelectorAll('.panel'));
+      const dotNav = document.getElementById('dotNav');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const pagerLabel = document.getElementById('pagerLabel');
+
+      let currentIndex = 0;
+      const total = panels.length;
+      let isScrollingProgrammatically = false;
+      let isPointerDown = false;
+      let startX = 0;
+      let scrollStart = 0;
+
+      /* Create dot buttons */
+      panels.forEach((panel, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'dot';
+        btn.setAttribute('aria-label', `Go to page ${idx + 1}`);
+        btn.dataset.index = idx;
+        btn.addEventListener('click', () => scrollToIndex(idx, true));
+        btn.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            scrollToIndex(idx, true);
+          }
+        });
+        dotNav.appendChild(btn);
+      });
+
+      const dots = Array.from(dotNav.children);
+
+      function updateUI(index, replaceHistory = false){
+        currentIndex = Math.max(0, Math.min(total - 1, index));
+        dots.forEach((d,i) => {
+          d.setAttribute('aria-current', i === currentIndex ? 'true' : 'false');
+        });
+        
+      }
+
+      function scrollToIndex(index, pushHistory = true){
+        const target = panels[index];
+        if (!target) return;
+        isScrollingProgrammatically = true;
+        target.scrollIntoView({behavior:'smooth', block:'nearest', inline:'center'});
+        setTimeout(() => {
+          updateUI(index, !pushHistory);
+          const focusable = target.querySelector('.card');
+          focusable && focusable.focus();
+          setTimeout(()=> isScrollingProgrammatically = false, 240);
+        }, 220);
+      }
+
+      function indexFromScroll(){
+        const x = wrap.scrollLeft;
+        const w = wrap.clientWidth;
+        return Math.round(x / w);
+      }
+
+      let scrollTimeout = null;
+      wrap.addEventListener('scroll', () => {
+        if (isScrollingProgrammatically) return;
+        if (scrollTimeout) clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+          const idx = indexFromScroll();
+          updateUI(idx, true);
+        }, 120);
+      }, {passive:true});
+
+      prevBtn.addEventListener('click', () => scrollToIndex(currentIndex - 1));
+      nextBtn.addEventListener('click', () => scrollToIndex(currentIndex + 1));
+
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight') { e.preventDefault(); scrollToIndex(currentIndex + 1); }
+        if (e.key === 'ArrowLeft')  { e.preventDefault(); scrollToIndex(currentIndex - 1); }
+        if (e.key === 'Home') { e.preventDefault(); scrollToIndex(0); }
+        if (e.key === 'End')  { e.preventDefault(); scrollToIndex(total -1); }
+      });
+
+      wrap.addEventListener('wheel', (e) => {
+        if (e.shiftKey) return;
+        const delta = e.deltaY || e.deltaX;
+        e.preventDefault();
+        wrap.scrollBy({ left: delta, behavior: 'auto' });
+      }, {passive:false});
+
+      wrap.addEventListener('pointerdown', (e) => {
+        isPointerDown = true;
+        startX = e.clientX;
+        scrollStart = wrap.scrollLeft;
+        wrap.setPointerCapture(e.pointerId);
+      });
+      wrap.addEventListener('pointermove', (e) => {
+        if (!isPointerDown) return;
+        const dx = startX - e.clientX;
+        wrap.scrollLeft = scrollStart + dx;
+      });
+      wrap.addEventListener('pointerup', (e) => {
+        isPointerDown = false;
+        const idx = indexFromScroll();
+        scrollToIndex(idx);
+      });
+      wrap.addEventListener('pointercancel', () => {
+        isPointerDown = false;
+        const idx = indexFromScroll();
+        scrollToIndex(idx);
+      });
+
+      let resizeTimer = null;
+      window.addEventListener('resize', () => {
+        if (resizeTimer) clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+          scrollToIndex(currentIndex, true);
+        }, 160);
+      });
+
+      window.addEventListener('popstate', () => {
+        const h = (location.hash || '').replace('#page-','');
+        const n = parseInt(h,10);
+        if (!isNaN(n) && n >= 1 && n <= total) {
+          scrollToIndex(n - 1, false);
+        }
+      });
+
+      function init(){
+        const match = (location.hash || '').match(/page-(\d+)/);
+        const start = match ? Math.min(total, Math.max(1, Number(match[1]))) - 1 : 0;
+        setTimeout(()=> scrollToIndex(start, true), 40);
+        updateUI(start, true);
+      }
+
+      init();
+
+      wrap.addEventListener('focusin', (e) => {
+        const panel = e.target.closest('.panel');
+        if (panel) {
+          const idx = panels.indexOf(panel);
+          if (idx >= 0) updateUI(idx, true);
+        }
+      });
+
+      window.HScroll = {
+        go: scrollToIndex,
+        currentIndex: () => currentIndex,
+        total
+      };
+    })();
+
+  </script>
 </body>
-</html>
+            </html>
