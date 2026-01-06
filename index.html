@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
+<link rel="preload" as="image" href="IMG_20251214_151848.webp" fetchpriority="high">
   <script data-goatcounter="https://rickclmnt.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
   <meta charset="utf-8" />
@@ -230,6 +231,15 @@
   background: url("IMG_20251214_151848.jpg") center/cover no-repeat;
 }
 
+.hero-img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  z-index:-1;
+}
+
 .intro-text-1 {
   position: absolute;
   top: 0;
@@ -417,6 +427,20 @@ intro-text {
   <main id="main" class="h-wrap" tabindex="0" aria-label="Horizontal scroll site with 7 pages">
     <!-- Page 1 -->
     <section class="panel page-1" id="page-1" role="region" aria-label="Page 1 — Welcome">
+		 <img 
+    src="IMG_20251214_151848.webp"
+    srcset="
+      IMG_20251214_151848-900.webp 900w,
+      IMG_20251214_151848-1500.webp 1500w,
+      IMG_20251214_151848.webp 2200w
+    "
+    sizes="100vw"
+    alt=""
+    class="hero-img"
+    loading="eager"
+    fetchpriority="high"
+    decoding="async"
+  >
       <div class="intro-wrapper">
   
   <div class="intro-text-1">
