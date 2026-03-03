@@ -1,202 +1,236 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script data-goatcounter="https://rickclmnt.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Notebook</title>
+  <title>Notebook — P.Clement</title>
+  <script data-goatcounter="https://rickclmnt.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <link rel="stylesheet" href="retro.css">
   <style>
-    body {
-      font-family: 'Segoe UI', Arial, sans-serif;
-      margin: 0;
-      background: #fafafa;
-      color: #333;
-      line-height: 1.6;
-    }
+    .notebook-body { padding: 56px; }
 
-    header {
-      height: 2rem;
-      background: #fff;
-      padding: 1rem 2rem;
-      border-bottom: 1px solid #eee;
+    /* Search */
+    .search-wrap {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: sticky;
-      top: 0;
+      max-width: 480px;
+      margin-bottom: 48px;
     }
-
-    header h1 {
-      font-size: 1.2rem;
-      font-weight: bold;
-      color: #111;
-    }
-
-    a {
-      text-decoration: none;
-      color: #111;
-      transition: 0.2s;
-    }
-    a:hover {
-      color: #0077ff;
-    }
-
-    .hero {
-      text-align: center;
-      padding: 4rem 2rem 2rem;
-      background: linear-gradient(135deg, #fdfdfd, #f1f1f1);
-    }
-    .hero h2 {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-    }
-    .hero p {
-      max-width: 650px;
-      margin: auto;
-      color: #555;
-      font-size: 1.2rem;
-    }
-
-    .search-container {
-      max-width: 400px;
-      margin: 0 auto 40px auto;
-      display: flex;
-    }
-
-    .search-container input {
+    .search-wrap input {
       flex: 1;
-      padding: 10px 15px;
-      font-size: 1rem;
-      border: 3px solid black;
-      border-radius: 4px 0 0 4px;
+      padding: 14px 18px;
+      font-family: 'Nunito Sans', sans-serif;
+      font-size: 0.95rem;
+      background: var(--cream);
+      border: 3px solid var(--brown);
+      border-right: none;
       outline: none;
+      color: var(--brown);
     }
-
-    .search-container button {
-      padding: 10px 20px;
-      font-size: 1rem;
-      border: 3px solid black;
-      border-left: none;
-      background-color: #2a9df4;
-      color: white;
-      border-radius: 0 4px 4px 0;
+    .search-wrap input::placeholder { opacity: 0.4; }
+    .search-wrap button {
+      padding: 14px 24px;
+      background: var(--brown);
+      color: var(--cream);
+      font-family: 'Fredoka One', Fredoka;
+      font-size: 0.9rem;
+      border: 3px solid var(--brown);
       cursor: pointer;
-      transition: background-color 0.3s;
+      letter-spacing: 0.05em;
+      transition: background 0.2s;
     }
+    .search-wrap button:hover { background: var(--red); border-color: var(--red); }
 
-    .search-container button:hover {
-      background-color: #2a9df4;
-    }
-
-    .blog-container {
+    /* Grid */
+    .notes-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
-      padding: 3rem 2rem;
-      max-width: 1100px;
-      margin: auto;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 0;
+      border: 3px solid var(--brown);
     }
 
-    .blog-card {
-      background: #fff;
-      border: 1px solid #eee;
-      border-radius: 0px;
-      padding: 1.5rem;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-      transition: transform 0.2s, box-shadow 0.2s;
+    .note-card {
+      padding: 40px 36px;
+      border-right: 3px solid var(--brown);
+      border-bottom: 3px solid var(--brown);
+      text-decoration: none;
+      color: var(--brown);
+      display: block;
+      background: var(--cream);
+      transition: background 0.25s;
+      position: relative;
+      overflow: hidden;
     }
-    .blog-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    .note-card:nth-child(3n) { border-right: none; }
+    .note-card:hover { background: var(--brown); color: var(--cream); }
+    .note-card:hover .note-title,
+    .note-card:hover .note-desc { color: var(--cream); }
+    .note-card:hover .note-tag { color: var(--yellow); }
+    .note-card:hover .note-arrow { opacity: 1; color: var(--cream); transform: translate(3px,-3px); }
+    .note-card::before {
+      content:'';
+      position:absolute;
+      top:0; left:0; right:0;
+      height:5px;
+      background: linear-gradient(to right, var(--blue) 20%, var(--red) 20%, var(--red) 40%, var(--orange) 40%, var(--orange) 60%, var(--green) 60%, var(--green) 80%, var(--yellow) 80%);
+      opacity:0;
+      transition: opacity 0.25s;
+    }
+    .note-card:hover::before { opacity:1; }
+
+    .note-num {
+      font-family: 'Fredoka One', Fredoka;
+      font-size: 4rem;
+      color: var(--cream-dk);
+      line-height: 1;
+      margin-bottom: 12px;
+      user-select: none;
+      transition: color 0.25s;
+    }
+    .note-card:hover .note-num { color: rgba(255,255,255,0.1); }
+
+    .note-tag {
+      font-size: 0.6rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--red);
+      margin-bottom: 10px;
+      transition: color 0.25s;
+    }
+    .note-title {
+      font-family: 'Fredoka One', Fredoka;
+      font-size: 1.5rem;
+      line-height: 1.15;
+      margin-bottom: 12px;
+      transition: color 0.25s;
+    }
+    .note-desc {
+      font-size: 0.82rem;
+      line-height: 1.8;
+      opacity: 0.65;
+      transition: color 0.25s;
+    }
+    .note-arrow {
+      position: absolute;
+      top: 32px; right: 32px;
+      font-size: 1.2rem;
+      opacity: 0.25;
+      transition: all 0.25s;
     }
 
-    .blog-card h3 {
-      margin-bottom: 0.6rem;
-      font-size: 1.3rem;
-      color: #111;
+    .no-results {
+      padding: 40px;
+      font-family: 'Fredoka One', Fredoka;
+      font-size: 1.2rem;
+      opacity: 0.5;
+      border: 3px solid var(--brown);
     }
-    .blog-card p {
-      font-size: 1rem;
-      color: #555;
+
+    @media (max-width: 768px) {
+      .notebook-body { padding: 32px 20px; }
+      .notes-grid { grid-template-columns: 1fr; }
+      .note-card:nth-child(3n) { border-right: 3px solid var(--brown); }
+      .note-card:last-child { border-bottom: none; }
     }
-    footer { border-top: 1px solid #eee; padding: 20px 20px; text-align: center; font-size: 0.85rem; color: #666; }
   </style>
 </head>
 <body>
 
-  <header>
-    <h1>Notebook</h1>
-    <nav><a href="javascript:history.back()">← Back</a></nav>
-  </header>
+<nav class="site-nav">
+  <a href="index.html" class="nav-logo">P.C</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+  </ul>
+</nav>
+<div class="stripe-bar"><div></div><div></div><div></div><div></div><div></div></div>
 
-  <div class="hero">
-    <h2>My Notebook</h2>
-    <p>Welcome to my notebook.<br> Explore my collection of notes on various topics.</p><br><br>
+<div class="page-header reveal">
+  <p class="page-eyebrow">02 — Writing</p>
+  <h1 class="page-title retro-shadow-sm">My<br>Notebook</h1>
+  <p class="page-subtitle">Essays, thoughts, reflections. A digital notebook — raw and unfiltered.</p>
+</div>
 
-  <div class="search-container">
+<div class="notebook-body">
+  <div class="search-wrap reveal">
     <input type="text" id="searchInput" placeholder="Search notes...">
-    <button onclick="searchBlogs()">Search</button>
-  </div>
-  </div>
-
-  <div class="blog-container" id="blogContainer">
-    <!-- Blog cards will be dynamically added here -->
+    <button onclick="searchNotes()">Search</button>
   </div>
 
-  <footer>© 2025 Patrick Clement. All rights reserved.</footer>
+  <div class="notes-grid" id="notesGrid"></div>
+</div>
 
-  <script>
-    // Sample blog data
-    const blogs = [
-      {
-        title: "A.E.T.H.E.R. project Overview 🧠",
-        content: "Adaptive Engine for Thought Hierarchies, and Evolving Reasoning.",
-        link: "Aether overview.html"
-      },
-      {
-        title: "Cognitive Agent-Based Predictive Simulation (CABSim) 👾",
-        content: "Agent-based modeling for forecasting daily work patterns and productivity.",
-        link: "CABSim.html"
-      },
-      {
-        title: "“Tool-First, Friend-Later” ",
-        content: "A rant about conversational AI — and how to fix it.",
-        link: "AI rant.html"
-      }
-    ];
+<div class="stripe-bar rev"><div></div><div></div><div></div><div></div><div></div></div>
+<footer class="site-footer">
+  <p>© 2026 Patrick Clement. All rights reserved.</p>
+  <span class="footer-logo">P.C</span>
+  <p>Software Engineer. Builder.</p>
+</footer>
 
-    const blogContainer = document.getElementById('blogContainer');
+<script>
+const notes = [
+  {
+    title: "A.E.T.H.E.R. Project Overview 🧠",
+    desc: "Adaptive Engine for Thought Hierarchies and Evolving Reasoning.",
+    tag: "AI Research",
+    link: "Aether overview.html"
+  },
+  {
+    title: "CABSim 👾",
+    desc: "Agent-based modeling for forecasting daily work patterns and productivity.",
+    tag: "Simulation",
+    link: "CABSim.html"
+  },
+  {
+    title: '"Tool-First, Friend-Later"',
+    desc: "A rant about conversational AI — and how to fix it.",
+    tag: "Essay",
+    link: "AI rant.html"
+  }
+];
 
-    function displayBlogs(blogList) {
-      blogContainer.innerHTML = '';
-      if(blogList.length === 0) {
-        blogContainer.innerHTML = "<p>No notes found.</p>";
-        return;
-      }
+let filtered = [...notes];
 
-      blogList.forEach(blog => {
-        const blogCard = document.createElement('div');
-        blogCard.className = 'blog-card';
-        blogCard.innerHTML = `
-          <h2>${blog.title}</h2>
-          <p>${blog.content}</p>
-          <a href="${blog.link}"><strong>Read</strong></a>
-        `;
-        blogContainer.appendChild(blogCard);
-      });
-    }
+function render(list) {
+  const grid = document.getElementById('notesGrid');
+  if (!list.length) {
+    grid.innerHTML = '<div class="no-results">No notes found.</div>';
+    return;
+  }
+  grid.innerHTML = list.map((n,i) => `
+    <a href="${n.link}" class="note-card reveal">
+      <div class="note-num">0${i+1}</div>
+      <div class="note-tag">${n.tag}</div>
+      <div class="note-title">${n.title}</div>
+      <p class="note-desc">${n.desc}</p>
+      <span class="note-arrow">↗</span>
+    </a>
+  `).join('');
+  observeNew();
+}
 
-    function searchBlogs() {
-      const query = document.getElementById('searchInput').value.toLowerCase();
-      const filteredBlogs = blogs.filter(blog => 
-        blog.title.toLowerCase().includes(query) || blog.content.toLowerCase().includes(query)
-      );
-      displayBlogs(filteredBlogs);
-    }
+function searchNotes() {
+  const q = document.getElementById('searchInput').value.toLowerCase();
+  filtered = notes.filter(n => n.title.toLowerCase().includes(q) || n.desc.toLowerCase().includes(q));
+  render(filtered);
+}
 
-    // Initial display
-    displayBlogs(blogs);
-  </script>
+document.getElementById('searchInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') searchNotes();
+});
+
+function observeNew() {
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach((e,i) => { if(e.isIntersecting) setTimeout(()=>e.target.classList.add('visible'),i*80); });
+  }, {threshold:0.1});
+  document.querySelectorAll('.reveal:not(.visible)').forEach(el=>obs.observe(el));
+}
+
+render(notes);
+
+const obs = new IntersectionObserver(entries => {
+  entries.forEach((e,i) => { if(e.isIntersecting) setTimeout(()=>e.target.classList.add('visible'),i*80); });
+}, {threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
 </body>
 </html>

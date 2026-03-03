@@ -1,272 +1,235 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script data-goatcounter="https://rickclmnt.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
-
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Shop</title>
+  <script data-goatcounter="https://rickclmnt.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <title>Shop — P.Clement</title>
+  <link rel="stylesheet" href="retro.css">
   <style>
-    body {
-      font-family: 'Segoe UI', Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #f9f9f9;
-      color: #333;
-    }
+    .shop-body { padding: 56px; }
 
-    .marketplace {
-      max-width: 1100px;
-      margin: 1.5rem auto;
-      padding: 0 1rem;
-    }
-
+    /* Filters */
     .filters {
       display: flex;
-      overflow-x: auto;
-      gap: 0.5rem;
-      margin-bottom: 1.5rem;
-      padding-bottom: 0.5rem;
-      scrollbar-width: thin;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 40px;
     }
-
-    .filters button {
-      flex: 0 0 auto;
-      border: none;
-      background: #eee;
-      color: #111;
-      padding: 0.5rem 1rem;
-      border-radius: 6px;
+    .filter-btn {
+      font-family: 'Fredoka One', Fredoka;
+      font-size: 0.82rem;
+      letter-spacing: 0.06em;
+      padding: 8px 20px;
+      background: var(--cream-dk);
+      color: var(--brown);
+      border: 2px solid var(--brown);
+      border-radius: 100px;
       cursor: pointer;
-      transition: background 0.3s, transform 0.2s;
+      transition: all 0.2s;
+      box-shadow: 3px 3px 0 var(--brown);
+    }
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--brown);
+      color: var(--cream);
     }
 
-    .filters button.active {
-      background: #111;
-      color: #fff;
-    }
-
-    .filters button:hover {
-      background: #111;
-      color: #fff;
-      transform: scale(1.05);
-    }
-
-    .grid {
+    /* Grid */
+    .products-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 1.2rem;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 0;
+      border: 3px solid var(--brown);
     }
 
-    .card {
-      background: #fff;
-      border-radius: 5px;
-      overflow: hidden;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      transition: transform 0.2s;
+    .product-card {
+      border-right: 3px solid var(--brown);
+      border-bottom: 3px solid var(--brown);
+      background: var(--cream);
+      display: flex;
+      flex-direction: column;
+      transition: background 0.2s;
     }
+    .product-card:hover { background: var(--cream-dk); }
 
-    .card:hover {
-      transform: translateY(-4px);
-    }
-
-    .card img {
+    .product-img {
       width: 100%;
-      height: 160px;
+      height: 180px;
       object-fit: cover;
+      border-bottom: 3px solid var(--brown);
+      display: block;
+    }
+    .product-img-placeholder {
+      width: 100%;
+      height: 180px;
+      background: var(--cream-dk);
+      border-bottom: 3px solid var(--brown);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
     }
 
-    .card-content {
-      padding: 1rem;
+    .product-body { padding: 24px; flex:1; display:flex; flex-direction:column; }
+    .product-cat {
+      font-size: 0.6rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--red);
+      margin-bottom: 8px;
     }
-
-    .card-content h3 {
+    .product-title {
+      font-family: 'Fredoka One', Fredoka;
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+    .product-desc {
+      font-size: 0.8rem;
+      line-height: 1.7;
+      opacity: 0.65;
+      flex:1;
+      margin-bottom: 16px;
+    }
+    .product-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 2px solid var(--cream-dk);
+      padding-top: 16px;
+    }
+    .product-price {
+      font-family: 'Fredoka One', Fredoka;
       font-size: 1.1rem;
-      margin-bottom: 0.4rem;
     }
-
-    .card-content p {
-      font-size: 0.9rem;
-      margin-bottom: 0.6rem;
-      color: #444;
-    }
-
-    .price {
-      font-weight: bold;
-      margin-bottom: 0.6rem;
-      color: #111;
-    }
-
-    .card-content a {
-      display: inline-block;
+    .product-btn {
+      font-family: 'Fredoka One', Fredoka;
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      padding: 8px 18px;
+      background: var(--brown);
+      color: var(--cream);
       text-decoration: none;
-      background: #111;
-      color: #fff;
-      padding: 0.5rem 1rem;
-      border-radius: 6px;
-      transition: background 0.3s;
+      border: 2px solid var(--brown);
+      border-radius: 100px;
+      transition: all 0.2s;
+      box-shadow: 2px 2px 0 var(--brown);
+    }
+    .product-btn:hover {
+      background: var(--cream);
+      color: var(--brown);
     }
 
-    .card-content a:hover {
-      background: #333;
+    .empty-state {
+      padding: 60px;
+      text-align: center;
+      border: 3px solid var(--brown);
+      grid-column: 1/-1;
     }
-    
-    header {
-  position: sticky;
-  top: 0;
-  width: 100%;
-  height: 4rem;
-  background: #fff;
-  border-bottom: 1px solid #eee;
-  display: flex;
-  justify-content: space-between; /* keeps title left, button right */
-  align-items: center;
-  padding: 1rem 2rem;
-  z-index: 1000;
-  box-sizing: border-box;
-}
+    .empty-state p {
+      font-family: 'Fredoka One', Fredoka;
+      font-size: 1.3rem;
+      opacity: 0.4;
+    }
 
-header h1 {
-  font-size: 1.3rem;
-  font-weight: bold;
-  letter-spacing: 1px;
-  margin: 0;
-  white-space: nowrap; /* prevent wrapping */
-  overflow: hidden;
-  text-overflow: ellipsis; /* truncate if too long */
-}
-
-/* Back button */
-.back-btn {
-  cursor: pointer;
-  font-size: 1rem;
-  border: none;
-  background: #eee;
-  color: #111;
-  padding: 0.4rem 0.8rem;
-  border-radius: 6px;
-  transition: background 0.3s, transform 0.2s;
-  white-space: nowrap;
-}
-.back-btn:hover {
-  background: #111;
-  color: #fff;
-  transform: scale(1.05);
-}
-
-/* ✅ Responsive Fix */
-@media (max-width: 600px) {
-  header {
-    padding: 0.6rem 0.8rem;
-  }
-
-  header h1 {
-    font-size: 1.1rem;
-    max-width: 70%; /* prevents overlap with button */
-  }
-
-  .back-btn {
-    font-size: 0.9rem;
-    padding: 0.3rem 0.7rem;
-    text-decoration: none;
-  }
-
-  .grid {
-    grid-template-columns: 1fr; /* single column */
-  }
-
-  .card img {
-    height: 200px;
-  }
-}
-footer { border-top: 1px solid #eee; padding: 20px 20px; text-align: center; font-size: 0.85rem; color: #666; }
+    @media (max-width: 768px) {
+      .shop-body { padding: 32px 20px; }
+      .products-grid { grid-template-columns: 1fr; }
+      .product-card { border-right: 3px solid var(--brown); }
+    }
   </style>
-    <!-- Google tag(gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-N4NGTP8WXB"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-N4NGTP8WXB');
-</script>
 </head>
 <body>
-  <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PMQSS6KR"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
 
-  <header>
-    <h1>My Shop</h1>
-    <button class="back-btn" onclick="history.back()">← Back</button>
-  </header>
+<nav class="site-nav">
+  <a href="index.html" class="nav-logo">P.C</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+  </ul>
+</nav>
+<div class="stripe-bar"><div></div><div></div><div></div><div></div><div></div></div>
 
-  <main class="marketplace">
-    <div class="filters" id="filters"></div>
-    <div class="grid" id="productGrid"></div>
-  </main><br><br>
-  <footer>© 2025 Patrick Clement. All rights reserved.</footer><script>
-  async function loadProducts() {
-    const res = await fetch("products.json");
-    const products = await res.json();
+<div class="page-header reveal">
+  <p class="page-eyebrow">05 — Commerce</p>
+  <h1 class="page-title retro-shadow-sm">My<br>Shop</h1>
+  <p class="page-subtitle">Projects, tools, and weird tech things — available for you to use.</p>
+</div>
 
-    const grid = document.getElementById("productGrid");
-    const filters = document.getElementById("filters");
+<div class="shop-body">
+  <div class="filters reveal" id="filters"></div>
+  <div class="products-grid" id="productGrid"></div>
+</div>
 
-    // 🔹 Category buttons
-    const categories = ["All", ...new Set(products.map(p => p.category))];
+<div class="stripe-bar rev"><div></div><div></div><div></div><div></div><div></div></div>
+<footer class="site-footer">
+  <p>© 2026 Patrick Clement. All rights reserved.</p>
+  <span class="footer-logo">P.C</span>
+  <p>Software Engineer. Builder.</p>
+</footer>
 
-    categories.forEach(cat => {
-      const btn = document.createElement("button");
-      btn.textContent = cat;
-      btn.onclick = () => {
-        document.querySelectorAll(".filters button").forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
-        renderProducts(cat === "All" ? products : products.filter(p => p.category === cat));
-      };
-      if (cat === "All") btn.classList.add("active");
-      filters.appendChild(btn);
-    });
+<script>
+async function loadProducts() {
+  const grid = document.getElementById('productGrid');
+  const filtersEl = document.getElementById('filters');
 
-    // 🔹 Decide button label dynamically
-    function getButtonLabel(actionType) {
-      switch (actionType) {
-        case "download": return "Download";
-        case "buy": return "Buy Now";
-        case "demo": return "Try Demo";
-        case "enroll": return "Enroll";
-        case "hire": return "Hire Me";
-        default: return "view";
-      }
-    }
-
-    // 🔹 Render product cards
-    function renderProducts(items) {
-      grid.innerHTML = "";
-      items.forEach(p => {
-        const btnLabel = getButtonLabel(p.actionType || p.button);
-
-        const card = document.createElement("div");
-        card.className = "card";
-        card.innerHTML = `
-          <img src="${p.image}" alt="${p.title}">
-          <div class="card-content">
-            <h3>${p.title}</h3>
-            <p>${p.description}</p>
-            <div class="price">${p.price}</div>
-            <a href="${p.link}" target="_blank" class="product-btn">${btnLabel}</a>
-          </div>
-        `;
-        grid.appendChild(card);
-      });
-    }
-
-    renderProducts(products);
+  let products = [];
+  try {
+    const res = await fetch('products.json');
+    products = await res.json();
+  } catch(e) {
+    grid.innerHTML = '<div class="empty-state"><p>Shop coming soon ✦</p></div>';
+    return;
   }
 
-  loadProducts();
+  if (!products.length) {
+    grid.innerHTML = '<div class="empty-state"><p>Shop coming soon ✦</p></div>';
+    return;
+  }
+
+  const categories = ['All', ...new Set(products.map(p => p.category))];
+  categories.forEach(cat => {
+    const btn = document.createElement('button');
+    btn.textContent = cat;
+    btn.className = 'filter-btn' + (cat === 'All' ? ' active' : '');
+    btn.onclick = () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      render(cat === 'All' ? products : products.filter(p => p.category === cat));
+    };
+    filtersEl.appendChild(btn);
+  });
+
+  function getLabel(t) {
+    return {download:'Download',buy:'Buy Now',demo:'Try Demo',enroll:'Enroll',hire:'Hire Me'}[t] || 'View';
+  }
+
+  function render(items) {
+    grid.innerHTML = items.map(p => `
+      <div class="product-card">
+        ${p.image ? `<img class="product-img" src="${p.image}" alt="${p.title}">` : `<div class="product-img-placeholder">📦</div>`}
+        <div class="product-body">
+          <div class="product-cat">${p.category || ''}</div>
+          <div class="product-title">${p.title}</div>
+          <p class="product-desc">${p.description}</p>
+          <div class="product-footer">
+            <span class="product-price">${p.price}</span>
+            <a href="${p.link}" target="_blank" class="product-btn">${getLabel(p.actionType || p.button)}</a>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  render(products);
+}
+
+loadProducts();
+
+const obs = new IntersectionObserver(entries => {
+  entries.forEach((e,i) => { if(e.isIntersecting) setTimeout(()=>e.target.classList.add('visible'),i*80); });
+}, {threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 </script>
 </body>
 </html>

@@ -1,192 +1,158 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script data-goatcounter="https://rickclmnt.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
-
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact Me</title>
+  <title>Contact — P.Clement</title>
+  <link rel="stylesheet" href="retro.css">
+  <script data-goatcounter="https://rickclmnt.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
   <style>
-    /* Reset */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: calc(100vh - 120px);
+    }
+    .contact-left {
+      padding: 64px 56px;
+      border-right: 3px solid var(--brown);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .contact-right {
+      padding: 64px 56px;
     }
 
-    body {
-      font-family: 'Segoe UI', Arial, sans-serif;
-      background: linear-gradient(135deg, #f9f9f9, #ececec);
-      color: #333;
-      line-height: 1.6;
-      overflow-x: hidden;
+    .contact-big {
+      font-family: 'Fredoka One', Fredoka;
+      font-size: clamp(4rem, 8vw, 9rem);
+      line-height: 0.9;
+      margin-bottom: 32px;
+      color: white;
     }
-
-    header {
-      text-align: center;
-      padding: 2rem 1rem 1rem;
+    .contact-desc {
+      font-size: 0.95rem;
+      line-height: 1.9;
+      opacity: 0.65;
+      max-width: 360px;
     }
-
-    header h1 {
-      font-size: 2.2rem;
-      margin-bottom: 0.5rem;
-      letter-spacing: 1px;
+    .contact-alts {
+      margin-top: 48px;
     }
-
-    header p {
-      font-size: 1.1rem;
-      color: #555;
+    .contact-alts p {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 700;
+      opacity: 0.45;
+      margin-bottom: 16px;
     }
-
-    /* Container */
-    .contact-container {
-      max-width: 800px;
-      margin: 3rem auto;
-      padding: 2rem;
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-      position: relative;
-      overflow: hidden;
+    .alt-links {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
     }
-
-    .contact-container h2 {
-      text-align: center;
-      font-size: 2rem;
-      margin-bottom: 1rem;
-      color: #111;
+    .alt-link {
+      font-family: 'Fredoka One', Fredoka;
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
+      color: var(--brown);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      opacity: 0.6;
+      transition: opacity 0.2s;
     }
-
-    .contact-container p {
-      text-align: center;
-      color: #555;
-      margin-bottom: 2rem;
+    .alt-link:hover { opacity: 1; }
+    .alt-link::before {
+      content: '→';
+      color: var(--red);
     }
 
     /* Form */
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 1.2rem;
+    .form-group { margin-bottom: 20px; }
+    .form-label {
+      display: block;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 8px;
+      opacity: 0.6;
     }
+    textarea.retro-input { min-height: 140px; resize: vertical; }
+    .submit-row { display: flex; justify-content: flex-end; margin-top: 8px; }
 
-    input, textarea {
-      width: 100%;
-      padding: 1rem;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      font-size: 1rem;
-      transition: border-color 0.3s, box-shadow 0.3s;
+    @media (max-width: 768px) {
+      .contact-layout { grid-template-columns: 1fr; }
+      .contact-left { border-right: none; border-bottom: 3px solid var(--brown); padding: 40px 20px; }
+      .contact-right { padding: 40px 20px; }
     }
-
-    input:focus, textarea:focus {
-      outline: none;
-      border-color: #2a9df4;
-      box-shadow: 0 0 8px rgba(0,119,255,0.2);
-    }
-
-    textarea {
-      min-height: 150px;
-      resize: vertical;
-    }
-
-    button {
-      align-self: center;
-      padding: 0.8rem 2rem;
-      background: #2a9df4;
-      color: #fff;
-      border: none;
-      border-radius: 6px;
-      font-size: 1rem;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background 0.3s, transform 0.2s;
-    }
-
-    button:hover {
-      background: #2a9df4;
-      transform: scale(1.05);
-    }
-
-    /* Extras */
-    .alt-contact {
-      margin-top: 2.5rem;
-      text-align: center;
-      font-size: 0.95rem;
-      color: #555;
-    }
-
-    .alt-contact a {
-      color: #2a9df4;
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    .alt-contact a:hover {
-      text-decoration: underline;
-    }
-    
-    .top-nav {
-      margin-bottom: 2rem;
-    }
-    .top-nav a {
-      text-decoration: none;
-      color: #111;
-      background: #eee;
-      padding: 0.5rem 1rem;
-      border-radius: 4px;
-      transition: 0.2s;
-    }
-    .top-nav a:hover {
-      background: #111;
-      color: #fff;
-    }
-
-    /* Responsive */
-    @media (max-width: 600px) {
-      header h1 {
-        font-size: 1.8rem;
-      }
-      .contact-container {
-        margin: 1rem;
-        padding: 1.5rem;
-      }
-    }
-  footer { border-top: 1px solid #eee; padding: 20px 20px; text-align: center; font-size: 0.85rem; color: #666; }
   </style>
-    <!-- Google tag(gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-N4NGTP8WXB"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-N4NGTP8WXB');
-</script>
 </head>
 <body>
-  <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PMQSS6KR"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-<br>
-<div class="top-nav">
-  <a href="javascript:history.back()">← Back</a>
-</div>
 
-  <div class="contact-container">
-    <p></p>
+<nav class="site-nav">
+  <a href="index.html" class="nav-logo">P.C</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+  </ul>
+</nav>
+<div class="stripe-bar"><div></div><div></div><div></div><div></div><div></div></div>
 
+<div class="contact-layout">
+  <div class="contact-left reveal">
+    <div>
+      <p class="section-tag">07 — Connect</p>
+      <h1 class="contact-big retro-shadow-sm">Let's Talk</h1>
+      <p class="contact-desc">Have an idea? Want to collaborate? Looking for a tutor? I'm always open to interesting conversations and meaningful work.</p>
+    </div>
+    <div class="contact-alts">
+      <p>Or reach me via</p>
+      <div class="alt-links">
+        <a href="mailto:Rabbitmailbox@proton.me" class="alt-link">Rabbitmailbox@proton.me</a>
+        <a href="tutoring.html" class="alt-link">Book a tutoring session</a>
+        <a href="marketplace.html" class="alt-link">Visit the shop</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="contact-right reveal">
+    <p class="section-tag">Send a Message</p>
     <form action="https://formsubmit.co/Rabbitmailbox@proton.me" method="POST">
-      <input type="text" name="name" placeholder="Your Name" required>
-      <input type="email" name="email" placeholder="Your Email or Whatsapp ..." required>
-      <textarea name="message" placeholder="How can I help..." required></textarea>
-      <button type="submit">Send Message</button>
       <input type="hidden" name="_captcha" value="false">
+      <div class="form-group">
+        <label class="form-label">Your Name</label>
+        <input class="retro-input" type="text" name="name" placeholder="Your name" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email or WhatsApp</label>
+        <input class="retro-input" type="email" name="email" placeholder="your@email.com" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label">How can I help?</label>
+        <textarea class="retro-input" name="message" placeholder="Tell me what's on your mind..." required></textarea>
+      </div>
+      <div class="submit-row">
+        <button type="submit" class="cta-btn">Send Message ↗</button>
+      </div>
     </form>
   </div>
-<br><br>
-  <footer>© 2025 Patrick Clement. All rights reserved.</footer>
+</div>
+
+<div class="stripe-bar rev"><div></div><div></div><div></div><div></div><div></div></div>
+<footer class="site-footer">
+  <p>© 2026 Patrick Clement. All rights reserved.</p>
+  <span class="footer-logo">P.C</span>
+  <p>Software Engineer. Builder.</p>
+</footer>
+
+<script>
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach((e,i) => { if(e.isIntersecting) setTimeout(()=>e.target.classList.add('visible'),i*80); });
+  }, {threshold:0.1});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
 </body>
 </html>

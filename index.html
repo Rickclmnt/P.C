@@ -1,230 +1,703 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="preload" as="image" href="IMG_20251214_151848.webp" fetchpriority="high">
-
-<script data-goatcounter="https://rickclmnt.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
-
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Patrick Clement</title>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script data-goatcounter="https://rickclmnt.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<title>P.CLEMENT</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@900&family=Nunito+Sans:wght@400;600&family=Fredoka+One&display=swap" rel="stylesheet">
 <style>
 @font-face {
-  font-family: "Rajdhani-Regular";
-  src: url("Rajdhani-Regular.ttf") format("truetype");
+  font-family: 'Fredoka';
+  src: url('/retro /Fredoka-VariableFont_wdth,wght.ttf') format('truetype');
+  font-weight: 600;
+  font-display: swap;
 }
 
-:root{
-  --bg:#0f1724;
-  --fg:#e6eef8;
-  --muted:#9fb0c8;
-  --accent-1:#2a9df4;
-  --accent-2:#7dd3fc;
-  --transition:420ms cubic-bezier(.2,.9,.2,1);
-  --header-h:72px;
+@font-face {
+  font-family: 'Nunito Sans';
+  src: url('/retro /NunitoSans-VariableFont_YTLC,opsz,wdth,wght.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
 }
 
-*{box-sizing:border-box;margin:0;padding:0}
-html,body{
-  height:100%;
-  background:var(--bg);
-  color:var(--fg);
-  font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial;
+@font-face {
+  font-family: 'Nunito Sans';
+  src: url('/retro /NunitoSans-VariableFont_YTLC,opsz,wdth,wght.ttf') format('truetype');
+  font-weight: 600;
+  font-display: swap;
 }
 
-a{color:inherit;text-decoration:none}
-
-/* ---------------- HEADER ---------------- */
-
-header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: var(--header-h);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 1.5rem;
-      z-index: 3000;
-      background: transparent;
-    }
-
-    header h1{
-      font-family: "Rajdhani-Regular", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      font-size: 1.15rem;
-      letter-spacing: 1px;
-      color: var(--fg);
-    }
-
-/* ---------------- VERTICAL WRAPPER ---------------- */
-
-.v-wrap{
-  height:100vh;
-  width:100vw;
-  overflow-y:auto;
-  scroll-snap-type:y mandatory;
-  scroll-behavior:smooth;
-  padding-top:var(--header-h);
+@font-face {
+  font-family: 'Nunito Sans';
+  src: url('/retro /NunitoSans-VariableFont_YTLC,opsz,wdth,wght.ttf') format('truetype');
+  font-weight: 700;
+  font-display: swap;
 }
 
-/* scrollbar */
-.v-wrap::-webkit-scrollbar{width:8px}
-.v-wrap::-webkit-scrollbar-thumb{
-  background:rgba(255,255,255,.12);
-  border-radius:10px;
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --cream: #e8e0d0;
+    --cream-dark: #d9cfc0;
+    --brown: #2a1f14;
+    --red: #e03a2f;
+    --orange: #f07030;
+    --yellow: #f0c030;
+    --green: #4a9e3f;
+    --blue: #4a8fd0;
+    --stripe1: #4a8fd0;
+    --stripe2: #e03a2f;
+    --stripe3: #f07030;
+    --stripe4: #4a9e3f;
+    --stripe5: #f0c030;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--brown);
+    font-family: 'Nunito Sans', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 28px 60px;
+    border-bottom: 3px solid var(--brown);
+    background: var(--cream);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .nav-logo {
+    font-family: 'Fredoka One', Fredoka;
+    font-size: 1.6rem;
+    color: var(--brown);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+  }
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: 600;
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--brown);
+    text-decoration: none;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+  }
+  .nav-links a:hover { opacity: 1; }
+
+  /* ── RAINBOW STRIPE BAR ── */
+  .stripe-bar {
+    display: flex;
+    height: 10px;
+  }
+  .stripe-bar div { flex: 1; }
+  .s1 { background: var(--stripe1); }
+  .s2 { background: var(--stripe2); }
+  .s3 { background: var(--stripe3); }
+  .s4 { background: var(--stripe4); }
+  .s5 { background: var(--stripe5); }
+
+  /* ── HERO ── */
+  #hero {
+    padding: 80px 60px 60px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 40px;
+    align-items: end;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #hero::before {
+    content: '';
+    position: absolute;
+    top: -120px;
+    right: -120px;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    border: 60px solid var(--cream-dark);
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  #hero::after {
+    content: '';
+    position: absolute;
+    bottom: -80px;
+    left: 30%;
+    width: 260px;
+    height: 260px;
+    border-radius: 50%;
+    border: 40px solid var(--cream-dark);
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  .hero-tag {
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: 600;
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--brown);
+    opacity: 0.5;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .hero-tag::before {
+    content: '';
+    display: inline-block;
+    width: 28px; height: 2px;
+    background: var(--brown);
+    opacity: 0.5;
+  }
+
+  .hero-name {
+    font-family: 'Fredoka One', Fredoka;
+    font-size: clamp(5rem, 11vw, 12rem);
+    line-height: 0.88;
+    letter-spacing: -0.01em;
+  }
+  .hero-name .first { display: block; color: var(--brown); }
+  .hero-name .last {
+    display: block;
+    color: /*var(--cream);
+    -webkit-text-stroke: 2.5px*/ white;
+    text-shadow:
+      3px 3px 0 var(--stripe4),
+      4px 4px 0 var(--brown),
+      6px 6px 0 var(--stripe3),
+      7px 7px 0 var(--brown),
+      9px 9px 0 var(--stripe2),
+      10px 10px 0 var(--brown),
+      12px 12px 0 var(--stripe1),
+      13px 13px 0 var(--brown);
+  }
+
+  .hero-sub {
+    margin-top: 32px;
+    font-size: 1rem;
+    line-height: 1.8;
+    max-width: 460px;
+    opacity: 0.7;
+  }
+
+  .hero-photo-wrap {
+    position: relative;
+    z-index: 1;
+    align-self: end;
+  }
+  .hero-photo-frame {
+    width: 280px;
+    height: 340px;
+    background: var(--cream-dark);
+    border: 3px solid var(--brown);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 8px 8px 0 var(--brown);
+  }
+  .hero-photo-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    filter: sepia(30%) contrast(1.1) saturate(0.9);
+    display: block;
+  }
+  .photo-label {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: var(--brown);
+    color: var(--cream);
+    font-family: 'Fredoka One', Fredoka;
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    padding: 8px 16px;
+    text-align: center;
+  }
+
+  /* ── MARQUEE ── */
+  .marquee-wrap {
+    border-top: 3px solid var(--brown);
+    border-bottom: 3px solid var(--brown);
+    background: var(--brown);
+    overflow: hidden;
+    padding: 14px 0;
+  }
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  white-space: nowrap;
+  animation: marquee 40s linear infinite;
 }
+  .marquee-item {
+    font-family: 'Fredoka One', Fredoka;
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    color: var(--cream);
+    flex-shrink: 0;
+    padding: 0 40px;
+  }
+  .marquee-dot { color: var(--yellow); }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
 
-/* ---------------- PANELS ---------------- */
+  /* ── ABOUT ── */
+  #about {
+    padding: 80px 60px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    border-bottom: 3px solid var(--brown);
+  }
+  .about-num {
+    font-family: 'Fredoka One', Fredoka;
+    font-size: 9rem;
+    line-height: 1;
+    color: var(--cream-dark);
+    user-select: none;
+    margin-bottom: -20px;
+  }
+  .about-title {
+    font-family: 'Fredoka One', Fredoka;
+    font-size: 3.5rem;
+    line-height: 1;
+  }
+  .about-right { padding-top: 20px; }
+  .section-tag {
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--red);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-tag::after {
+    content: '';
+    flex: 1;
+    height: 2px;
+    background: var(--brown);
+    opacity: 0.15;
+  }
+  .about-right p {
+    font-size: 0.95rem;
+    line-height: 1.9;
+    opacity: 0.72;
+    margin-bottom: 20px;
+  }
+  .about-right p strong { opacity: 1; }
+  .motto-badge {
+    display: inline-block;
+    margin-top: 24px;
+    background: var(--brown);
+    color: var(--cream);
+    font-family: 'Fredoka One', Fredoka;
+    font-size: 0.95rem;
+    letter-spacing: 0.1em;
+    padding: 12px 24px;
+    border-radius: 100px;
+  }
 
-.panel{
-  height:100vh;
-  width:100vw;
-  scroll-snap-align:start;
-  scroll-snap-stop:always;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  position:relative;
-  padding:48px;
-}
+  /* ── CARDS ── */
+  #sections {
+    padding: 80px 60px;
+    border-bottom: 3px solid var(--brown);
+  }
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 24px;
+    margin-bottom: 48px;
+  }
+  .section-header h2 {
+    font-family: 'Fredoka One', Fredoka;
+    font-size: 3.5rem;
+    line-height: 1;
+  }
+  .section-header p {
+    font-size: 0.8rem;
+    opacity: 0.5;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
 
-/* backgrounds */
-.panel:nth-child(1){background:#000}
-.panel:nth-child(2){background:linear-gradient(135deg,#4788FF,#00bfff)}
-.panel:nth-child(3){background:linear-gradient(135deg,#9B9B9B,#E6E6E6)}
-.panel:nth-child(5){background:linear-gradient(135deg,#494A4B,#555656)}
-.panel:nth-child(6){background:linear-gradient(135deg,#202122,#2F363A)}
-.panel:nth-child(4){background:linear-gradient(135deg,#540712,#9A1629)}
-.panel:nth-child(7){background:#000}
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border: 3px solid var(--brown);
+  }
 
-/* ---------------- HERO ---------------- */
+  .card {
+    padding: 40px 36px;
+    border-right: 3px solid var(--brown);
+    border-bottom: 3px solid var(--brown);
+    text-decoration: none;
+    color: var(--brown);
+    position: relative;
+    overflow: hidden;
+    transition: background 0.25s ease;
+    display: block;
+    background: var(--cream);
+  }
+  .card:nth-child(3n) { border-right: none; }
+  .card:nth-child(n+4) { border-bottom: none; }
+  .card:hover { background: var(--brown); }
+  .card:hover .card-title,
+  .card:hover .card-desc { color: var(--cream); }
+  .card:hover .card-tag { color: var(--yellow); opacity: 1; }
+  .card:hover .card-icon { background: var(--cream); color: var(--brown); }
+  .card:hover .card-arrow { opacity: 1; color: var(--cream); transform: translate(3px, -3px); }
 
-.hero-img{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  z-index:-1;
-}
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    background: linear-gradient(to right,
+      var(--stripe1) 20%,
+      var(--stripe2) 20%, var(--stripe2) 40%,
+      var(--stripe3) 40%, var(--stripe3) 60%,
+      var(--stripe4) 60%, var(--stripe4) 80%,
+      var(--stripe5) 80%);
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+  .card:hover::before { opacity: 1; }
 
-.intro-text-1{
-  position:absolute;
-  top:120px;
-  left:20px;
-  color:#fff;
-}
+  .card-icon {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: var(--brown);
+    color: var(--cream);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Fredoka One', Fredoka;
+    font-size: 1rem;
+    margin-bottom: 24px;
+    transition: background 0.25s, color 0.25s;
+  }
+  .card-tag {
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    font-weight: 600;
+    opacity: 0.4;
+    margin-bottom: 10px;
+    transition: color 0.25s, opacity 0.25s;
+  }
+  .card-title {
+    font-family: 'Fredoka One', Fredoka;
+    font-size: 2rem;
+    line-height: 1;
+    margin-bottom: 14px;
+    transition: color 0.25s;
+  }
+  .card-desc {
+    font-size: 0.8rem;
+    line-height: 1.8;
+    opacity: 0.6;
+    transition: color 0.25s;
+  }
+  .card-arrow {
+    position: absolute;
+    top: 32px; right: 32px;
+    font-size: 1.3rem;
+    opacity: 0.3;
+    transition: opacity 0.25s, transform 0.25s, color 0.25s;
+  }
 
-.intro-text-1 h1{
-  font-size:2.8rem;
-}
+  /* ── QUOTE ── */
+  #philosophy {
+    padding: 100px 60px;
+    text-align: center;
+    background: var(--brown);
+    position: relative;
+    overflow: hidden;
+  }
+  #philosophy::before {
+    content: '"';
+    position: absolute;
+    font-family: 'Fredoka One', Fredoka;
+    font-size: 30rem;
+    color: rgba(255,255,255,0.03);
+    top: -60px; left: 50%;
+    transform: translateX(-50%);
+    line-height: 1;
+    pointer-events: none;
+  }
+  .quote-text {
+    font-family: 'Fredoka One', Fredoka;
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    line-height: 1.3;
+    color: var(--cream);
+    max-width: 780px;
+    margin: 0 auto 32px;
+    position: relative;
+    z-index: 1;
+  }
+  .quote-attr {
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--yellow);
+  }
 
-.intro-text{
-  max-width:380px;
-}
+  /* ── CONTACT ── */
+  #contact {
+    padding: 80px 60px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    border-top: 3px solid var(--brown);
+  }
+  .contact-left h2 {
+    font-family: 'Fredoka One', Fredoka;
+    font-size: clamp(3.5rem, 7vw, 8rem);
+    line-height: 0.9;
+    color: white;
+    text-shadow:
+      3px 3px 0 var(--stripe4),
+      4px 4px 0 var(--brown),
+      6px 6px 0 var(--stripe2),
+      7px 7px 0 var(--brown),
+      9px 9px 0 var(--stripe1),
+      10px 10px 0 var(--brown);
+  }
+  .contact-right p {
+    font-size: 0.95rem;
+    line-height: 1.9;
+    opacity: 0.7;
+    margin-bottom: 36px;
+  }
+  .cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--brown);
+    color: var(--cream);
+    font-family: 'Fredoka One', Fredoka;
+    font-size: 1.1rem;
+    letter-spacing: 0.08em;
+    padding: 18px 36px;
+    text-decoration: none;
+    border-radius: 100px;
+    border: 3px solid var(--brown);
+    box-shadow: 5px 5px 0 var(--brown);
+    transition: all 0.2s ease;
+  }
+  .cta-btn:hover {
+    background: var(--cream);
+    color: var(--brown);
+    box-shadow: 8px 8px 0 var(--brown);
+    transform: translate(-2px, -2px);
+  }
 
-.intro-text h1{
-  font-size:2.8rem;
-  font-weight:700;
-}
+  /* ── FOOTER ── */
+  footer {
+    background: var(--brown);
+    color: var(--cream);
+    padding: 32px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  footer p {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.5;
+    font-weight: 600;
+  }
+  .footer-logo {
+    font-family: 'Fredoka One', Fredoka;
+    font-size: 1.2rem;
+    opacity: 1 !important;
+  }
 
-.intro-text p{
-  margin-top:.5rem;
-  font-size:18px;
-  color:#fff;
-}
+  /* ── REVEAL ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
 
-/* ---------------- SCROLL ICON ---------------- */
-
-.ico-rotator{
-  position:fixed;
-  bottom:32px;
-  right:32px;
-  transform:scale(.4);
-  z-index:1500;
-}
-
-/* ---------------- BUTTON ---------------- */
-
-.toggle-btn{
-  padding:8px 12px;
-  background:#2a9df4;
-  border:none;
-  cursor:pointer;
-  color:#000;
-}
-
+  @media (max-width: 900px) {
+    nav, #hero, #about, #sections, #contact, footer { padding-left: 24px; padding-right: 24px; }
+    #hero { grid-template-columns: 1fr; }
+    .hero-photo-wrap { display: none; }
+    #about { grid-template-columns: 1fr; gap: 20px; }
+    .cards-grid { grid-template-columns: 1fr; }
+    .card:nth-child(3n) { border-right: 3px solid var(--brown); }
+    .card:nth-child(n+4) { border-bottom: 3px solid var(--brown); }
+    .card:last-child { border-bottom: none; }
+    #contact { grid-template-columns: 1fr; gap: 32px; }
+  }
 </style>
 </head>
-
 <body>
-  <header role="banner" aria-label="Main header">
-    <h1>P.CLEMENT</h1>
-  </header>
 
-<main class="v-wrap" id="wrap">
+<nav>
+  <a href="#" class="nav-logo">P.C</a>
+  <ul class="nav-links">
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
 
-<section class="panel">
-  <img src="IMG_20251214_151848.webp" class="hero-img" alt="">
-  <div class="intro-text-1">
-    <h1>Hi,<br>I'm Patrick</h1><br>
-    <p>I'm a software engineer <br>and curious mind <br>constantly exploring <br>the intersections of<br> technology, philosophy, <br>and human potential.<br><br><a href="about.html" style="color: white;">[Learn more]</a></p>
+<section id="hero">
+  <div class="hero-content reveal">
+    <p class="hero-tag">Software Engineer & Curious Mind</p>
+    <h1 class="hero-name">
+      <span class="first">Patrick</span>
+      <span class="last">Clement</span>
+    </h1>
+    <p class="hero-sub">Exploring the intersections of technology, philosophy, and human potential. Builder. Thinker. Creator.</p>
+  </div>
+  <div class="hero-photo-wrap reveal">
+    <div class="hero-photo-frame">
+      <img src="IMG_20260303_172815.jpg" alt="Patrick Clement" onerror="this.parentElement.style.background='#c9bfae'">
+      <div class="photo-label">Patrick Clement</div>
+    </div>
   </div>
 </section>
 
-<section class="panel">
-  <div class="intro-text">
-    <h1>Projects</h1>
-    <p>Over the years, I've built research projects, prototypes, and concepts that map my growth as a creator.<br><br><a href="timeline.html">[View]</a></p>
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item">Software Engineer <span class="marquee-dot">★</span></span>
+    <span class="marquee-item">Builder <span class="marquee-dot">★</span></span>
+    <span class="marquee-item">Philosopher <span class="marquee-dot">★</span></span>
+    <span class="marquee-item">Tutor <span class="marquee-dot">★</span></span>
+    <span class="marquee-item">Creator <span class="marquee-dot">★</span></span>
+    <span class="marquee-item">Researcher <span class="marquee-dot">★</span></span>
+    <span class="marquee-item">Software Engineer <span class="marquee-dot">★</span></span>
+    <span class="marquee-item">Builder <span class="marquee-dot">★</span></span>
+    <span class="marquee-item">Philosopher <span class="marquee-dot">★</span></span>
+    <span class="marquee-item">Tutor <span class="marquee-dot">★</span></span>
+    <span class="marquee-item">Creator <span class="marquee-dot">★</span></span>
+    <span class="marquee-item">Researcher <span class="marquee-dot">★</span></span>
+  </div>
+</div><div class="stripe-bar"><div class="s1"></div><div class="s2"></div><div class="s3"></div><div class="s4"></div><div class="s5"></div></div>
+
+<section id="about">
+  <div class="reveal">
+    <div class="about-num">01</div>
+    <h2 class="about-title">About<br>Me</h2>
+  </div>
+  <div class="about-right reveal">
+    <p>I'm Patrick — most people call me Rick. I'm a software engineer with a background in AI, robotics, and systems design.</p>
+    <p>I'm driven by curiosity more than anything else. I build things, write, teach, and research — sometimes all at once — because I find it hard to be interested in just one thing.</p>
+    <div class="motto-badge">✦ Scientia potentia est ✦</div>
   </div>
 </section>
 
-<section class="panel">
-  <div class="intro-text">
-    <h1>Notes</h1>
-        <p>This is my digital notebook: essays, thoughts, and reflections.<br><br><a href="notebook.html">[Read]</a>
-    </p>
+<section id="sections">
+  <div class="section-header reveal">
+    <h2>Everything I've Built</h2>
+  </div>
+  <div class="cards-grid">
+    <a href="about.html" class="card reveal">
+      <div class="card-icon">01</div>
+      <div class="card-tag">Story</div>
+      <div class="card-title">Full Story</div>
+      <p class="card-desc">More info.</p>
+      <span class="card-arrow">↗</span>
+    </a>
+    <a href="timeline.html" class="card reveal">
+      <div class="card-icon">02</div>
+      <div class="card-tag">Portfolio</div>
+      <div class="card-title">Projects</div>
+      <p class="card-desc">Research projects, prototypes, and concepts that map my growth as a creator.</p>
+      <span class="card-arrow">↗</span>
+    </a>
+    <a href="notebook.html" class="card reveal">
+      <div class="card-icon">03</div>
+      <div class="card-tag">Writing</div>
+      <div class="card-title">Notes</div>
+      <p class="card-desc">Essays, thoughts, reflections. My digital notebook — raw and unfiltered.</p>
+      <span class="card-arrow">↗</span>
+    </a>
+    <a href="tutoring.html" class="card reveal">
+      <div class="card-icon">04</div>
+      <div class="card-tag">Education</div>
+      <div class="card-title">Tutoring</div>
+      <p class="card-desc">One-on-one teaching rooted in genuine understanding and wisdom.</p>
+      <span class="card-arrow">↗</span>
+    </a>
+    <a href="sandbox.html" class="card reveal">
+      <div class="card-icon">05</div>
+      <div class="card-tag">Lab</div>
+      <div class="card-title">Sandbox</div>
+      <p class="card-desc">Experiments, demos, and half-built prototypes. Where ideas become real.</p>
+      <span class="card-arrow">↗</span>
+    </a>
+    <a href="marketplace.html" class="card reveal">
+      <div class="card-icon">06</div>
+      <div class="card-tag">Commerce</div>
+      <div class="card-title">Shop</div>
+      <p class="card-desc">Projects, tools, and weird tech things — available for you to use.</p>
+      <span class="card-arrow">↗</span>
+    </a>
   </div>
 </section>
 
-<section class="panel">
-  <div class="intro-text">
-    <h1>Tutoring</h1><br>
-<p><strong><em>“Sapientia et virtus.”</em></strong><br><em>Wisdom and excellence.</em><br><br> <a href="tutoring.html">[Learn more]</a></p>
+<section id="philosophy">
+  <div class="reveal">
+    <p class="quote-text">The most dangerous idea is that technology is neutral — it never is. It is encoded with the values of its makers.</p>
+    <p class="quote-attr">— P. Clement</p>
   </div>
 </section>
 
-<section class="panel">
-  <div class="intro-text">
-    <h1>Sandbox</h1>
-    <p>This sandbox is my lab. A place where I display experiments, demos, and half-built prototypes that may one day evolve into full projects.<br><br><a href="sandbox.html">[Enter]</a></p>
+<section id="contact">
+  <div class="contact-left reveal">
+    <h2>Let's<br>Talk</h2>
+  </div>
+  <div class="contact-right reveal">
+    <p>Have an idea? Want to collaborate? Looking for a tutor? I'm always open to interesting conversations and meaningful work.</p>
+    <a href="contact.html" class="cta-btn">Open Mailbox ↗</a>
   </div>
 </section>
 
-<section class="panel">
-  <div class="intro-text">
-    <h1>Shop</h1>
-    <p>My marketplace. This is where I share my projects, and other weird tech stuff.<br><br><a href="marketplace.html">[Visit Shop]</a></p>
-  </div>
-</section>
-
-<section class="panel">
-  <div class="intro-text">
-    <h1>Mailbox</h1>
-    <p>Want to have a chat or collaborate? Drop me a message here<br><br> <button class="toggle-btn" onclick="window.location.href='contact.html'"> →  mailbox</button></p>
-  </div>
-</section>
-
-</main>
-
-<nav class="nav" id="dotNav"></nav>
+<footer>
+  <p>Patrick Clement © 2026</p>
+  <p class="footer-logo">P.C</p>
+  <p>Software Engineer. Builder.</p>
+</footer>
 
 <script>
-
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 60);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
-
 </body>
 </html>

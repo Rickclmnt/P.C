@@ -1,142 +1,228 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>About me</title>
-</head>
-<style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — P.Clement</title>
+  <link rel="stylesheet" href="retro.css">
+  <script data-goatcounter="https://rickclmnt.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <style>
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+    .about-col {
+      padding: 64px 56px;
+      border-right: 3px solid var(--brown);
+    }
+    .about-col:last-child { border-right: none; }
 
-.top-nav a {
-  text-decoration: none;
-  color: #eee;
-  background: #111;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-}
+    .about-col p {
+      font-size: 0.95rem;
+      line-height: 1.9;
+      opacity: 0.72;
+      margin-bottom: 18px;
+    }
+    .about-col p strong { opacity: 1; }
 
-body {
-  font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
-  background:#F7F7F7;
-}
-.signature {
-  font-style: italic;
-  margin-top: 2rem;
-  color: #666;
-  border-left: 4px solid #ccc;
-  padding-left: 1rem;
-}
-
-    .toggle-btn {
-      cursor: pointer;
-      font-size: 0.7rem;
-      border: none;
-      background: #111;
-      color: #eee;
-      padding: 0.2rem 0.4rem;
-      border-radius: 6px;
+    .blockquote {
+      border-left: 5px solid var(--red);
+      padding-left: 20px;
+      margin: 32px 0;
+      font-style: italic;
+      font-size: 1rem;
+      opacity: 0.75;
     }
 
-    /* Sections */
-    section {
-      max-width: 900px;
-      margin: 5rem auto;
-      padding: 0 2rem;
+    /* Interests */
+    .interest-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .interest-tag {
+      font-family: 'Fredoka One', Fredoka;
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      padding: 6px 16px;
+      border: 2px solid var(--brown);
+      border-radius: 100px;
+      background: var(--cream-dk);
+      transition: all 0.2s;
+    }
+    .interest-tag:hover {
+      background: var(--brown);
+      color: var(--cream);
+    }
+
+    /* Skills */
+    .skill-list {
+      list-style: none;
+      margin-top: 12px;
+    }
+    .skill-list li {
+      padding: 12px 0;
+      border-bottom: 2px solid var(--cream-dk);
+      font-size: 0.9rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .skill-list li::before {
+      content: '★';
+      color: var(--orange);
+      font-size: 0.7rem;
+    }
+
+    /* Certs */
+    .cert-block {
+      margin-bottom: 24px;
+    }
+    .cert-tag {
+      display: inline-block;
+      font-family: 'Fredoka One', Fredoka;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      padding: 5px 14px;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+    .cert-tag.harvard { background: #8b0000; color: white; }
+    .cert-tag.fcc { background: var(--brown); color: white; }
+    .cert-tag.mit { background: #F0F0F0; color: black; border: 2px solid #f0f0f0; }
+    .cert-tag.cisco { background: white; color: #4a8fd0; border: 2px solid #4a8fd0; }
+
+    .cert-items { list-style: none; }
+    .cert-items li {
+      font-size: 0.85rem;
+      padding: 4px 0 4px 16px;
+      opacity: 0.75;
       position: relative;
     }
-
-    section h2, section h3 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-      color: #111;
+    .cert-items li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--red);
     }
 
-    section p {
-      font-size: 1.1rem;
-      color: #444;
-    }
-
-    .tag {
-      display: block;
-      margin: 0.3rem 0 0.5rem;
-      padding: 0.2rem 0.6rem;
+    /* Last updated badge */
+    .update-tag {
+      display: inline-block;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      font-weight: 700;
+      padding: 5px 12px;
+      background: var(--cream-dk);
+      border: 2px solid var(--brown);
       border-radius: 4px;
-      font-size: 0.7rem;
-      width: fit-content;
+      margin-bottom: 20px;
     }
 
-    .harvard { background: maroon; color: white; }
-    .freecodecamp { background: black; color: white; }
-    .mit { background: #EDEDED; color: darkred; }
-    .cisco { background: white; color: #6B94B8; }
-    .update {background: whitesmoke; color: black;}
-
-footer { border-top: 1px solid #eee; padding: 20px 20px; text-align: center; font-size: 0.85rem; color: #666; }
-</style>
+    @media (max-width: 768px) {
+      .about-grid { grid-template-columns: 1fr; }
+      .about-col { border-right: none; border-bottom: 3px solid var(--brown); padding: 40px 20px; }
+      .about-col:last-child { border-bottom: none; }
+    }
+  </style>
+</head>
 <body>
-<br>
-    <div class="top-nav">
-      <a href="javascript:history.back()">← Back</a>
-    </div>
-  <section>
-  <h2>About me</h2>
-      <p>
-        Hi, I’m Patrick Clement—you can also call me Rick. I'm a technology enthusiast with a strong background in 
-        computer science, artificial intelligence, and robotics. <br>My journey has taken me through 
-        diverse fields, from programming to space systems design and engineering. <br><br>I'm passionate about solving 
-        complex problems and creating impactful solutions that make technology more accessible and useful.</p>
-    <blockquote class="signature">
-      “My moto is <strong>failing forward, and always learning.</strong>”
-    </blockquote>
-      <br>
-      <p>
-        Beyond certifications and technical skills, I see myself as a lifelong learner driven by curiosity.</p><br>
-        <h1>My Interests :</h1>
-        <strong>architechture
-        • engineering
-        • science fiction 
-        • art
-        • language
-        • philosophy
-        • tech
-        • history 
-        • animation
-        • literature
-        • psychology 
-        • movies
-        • space exploration</strong>
-      <br><br> 
-      <p>My journey has been less about a straight line and more about experiments — building, testing, and learning by doing.</p><br>
-      <p>My focus is on leveraging innovation to optimize processes, empower individuals, and contribute to 
-        a future where technology serves humanity in positive and meaningful ways.
-      </p><br><br>
-      
-      <!-- Skills -->
-      
-    <div class="skills-certifications">
-        <h1>Skills</h1>
-        <span class="tag update">Last update - 30.09.25</span>
-        • Software engineering<br>
-        • AI<br>
-        • Business & structure<br>
-        • Research & synthesis<br>
-        • Robotics & embedded systems<br>
-        • Process optimization, automation & workflow design<br>
-        • Mechanical engineering<br>
-        • Video game development
-      </div>
 
-      <!-- Certifications -->
-        <br><br><br>
-      <div class="certifications">
-        <h1>Certifications</h1>
-        <span class="tag cisco">CISCO - Networking Academy</span><li>Cybersecurity</li><li>Information Technology</li><br>
-          <span class="tag harvard">Harvard University - CS50</span><li>Computer Science</li><li>Python Programming</li><li>Intro to Artificial Intelligence</li><br>
-          <span class="tag freecodecamp">freeCodeCamp</span><li>Artificial Intelligence (full course)</li><br>
-        <span class="tag mit">MIT</span><li>Cognitive Robotics</li><li>Space systems & applied engineering</li>
+<nav class="site-nav">
+  <a href="index.html" class="nav-logo">P.C</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+  </ul>
+</nav>
+<div class="stripe-bar"><div></div><div></div><div></div><div></div><div></div></div>
+
+<div class="about-grid">
+  <div class="about-col reveal">
+    <p class="page-eyebrow">06 — Story</p><br><br>
+    <p>I grew up taking things apart to see how they worked — not always successfully, but that never stopped me. Curiosity has always been my default setting. My first real ambition was to be an astronaut — I've always had a fascination with outer space — and when becoming an astronaut stopped being realistic, I just found other ways to put my mind to good use and feed my curiosity: I see something interesting and I follow it until I understand it.</p>
+
+<p>I'm 23, self-taught in most of what I know, and I've spent the majority of that time thinking alone. No mentors, no community — just problems, stubborn determination, the internet and an unusual role model. I've always gravitated toward intelligent characters who build impossible things with complete conviction —Tony Stark— Not just for the spectacle, but for the mindset — the elaborate thinking and the refusal to be limited by what's available. Growing up without many resources reinforced that. Limitations stopped feeling like dead ends and started feeling like constraints to design around.</p>
+
+    <div class="blockquote">
+      "I don't see science fiction as fantasy. <br>I believe I can make it reality. One project at a time."
+    </div>
+  </div>
+
+  <div class="about-col reveal">
+    <div>
+      <p class="section-tag">My Interests</p>
+        <span class="interest-tag">Architecture</span><span class="interest-tag">Sci-Fi</span>
+        <span class="interest-tag">Engineering</span>
+        <span class="interest-tag">Art</span>
+        <span class="interest-tag">Language</span>
+        <span class="interest-tag">Philosophy</span>
+        <span class="interest-tag">Tech</span>
+        <span class="interest-tag">History</span>
+        <span class="interest-tag">Animation</span>
+        <span class="interest-tag">Literature</span>
+        <span class="interest-tag">Psychology</span>
+        <span class="interest-tag">Movies</span>
+        <span class="interest-tag">Space</span>
+    </div>
+
+    <br><br>
+
+    <div>
+      <p class="section-tag">Skills</p>
+      <span class="update-tag">Last update — 30.09.25</span>
+      <ul class="skill-list">
+        <li>Software Engineering</li>
+        <li>Artificial Intelligence</li>
+        <li>Business & Structure</li>
+        <li>Research & Synthesis</li>
+        <li>Robotics & Embedded Systems</li>
+        <li>Process Optimization & Automation</li>
+        <li>Mechanical Engineering</li>
+        <li>Video Game Development</li>
+      </ul>
+    </div>
+
+    <br><br>
+
+    <div>
+      <p class="section-tag">Certifications</p>
+      <div class="cert-block">
+        <span class="cert-tag cisco">CISCO — Networking Academy</span>
+        <ul class="cert-items"><li>Cybersecurity</li><li>Information Technology</li></ul>
       </div>
-  </section>
-<footer>© 2025 Patrick Clement. All rights reserved.</footer>
+      <div class="cert-block">
+        <span class="cert-tag harvard">Harvard — CS50 </span>
+        <ul class="cert-items"><li>Computer Science</li><li>Python Programming</li><li>Intro to Artificial Intelligence</li></ul>
+      </div>
+      <div class="cert-block">
+        <span class="cert-tag fcc">freeCodeCamp</span>
+        <ul class="cert-items"><li>Artificial Intelligence (full course)</li></ul>
+      </div>
+      <div class="cert-block">
+        <span class="cert-tag mit">MIT</span>
+        <ul class="cert-items"><li>Cognitive Robotics</li><li>Space Systems & Applied Engineering</li></ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="stripe-bar rev"><div></div><div></div><div></div><div></div><div></div></div>
+
+<footer class="site-footer">
+  <p>© 2026 Patrick Clement. All rights reserved.</p>
+  <span class="footer-logo">P.C</span>
+  <p>Software Engineer. Builder.</p>
+</footer>
+
+<script>
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach((e,i) => { if(e.isIntersecting) setTimeout(()=>e.target.classList.add('visible'),i*80); });
+  }, {threshold:0.1});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
 </body>
 </html>

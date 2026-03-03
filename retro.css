@@ -1,0 +1,332 @@
+/* ═══════════════════════════════════════════════════════
+   P.CLEMENT — RETRO DESIGN SYSTEM
+   Inspired by 70s Polaroid rainbow typography
+   ═══════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&family=Fredoka+One&display=swap');
+
+@font-face {
+  font-family: 'Fredoka';
+  src: url('/retro /Fredoka-VariableFont_wdth,wght.ttf') format('truetype');
+  font-weight: 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Nunito Sans';
+  src: url('/retro /NunitoSans-VariableFont_YTLC,opsz,wdth,wght.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Nunito Sans';
+  src: url('/retro /NunitoSans-VariableFont_YTLC,opsz,wdth,wght.ttf') format('truetype');
+  font-weight: 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Nunito Sans';
+  src: url('/retro /NunitoSans-VariableFont_YTLC,opsz,wdth,wght.ttf') format('truetype');
+  font-weight: 700;
+  font-display: swap;
+}
+
+:root {
+  --cream:   #e8e0d0;
+  --cream-dk:#d9cfc0;
+  --brown:   #2a1f14;
+  --red:     #e03a2f;
+  --orange:  #f07030;
+  --yellow:  #f0c030;
+  --green:   #4a9e3f;
+  --blue:    #4a8fd0;
+  --muted:   #888;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+
+body {
+  background: var(--cream);
+  color: var(--brown);
+  font-family: 'Nunito Sans', sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ── RAINBOW STRIPE ── */
+.stripe-bar {
+  display: flex;
+  height: 8px;
+  width: 100%;
+}
+.stripe-bar div { flex:1; }
+.s1 { background: var(--blue); }
+.s2 { background: var(--red); }
+.s3 { background: var(--orange); }
+.s4 { background: var(--green); }
+.s5 { background: var(--yellow); }
+.stripe-bar.rev div:nth-child(1) { background: var(--yellow); }
+.stripe-bar.rev div:nth-child(2) { background: var(--green); }
+.stripe-bar.rev div:nth-child(3) { background: var(--orange); }
+.stripe-bar.rev div:nth-child(4) { background: var(--red); }
+.stripe-bar.rev div:nth-child(5) { background: var(--blue); }
+
+/* ── RAINBOW TEXT SHADOW (apply to .retro-shadow) ── */
+.retro-shadow {
+  color: white;
+  text-shadow:
+    3px  3px 0 var(--green),
+    4px  4px 0 var(--brown),
+    6px  6px 0 var(--orange),
+    7px  7px 0 var(--brown),
+    9px  9px 0 var(--red),
+    10px 10px 0 var(--brown),
+    12px 12px 0 var(--blue),
+    13px 13px 0 var(--brown);
+}
+.retro-shadow-sm {
+  color: var(--cream);
+  -webkit-text-stroke: 1.5px var(--brown);
+  text-shadow:
+    2px 2px 0 var(--green),
+    3px 3px 0 var(--brown),
+    5px 5px 0 var(--red),
+    6px 6px 0 var(--brown),
+    8px 8px 0 var(--blue),
+    9px 9px 0 var(--brown);
+}
+
+/* ── SITE NAV ── */
+.site-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 56px;
+  background: var(--cream);
+  border-bottom: 3px solid var(--brown);
+  position: sticky;
+  top: 0;
+  z-index: 200;
+}
+.nav-logo {
+  font-family: 'Fredoka One', Fredoka;
+  font-size: 1.5rem;
+  color: var(--brown);
+  text-decoration: none;
+  letter-spacing: 0.05em;
+}
+.nav-links { display:flex; gap:28px; list-style:none; }
+.nav-links a {
+  font-family: 'Nunito Sans', sans-serif;
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--brown);
+  text-decoration: none;
+  opacity: 0.55;
+  transition: opacity 0.2s;
+}
+.nav-links a:hover { opacity: 1; }
+
+/* ── BACK BUTTON ── */
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Fredoka One', Fredoka;
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  color: var(--brown);
+  text-decoration: none;
+  background: var(--cream-dk);
+  border: 2px solid var(--brown);
+  padding: 8px 18px;
+  border-radius: 100px;
+  box-shadow: 3px 3px 0 var(--brown);
+  transition: all 0.2s ease;
+}
+.back-btn:hover {
+  background: var(--brown);
+  color: var(--cream);
+  box-shadow: 5px 5px 0 var(--brown);
+  transform: translate(-1px,-1px);
+}
+
+/* ── PAGE HEADER (inner pages) ── */
+.page-header {
+  padding: 56px 56px 40px;
+  border-bottom: 3px solid var(--brown);
+}
+.page-eyebrow {
+  font-size: 0.65rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--red);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.page-eyebrow::after {
+  content: '';
+  flex:1;
+  height: 2px;
+  background: var(--brown);
+  opacity: 0.15;
+}
+.page-title {
+  display: block;
+  font-family: 'Fredoka One', Fredoka;
+  font-size: clamp(3rem, 6vw, 6rem);
+  line-height: 0.95;
+  color: white;
+}
+.page-subtitle {
+  margin-top: 16px;
+  font-size: 1rem;
+  opacity: 0.65;
+  max-width: 600px;
+}
+
+/* ── SECTION LABEL ── */
+.section-tag {
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--red);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.section-tag::after {
+  content:'';
+  flex:1;
+  height:2px;
+  background:var(--brown);
+  opacity:0.12;
+}
+
+/* ── RETRO CARD ── */
+.retro-card {
+  background: var(--cream);
+  border: 3px solid var(--brown);
+  box-shadow: 5px 5px 0 var(--brown);
+  padding: 32px;
+  position: relative;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.retro-card:hover {
+  box-shadow: 8px 8px 0 var(--brown);
+  transform: translate(-2px,-2px);
+}
+
+/* ── CTA BUTTON ── */
+.cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--brown);
+  color: var(--cream);
+  font-family: 'Fredoka One', Fredoka;
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+  padding: 14px 28px;
+  text-decoration: none;
+  border-radius: 100px;
+  border: 3px solid var(--brown);
+  box-shadow: 4px 4px 0 var(--brown);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+.cta-btn:hover {
+  background: var(--cream);
+  color: var(--brown);
+  box-shadow: 7px 7px 0 var(--brown);
+  transform: translate(-2px,-2px);
+}
+.cta-btn.outline {
+  background: transparent;
+  color: var(--brown);
+}
+.cta-btn.outline:hover {
+  background: var(--brown);
+  color: var(--cream);
+}
+
+/* ── FORM INPUTS ── */
+.retro-input {
+  width: 100%;
+  padding: 14px 18px;
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 0.95rem;
+  background: var(--cream);
+  border: 3px solid var(--brown);
+  border-radius: 0;
+  color: var(--brown);
+  outline: none;
+  transition: box-shadow 0.2s;
+  box-shadow: 3px 3px 0 var(--brown);
+}
+.retro-input:focus {
+  box-shadow: 5px 5px 0 var(--red);
+  border-color: var(--red);
+}
+.retro-input::placeholder { opacity: 0.45; }
+
+/* ── FOOTER ── */
+.site-footer {
+  background: var(--brown);
+  color: var(--cream);
+  padding: 28px 56px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 3px solid var(--brown);
+}
+.site-footer p {
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0.45;
+  font-weight: 600;
+}
+.site-footer .footer-logo {
+  font-family: 'Fredoka One', Fredoka;
+  font-size: 1.1rem;
+  opacity: 1;
+}
+
+/* ── MOTTO BADGE ── */
+.motto-badge {
+  display: inline-block;
+  background: var(--brown);
+  color: var(--cream);
+  font-family: 'Fredoka One', Fredoka;
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  padding: 10px 22px;
+  border-radius: 100px;
+}
+
+/* ── REVEAL ANIMATION ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+.reveal.visible { opacity:1; transform:translateY(0); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .site-nav, .page-header { padding-left: 20px; padding-right: 20px; }
+  .nav-links { gap: 16px; }
+  .site-footer { padding: 20px; flex-direction: column; gap: 8px; text-align: center; }
+}
