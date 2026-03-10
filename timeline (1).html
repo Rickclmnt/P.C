@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects — P.Clement</title>
+  <script data-goatcounter="https://rickclmnt.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <link rel="stylesheet" href="retro.css">
+  <style>
+    .timeline-body { padding: 56px; }
+
+    .disclaimer {
+      font-size: 0.78rem;
+      opacity: 0.55;
+      font-style: italic;
+      max-width: 600px;
+      margin-bottom: 56px;
+      padding-left: 16px;
+      border-left: 4px solid var(--orange);
+    }
+
+    /* Timeline */
+    .timeline {
+      position: relative;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .timeline::before {
+      content:'';
+      position: absolute;
+      left: 50%;
+      top: 0; bottom: 0;
+      width: 3px;
+      background: var(--brown);
+      transform: translateX(-50%);
+    }
+
+    .tl-item {
+      position: relative;
+      width: 50%;
+      padding: 0 48px 48px 0;
+    }
+    .tl-item.right {
+      left: 50%;
+      padding: 0 0 48px 48px;
+      text-align: left;
+    }
+    .tl-item.left { text-align: right; }
+
+    .tl-dot {
+      position: absolute;
+      top: 6px;
+      width: 16px; height: 16px;
+      background: var(--cream);
+      border: 3px solid var(--brown);
+      border-radius: 50%;
+      z-index: 2;
+    }
+    .tl-item.left .tl-dot { right: -8px; }
+    .tl-item.right .tl-dot { left: -8px; }
+
+    .tl-year {
+      font-family: 'Fredoka One', Fredoka;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .tl-card {
+      display: inline-block;
+      background: var(--cream);
+      border: 3px solid var(--brown);
+      box-shadow: 4px 4px 0 var(--brown);
+      padding: 20px 24px;
+      text-align: left;
+      max-width: 280px;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .tl-card:hover {
+      box-shadow: 7px 7px 0 var(--brown);
+      transform: translate(-2px,-2px);
+    }
+
+    .tl-tag {
+      display: inline-block;
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 100px;
+      margin-bottom: 8px;
+    }
+    .tl-tag.prototype { background: var(--green); color: white; }
+    .tl-tag.research  { background: var(--red); color: white; }
+    .tl-tag.concept   { background: var(--orange); color: white; }
+    .tl-tag.ongoing   { background: var(--blue); color: white; }
+    .tl-tag.company   { background: var(--brown); color: var(--cream); }
+    .tl-tag.literature { background: var(--yellow); color: var(--brown); }
+    .tl-tag.complete  { background: grey; color: white; }
+
+    .tl-title {
+      font-family: 'Fredoka One', Fredoka;
+      font-size: 1.1rem;
+      margin-bottom: 6px;
+      line-height: 1.2;
+    }
+
+    .tl-desc {
+      font-size: 0.8rem;
+      line-height: 1.7;
+      opacity: 0.7;
+      margin-bottom: 10px;
+    }
+
+    .tl-link {
+      font-family: 'Fredoka One', Fredoka;
+      font-size: 0.78rem;
+      color: var(--red);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+    .tl-link:hover { color: var(--brown); }
+
+    /* year gap helpers */
+    .gap-1 { margin-top: 60px; }
+    .gap-2 { margin-top: 120px; }
+    .gap-3 { margin-top: 180px; }
+
+    @media (max-width: 768px) {
+      .timeline-body { padding: 32px 20px; }
+      .timeline::before { left: 20px; }
+      .tl-item, .tl-item.right {
+        width: 100%;
+        left: 0;
+        padding: 0 0 36px 52px;
+        text-align: left;
+      }
+      .tl-item.left .tl-dot,
+      .tl-item.right .tl-dot { left: 12px; right: auto; }
+      .tl-card { max-width: 100%; display: block; }
+      .gap-1, .gap-2, .gap-3 { margin-top: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <a href="index.html" class="nav-logo">P.C</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+  </ul>
+</nav>
+<div class="stripe-bar"><div></div><div></div><div></div><div></div><div></div></div>
+
+<div class="page-header reveal">
+  <p class="page-eyebrow">02 — Portfolio</p>
+  <h1 class="page-title">Project Archive</h1>
+  <p class="page-subtitle">A record of projects, prototypes, research, and concepts over the years.</p>
+</div>
+
+<div class="timeline-body">
+  <p class="disclaimer reveal">* This list is not exhaustive — I've lost a significant number of project files and prototypes through the years.</p>
+
+  <div class="timeline">
+
+    <div class="tl-item left reveal">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2022</div>
+      <div class="tl-card">
+        <span class="tl-tag research">Research</span>
+        <div class="tl-title">Rheingold</div>
+        <p class="tl-desc">Trading bot experiment.</p>
+        <a href="project.html#rheingold" class="tl-link">View →</a>
+      </div>
+    </div>
+
+    <div class="tl-item right gap-3 reveal">
+      <div class="tl-dot"></div>
+      <div class="tl-year">April 2024</div>
+      <div class="tl-card">
+        <span class="tl-tag concept">Concept</span>
+        <div class="tl-title">PAL</div>
+        <p class="tl-desc">A "Personality chip" to give AIs unique identities.</p>
+        <a href="project.html#pal" class="tl-link">View →</a>
+      </div>
+    </div>
+
+    <div class="tl-item left reveal">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2024</div>
+      <div class="tl-card">
+        <span class="tl-tag prototype">Prototype</span>
+        <div class="tl-title">E3N</div>
+        <p class="tl-desc">Project notebook. One of my personal AI projects.</p>
+        <a href="project.html#e3n" class="tl-link">View →</a>
+      </div>
+    </div>
+
+    <div class="tl-item right reveal">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2024</div>
+      <div class="tl-card">
+        <span class="tl-tag research">Research</span>
+        <div class="tl-title">M.A.R.K. IV</div>
+        <p class="tl-desc">Self-repairing AI assistant inspired by JARVIS.</p>
+      </div>
+    </div>
+
+    <div class="tl-item left reveal">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2024</div>
+      <div class="tl-card">
+        <span class="tl-tag concept">Concept</span>
+        <div class="tl-title">Project KAIMERA</div>
+        <p class="tl-desc">Video game inspired by the Love, Death & Robots episode "Sonnie's Edge".</p>
+      </div>
+    </div>
+
+    <div class="tl-item right reveal">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2024</div>
+      <div class="tl-card">
+        <span class="tl-tag research">Research</span>
+        <div class="tl-title">Wraith OS</div>
+        <p class="tl-desc">Privacy-focused amnesic on-flash operating system based on the way Tails OS works.</p>
+      </div>
+    </div>
+
+    <div class="tl-item left reveal">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2024</div>
+      <div class="tl-card">
+        <span class="tl-tag concept">Research</span>
+        <div class="tl-title">A.E.G.I.S.</div>
+        <p class="tl-desc">Automated emergency governance system.</p>
+      </div>
+    </div>
+
+    <div class="tl-item right reveal">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2024</div>
+      <div class="tl-card">
+        <span class="tl-tag research">Concept</span>
+        <div class="tl-title">R.E.S.C.U.E.</div>
+        <p class="tl-desc">Drone network for disaster response operations.</p>
+      </div>
+    </div>
+
+    <div class="tl-item left reveal">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2024</div>
+      <div class="tl-card">
+        <span class="tl-tag concept">Concept</span>
+        <div class="tl-title">Labyrinth</div>
+        <p class="tl-desc">Maze Runner–inspired exploration game.</p>
+      </div>
+    </div>
+
+    <div class="tl-item right gap-2 reveal">
+      <div class="tl-dot"></div>
+      <div class="tl-year">Feb 2025</div>
+      <div class="tl-card">
+        <span class="tl-tag literature">Literature</span>
+        <div class="tl-title">Kaleidoscope</div>
+        <p class="tl-desc">Experimental anthology series.</p>
+      </div>
+    </div>
+
+    <div class="tl-item left reveal">
+      <div class="tl-dot"></div>
+      <div class="tl-year">May 2025</div>
+      <div class="tl-card">
+        <span class="tl-tag research">Research</span>
+        <div class="tl-title">MAADE</div>
+        <p class="tl-desc">Rust-based compression algorithm for streaming.</p>
+      </div>
+    </div>
+
+    <div class="tl-item right reveal">
+      <div class="tl-dot"></div>
+      <div class="tl-year">May 2025</div>
+      <div class="tl-card">
+        <span class="tl-tag company">Company</span>
+        <div class="tl-title">RICKCLMNT</div>
+        <p class="tl-desc">Launched 2/5/25</p>
+        <a href="https://rickclmnt.github.io/RICKCLMNT/" class="tl-link">View →</a>
+      </div>
+    </div>
+
+    <div class="tl-item left reveal">
+      <div class="tl-dot"></div>
+      <div class="tl-year">July 2025</div>
+      <div class="tl-card">
+        <span class="tl-tag research">Research</span>
+        <div class="tl-title">NLP25</div>
+        <p class="tl-desc">Natural language processing engine. Lightweight, offline AI assistant.</p>
+      </div>
+    </div>
+
+    <div class="tl-item right reveal">
+      <div class="tl-dot"></div>
+      <div class="tl-year">July 2025</div>
+      <div class="tl-card">
+        <span class="tl-tag prototype">Prototype</span>
+        <div class="tl-title">KAIMERA</div>
+        <p class="tl-desc">Creature AI brains + arena camera rig in Godot.</p>
+        <a href="marketplace.html" class="tl-link">Shop →</a>
+      </div>
+    </div>
+
+    <div class="tl-item left reveal">
+      <div class="tl-dot"></div>
+      <div class="tl-year">July 2025</div>
+      <div class="tl-card">
+        <span class="tl-tag prototype">Prototype</span>
+        <div class="tl-title">Firelike</div>
+        <p class="tl-desc">AI-powered school management + learning platform.</p>
+        <a href="project.html#firelike" class="tl-link">View →</a>
+      </div>
+    </div>
+
+    <div class="tl-item right reveal">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2025</div>
+      <div class="tl-card">
+        <span class="tl-tag prototype">Prototype</span>
+        <div class="tl-title">USB Launcher</div>
+        <p class="tl-desc">Intelligent USB file launcher you can query on content.</p>
+      </div>
+    </div>
+
+    <div class="tl-item left reveal">
+      <div class="tl-dot"></div>
+      <div class="tl-year">Sept 2025</div>
+      <div class="tl-card">
+        <span class="tl-tag ongoing">Ongoing</span>
+        <div class="tl-title">Project Anvil</div>
+        <p class="tl-desc">My personal website.</p>
+        <a href="index.html" class="tl-link">View →</a>
+      </div>
+    </div>
+
+    <div class="tl-item right reveal">
+      <div class="tl-dot"></div>
+      <div class="tl-year">Oct 2025</div>
+      <div class="tl-card">
+        <span class="tl-tag prototype">Prototype</span>
+        <div class="tl-title">AETHER</div>
+        <p class="tl-desc">Introspective reasoning and self-evolving AI architecture.</p>
+        <a href="notebook.html" class="tl-link">View →</a>
+      </div>
+    </div>
+
+    <div class="tl-item left reveal">
+      <div class="tl-dot"></div>
+      <div class="tl-year">Feb 2026</div>
+      <div class="tl-card">
+        <span class="tl-tag complete">v2.3.0 complete</span>
+        <div class="tl-title">8R cognitive architecture</div>
+        <p class="tl-desc">2/20/26 - 8R v2.3.0 architecture development complete.</p>
+      </div>
+    </div>
+
+    <div class="tl-item right reveal">
+      <div class="tl-dot"></div>
+      <div class="tl-year">Mar 2026</div>
+      <div class="tl-card">
+        <span class="tl-tag ongoing">Ongoing</span>
+        <div class="tl-title">Rhodon</div>
+        <p class="tl-desc">Autonomous scientific research and development engine.</p>
+      </div>
+    </div>
+
+    <div class="tl-item left reveal">
+      <div class="tl-dot"></div>
+      <div class="tl-year">Mar 2026</div>
+      <div class="tl-card">
+        <span class="tl-tag ongoing">Ongoing</span>
+        <div class="tl-title">PAL-pixel 01</div>
+        <p class="tl-desc">An intelligent companion that lives inside a notebook app. A prototype of the P.A.L. line of virtual companions. PAL stands for Personalized Artificial Lifeform.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="stripe-bar rev"><div></div><div></div><div></div><div></div><div></div></div>
+<footer class="site-footer">
+  <p>© 2026 Patrick Clement. All rights reserved.</p>
+  <span class="footer-logo">P.C</span>
+  <p>Software Engineer. Builder.</p>
+</footer>
+
+<script>
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach((e,i) => { if(e.isIntersecting) setTimeout(()=>e.target.classList.add('visible'),i*60); });
+  }, {threshold:0.05});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
