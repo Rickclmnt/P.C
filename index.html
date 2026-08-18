@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Primary SEO -->
+<title>ALIS — Deterministic Legal Intelligence Software for Law Firms | No Hallucination AI</title>
+<meta name="description" content="ALIS is self-hosted legal intelligence software that reads case files and contracts, verifies citations against real case law, and traces every finding back to its source. No language model invents the legal conclusion.">
+<meta name="keywords" content="legal AI software, legal intelligence platform, law firm AI, deterministic legal AI, citation verification software, contract risk analysis, case file analysis software, legal research AI, self-hosted legal software, redline generation software, outcome prediction law firm, legal technology UK">
+<link rel="canonical" href="https://rickclmnt.vercel.app/ALIS.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="author" content="RICKCLMNT">
+<meta name="theme-color" content="#171714">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23171714'/%3E%3Ctext x='50' y='68' font-size='60' font-family='Georgia,serif' fill='%23faf9f5' text-anchor='middle'%3EA%3C/text%3E%3C/svg%3E">
+
+<!-- Structured data: Organization -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "RICKCLMNT",
+  "url": "https://rickclmnt.vercel.app/ALIS.html",
+  "email": "rickclmntcorp@protonmail.com",
+  "logo": "https://rickclmnt.vercel.app/alis_logo.png"
+}
+</script>
+
+<!-- Structured data: SoftwareApplication + Offers -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "ALIS",
+  "alternateName": "ALIS Legal Intelligence System",
+  "applicationCategory": "LegalTechnology",
+  "applicationSubCategory": "Legal Intelligence Software",
+  "operatingSystem": "Self-hosted (Linux/Windows server)",
+  "description": "ALIS is a deterministic legal intelligence platform for law firms. It reconstructs case timelines, verifies citations against an indexed case-law corpus, scores contract clause risk, generates redlines from approved templates, and produces outcome assessments from explicit weighted factors — with every finding traceable back to its source document.",
+  "url": "https://rickclmnt.vercel.app/ALIS.html",
+  "provider": {
+    "@type": "Organization",
+    "name": "RICKCLMNT"
+  },
+  "offers": [
+    {
+      "@type": "Offer",
+      "name": "Starter — Small Practice",
+      "price": "10000",
+      "priceCurrency": "USD",
+      "priceValidUntil": "2027-12-31",
+      "description": "Full self-hosted ALIS platform for up to 10 attorneys, billed annually."
+    },
+    {
+      "@type": "Offer",
+      "name": "Growth — Growing Firm",
+      "price": "28000",
+      "priceCurrency": "USD",
+      "priceValidUntil": "2027-12-31",
+      "description": "ALIS for 11–30 attorneys with priority support and implementation assistance, billed annually."
+    },
+    {
+      "@type": "Offer",
+      "name": "Firm — Established Firm",
+      "price": "65000",
+      "priceCurrency": "USD",
+      "priceValidUntil": "2027-12-31",
+      "description": "ALIS for 31–75 attorneys with dedicated onboarding and firm-wide playbooks, billed annually."
+    },
+    {
+      "@type": "Offer",
+      "name": "Enterprise — Custom Deployment",
+      "price": "100000",
+      "priceCurrency": "USD",
+      "priceValidUntil": "2027-12-31",
+      "description": "Custom-scoped ALIS deployment for firms with 75+ attorneys."
+    }
+  ]
+}
+</script>
+
+<!-- Structured data: Breadcrumb / page sections for rich results -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "ALIS — Legal Intelligence System",
+  "url": "https://rickclmnt.vercel.app/ALIS.html",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "ALIS",
+    "url": "https://rickclmnt.vercel.app/ALIS.html"
+  },
+  "about": {
+    "@type": "Thing",
+    "name": "Legal intelligence software"
+  },
+  "inLanguage": "en-US"
+}
+</script>
+
+<style>
+:root{
+  --bg:#f4f1e9;
+  --paper:#faf9f5;
+  --ink:#171714;
+  --muted:#69675f;
+  --line:#d8d4c9;
+  --soft:#e9e5db;
+  --accent:#b94b2f;
+  --accent-dark:#8f3824;
+  --green:#315f4b;
+  --white:#fffefa;
+  --serif: Georgia, "Times New Roman", serif;
+  --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--sans);
+  line-height:1.5;
+}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+.container{width:min(1180px,calc(100% - 40px));margin:auto}
+.nav{
+  position:sticky;top:0;z-index:50;
+  background:rgba(244,241,233,.88);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(216,212,201,.8);
+}
+.nav-inner{
+  height:74px;display:flex;align-items:center;justify-content:space-between;
+}
+.logo{
+  display:flex;align-items:center;gap:10px;
+  font-weight:800;letter-spacing:-.04em;font-size:20px;
+}
+.logo-mark{
+  width:28px;height:28px;border:2px solid var(--ink);
+  display:grid;place-items:center;font-family:var(--serif);font-size:17px;
+}
+.nav-links{display:flex;gap:28px;font-size:13px;color:var(--muted)}
+.nav-links a:hover{color:var(--ink)}
+.nav-cta,.hero-cta{
+  border:1px solid var(--ink);background:var(--ink);color:var(--white);
+  padding:11px 17px;border-radius:2px;font-weight:650;font-size:13px;
+  transition:.2s;
+}
+.nav-cta:hover,.hero-cta:hover{background:#30302b;transform:translateY(-1px)}
+.menu{display:none;background:none;border:0;font-size:24px}
+
+.hero{
+  padding:105px 0 92px;
+  border-bottom:1px solid var(--line);
+}
+.hero-grid{
+  display:grid;grid-template-columns:1.08fr .92fr;gap:70px;align-items:end;
+}
+.eyebrow{
+  font-family:var(--mono);font-size:11px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:25px;
+}
+h1{
+  font-family:var(--serif);font-size:clamp(58px,8vw,108px);
+  font-weight:400;line-height:.88;letter-spacing:-.065em;margin:0 0 34px;
+}
+.hero-copy{
+  max-width:620px;font-size:19px;line-height:1.55;color:#37362f;
+}
+.hero-actions{display:flex;gap:12px;align-items:center;margin-top:32px}
+.secondary{
+  border:1px solid var(--line);padding:11px 17px;font-size:13px;
+  background:transparent;
+}
+.secondary:hover{background:var(--paper)}
+.hero-note{
+  border-top:1px solid var(--line);padding-top:18px;
+  font-size:12px;color:var(--muted);max-width:390px;
+}
+.hero-note strong{color:var(--ink)}
+
+.interface{
+  margin-top:55px;background:#151513;color:#eae8df;
+  border-radius:4px;overflow:hidden;border:1px solid #282824;
+  box-shadow:0 30px 80px rgba(0,0,0,.14);
+  cursor:pointer;
+}
+.window-bar{
+  height:40px;border-bottom:1px solid #2b2b27;display:flex;align-items:center;
+  padding:0 14px;gap:7px;
+}
+.dot{width:7px;height:7px;border-radius:50%;background:#67655c}
+.window-title{margin-left:10px;font-family:var(--mono);font-size:10px;color:#85837a}
+.window-title-cta{margin-left:auto;font-family:var(--mono);font-size:10px;color:#c88973}
+.interface-body{display:grid;grid-template-columns:170px 1fr;min-height:420px}
+.sidebar{border-right:1px solid #2b2b27;padding:20px 13px}
+.side-label{font:9px var(--mono);color:#68665e;text-transform:uppercase;letter-spacing:.13em;margin:15px 8px 8px}
+.side-item{padding:8px;border-radius:3px;font-size:11px;color:#96948c}
+.side-item.active{background:#262622;color:#f0eee6}
+.case-view{padding:25px 30px}
+.case-top{display:flex;justify-content:space-between;align-items:flex-start;gap:20px}
+.case-kicker{font:10px var(--mono);color:#77756d}
+.case-title{font:23px var(--serif);margin:5px 0 0}
+.status{
+  border:1px solid #355b49;color:#80b09a;background:#1a2b24;
+  padding:5px 8px;font:9px var(--mono);white-space:nowrap;
+}
+.query{
+  margin:28px 0 20px;border:1px solid #373731;background:#1c1c19;
+  padding:13px 15px;font-size:11px;color:#cbc9c1;
+}
+.result-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.result{
+  border:1px solid #30302b;background:#1b1b18;padding:15px;
+}
+.result-label{font:9px var(--mono);color:#7f7d75;text-transform:uppercase}
+.result h4{font-family:var(--serif);font-weight:400;font-size:15px;margin:7px 0}
+.result p{font-size:10px;color:#a4a29a;line-height:1.6;margin:0}
+.citation{display:inline-block;margin-top:10px;font:9px var(--mono);color:#c88973}
+
+.section{padding:110px 0;border-bottom:1px solid var(--line)}
+.section-head{display:grid;grid-template-columns:.7fr 1.3fr;gap:70px;margin-bottom:65px}
+.section-num{font:11px var(--mono);color:var(--muted)}
+h2{
+  font-family:var(--serif);font-size:clamp(42px,5vw,68px);
+  line-height:.98;font-weight:400;letter-spacing:-.05em;margin:0;
+}
+.lead{font-size:20px;color:#4c4a43;max-width:680px}
+
+
+.architecture-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.arch-card{background:var(--paper);padding:30px;min-height:250px}
+.arch-card span{font:10px var(--mono);color:var(--accent)}
+.arch-card h3{font-family:var(--serif);font-size:27px;font-weight:400;margin:62px 0 12px}
+.arch-card p{font-size:13px;color:var(--muted);margin:0}
+.architecture-statement,.pricing-statement{display:grid;grid-template-columns:180px 1fr;gap:40px;margin-top:20px;padding:28px 30px;border:1px solid var(--line);background:var(--ink);color:var(--white)}
+.statement-mark{font:10px var(--mono);color:#a8a59b;letter-spacing:.12em}
+.architecture-statement strong,.pricing-statement strong{font-family:var(--serif);font-size:25px;font-weight:400}
+.architecture-statement p,.pricing-statement p{color:#aaa79e;font-size:14px;max-width:750px;margin:10px 0 0}
+.capability-group{margin-top:60px}
+.group-title{font:10px var(--mono);letter-spacing:.13em;color:var(--accent);text-transform:uppercase;margin-bottom:15px}
+.feature-list{border-top:1px solid var(--line)}
+.feature{
+  display:grid;grid-template-columns:70px 1fr 1fr;gap:35px;
+  padding:34px 0;border-bottom:1px solid var(--line);
+}
+.feature-number{font:11px var(--mono);color:var(--muted)}
+.feature h3{font-family:var(--serif);font-size:26px;font-weight:400;margin:0}
+.feature p{margin:0;color:var(--muted);font-size:15px;max-width:470px}
+
+.capabilities-cta{margin-top:50px;text-align:center}
+.capabilities-cta a{
+  display:inline-block;border:1px solid var(--ink);padding:13px 22px;
+  font-size:13px;font-weight:650;
+}
+.capabilities-cta a:hover{background:var(--ink);color:var(--white)}
+
+.principles{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+  background:var(--line);border:1px solid var(--line);
+}
+.principle{background:var(--paper);padding:32px;min-height:220px}
+.principle-icon{font:22px var(--mono);margin-bottom:42px}
+.principle h3{font-family:var(--serif);font-size:25px;font-weight:400;margin:0 0 10px}
+.principle p{font-size:14px;color:var(--muted);margin:0}
+
+.workflow{
+  background:#191916;color:#eeece3;padding:80px 0;
+}
+.workflow .section-num{color:#858279}
+.workflow h2{color:#f1efe7}
+.workflow-lead{color:#aaa79d;max-width:680px;font-size:18px}
+.pipeline{
+  display:grid;grid-template-columns:repeat(5,1fr);
+  margin-top:55px;border-top:1px solid #3a3a34;border-bottom:1px solid #3a3a34;
+}
+.step{padding:25px 18px;border-right:1px solid #3a3a34;min-height:190px}
+.step:last-child{border-right:0}
+.step-num{font:10px var(--mono);color:#77756c}
+.step h3{font-family:var(--serif);font-size:22px;font-weight:400;margin:45px 0 8px}
+.step p{font-size:12px;color:#99968d;margin:0}
+
+.audience-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:18px;
+}
+.audience{
+  background:var(--paper);border:1px solid var(--line);padding:35px;
+  min-height:260px;
+}
+.audience h3{font-family:var(--serif);font-size:29px;font-weight:400;margin:0 0 16px}
+.audience p{font-size:14px;color:var(--muted);margin:0}
+.audience-tag{font:10px var(--mono);color:var(--accent);text-transform:uppercase;letter-spacing:.12em;margin-bottom:50px}
+
+.security{
+  display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:start;
+}
+.security-box{border:1px solid var(--line);padding:35px;background:var(--paper)}
+.security-box h3{font-family:var(--serif);font-size:31px;font-weight:400;margin:0 0 13px}
+.security-box p{color:var(--muted);font-size:15px}
+.checks{margin-top:30px;border-top:1px solid var(--line)}
+.check{
+  display:flex;justify-content:space-between;gap:20px;padding:13px 0;
+  border-bottom:1px solid var(--line);font-size:12px;
+}
+.check span:last-child{font-family:var(--mono);font-size:10px;color:var(--green)}
+
+.pricing-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+  background:var(--line);border:1px solid var(--line);
+}
+.pricing-card{background:var(--paper);padding:34px 26px;display:flex;flex-direction:column}
+.pricing-card.featured{background:var(--ink);color:var(--white)}
+.plan-recommended{
+  font:10px var(--mono);letter-spacing:.13em;text-transform:uppercase;
+  color:#c88973;margin-bottom:14px;
+}
+.plan-tag{font:10px var(--mono);color:var(--accent);letter-spacing:.1em}
+.pricing-card.featured .plan-tag{color:#c88973}
+.plan-title{font-family:var(--serif);font-size:24px;font-weight:400;margin:10px 0 20px}
+.plan-price{font-family:var(--serif);font-size:38px}
+.plan-price span{font:11px var(--mono);color:var(--muted);margin-left:4px}
+.pricing-card.featured .plan-price span{color:#a8a59b}
+.plan-attorneys{
+  font:10px var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.08em;
+  padding-bottom:22px;margin:8px 0 22px;border-bottom:1px solid var(--line);
+}
+.pricing-card.featured .plan-attorneys{color:#a8a59b;border-bottom-color:#3a3a34}
+.plan-features{list-style:none;margin:0 0 22px;padding:0;flex-grow:1}
+.plan-features li{font-size:13px;color:var(--muted);line-height:1.5;padding:7px 0 7px 20px;position:relative}
+.plan-features li::before{content:"✓";position:absolute;left:0;color:var(--green);font-size:11px}
+.pricing-card.featured .plan-features li{color:#c4c1b7}
+.pricing-card.featured .plan-features li::before{color:#80b09a}
+.plan-effective{
+  font:11px var(--mono);color:var(--muted);padding-top:16px;
+  border-top:1px solid var(--line);margin-bottom:18px;
+}
+.pricing-card.featured .plan-effective{color:#a8a59b;border-top-color:#3a3a34}
+.plan-cta{font:12px var(--mono);color:var(--accent);text-transform:uppercase;letter-spacing:.06em}
+.plan-cta:hover{color:var(--accent-dark)}
+.pricing-card.featured .plan-cta{color:#c88973}
+.pricing-note{margin-top:20px;font-size:12px;color:var(--muted);text-align:center}
+
+.cta{
+  padding:125px 0;text-align:center;
+}
+.cta h2{max-width:850px;margin:0 auto 25px}
+.cta p{max-width:580px;margin:0 auto;color:var(--muted);font-size:17px}
+.cta-actions{margin-top:34px;display:flex;justify-content:center;gap:12px}
+.email{
+  display:inline-block;border-bottom:1px solid var(--ink);padding-bottom:2px;
+  margin-top:25px;font:12px var(--mono);
+}
+
+footer{border-top:1px solid var(--line);padding:30px 0}
+.footer-inner{display:flex;justify-content:space-between;gap:20px;color:var(--muted);font-size:11px}
+.footer-logo{color:var(--ink);font-weight:800}
+
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:none}
+
+@media(max-width:850px){
+  .architecture-grid{grid-template-columns:1fr 1fr}
+  .architecture-statement,.pricing-statement{grid-template-columns:1fr;gap:18px}
+  .nav-links,.nav-cta{display:none}
+  .menu{display:block}
+  .hero{padding:75px 0 60px}
+  .hero-grid,.section-head,.security{grid-template-columns:1fr;gap:35px}
+  .interface{margin-top:40px}
+  .pipeline{grid-template-columns:1fr}
+  .step{border-right:0;border-bottom:1px solid #3a3a34;min-height:0}
+  .step:last-child{border-bottom:0}
+  .step h3{margin-top:25px}
+  .feature{grid-template-columns:45px 1fr;gap:15px}
+  .feature p{grid-column:2}
+  .principles,.audience-grid,.pricing-grid{grid-template-columns:1fr}
+  .architecture-grid{grid-template-columns:1fr}
+  .result-grid{grid-template-columns:1fr}
+  .interface-body{grid-template-columns:1fr}
+  .sidebar{display:none}
+  .case-view{padding:20px}
+}
+@media(max-width:520px){
+  .container{width:min(100% - 28px,1180px)}
+  h1{font-size:62px}
+  .hero-copy{font-size:17px}
+  .hero-actions,.cta-actions{flex-direction:column;align-items:stretch}
+  .hero-cta,.secondary{text-align:center}
+  .case-top{flex-direction:column}
+}
+</style>
+</head>
+
+<body>
+<nav class="nav">
+  <div class="container nav-inner">
+    <a class="logo" href="#top"><span class="logo-mark">A</span> ALIS</a>
+    <div class="nav-links">
+      <a href="#what">What it is</a>
+      <a href="#capabilities">Capabilities</a>
+      <a href="see-it-in-action.html">See it in action</a>
+      <a href="#workflow">How it works</a>
+      <a href="#security">Security</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#contact">Get ALIS</a>
+    </div>
+    <a class="nav-cta" href="#contact">Start a pilot</a>
+    <button class="menu" aria-label="Open navigation">☰</button>
+  </div>
+</nav>
+
+<main id="top">
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <h1>Legal<br>intelligence<br>without hallucination</h1>
+      <p class="hero-copy">
+        Legal intelligence software that analyzes case files and legal documents, reconstructs events, verifies claims and citations, and derives its conclusions directly from the evidence available.
+      </p>
+      <div class="hero-actions">
+        <a class="hero-cta" href="#contact">Start a firm pilot →</a>
+        <a class="secondary" href="#capabilities">Explore capabilities</a>
+      </div>
+    </div>
+    <div>
+      <p class="hero-note">
+        <strong>Built for matters where plausibility is not enough.</strong><br><br>
+        ALIS grounds its outputs in your firm's documents and a real case-law
+        corpus, with source references attached to the underlying material.
+        Self-hosted deployment keeps matter data within your firm's infrastructure.
+      </p>
+    </div>
+  </div>
+
+  <div class="container">
+    <a href="see-it-in-action.html" style="display:block;text-decoration:none;color:inherit;">
+    <div class="interface reveal" aria-label="Illustration of the ALIS legal intelligence interface">
+      <div class="window-bar">
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="window-title">alis://matter/2026-0147</span>
+        <span class="window-title-cta">See demo →</span>
+      </div>
+      <div class="interface-body">
+        <aside class="sidebar">
+          <div class="side-label">Matter</div>
+          <div class="side-item active">Case overview</div>
+          <div class="side-item">Documents · 184</div>
+          <div class="side-item">Timeline</div>
+          <div class="side-item">Contradictions · 7</div>
+          <div class="side-label">Research</div>
+          <div class="side-item">Authorities</div>
+          <div class="side-item">Citation audit</div>
+          <div class="side-item">Firm precedent</div>
+        </aside>
+        <section class="case-view">
+          <div class="case-top">
+            <div>
+              <div class="case-kicker">MATTER 2026-0147 / ACTIVE ANALYSIS</div>
+              <div class="case-title">Commercial dispute — preliminary review</div>
+            </div>
+            <div class="status">GROUNDED</div>
+          </div>
+          <div class="query">
+            Query: Identify the strongest factual basis for the claimant's position
+            and flag any material contradictions.
+          </div>
+          <div class="result-grid">
+            <div class="result">
+              <div class="result-label">Finding 01</div>
+              <h4>Contractual obligation established</h4>
+              <p>
+                The signed agreement records the delivery obligation and the
+                relevant performance date.
+              </p>
+              <span class="citation">DOC-017 · p. 12 · §4.2</span>
+            </div>
+            <div class="result">
+              <div class="result-label">Conflict 01</div>
+              <h4>Witness account conflicts with invoice</h4>
+              <p>
+                The witness statement places delivery later than the date
+                recorded on the contemporaneous invoice.
+              </p>
+              <span class="citation">DOC-044 · p. 6 ↔ DOC-031 · p. 3</span>
+            </div>
+            <div class="result">
+              <div class="result-label">Authority</div>
+              <h4>Authority requires verification</h4>
+              <p>
+                The cited proposition was matched against the case-law corpus
+                and requires review before inclusion in a final document.
+              </p>
+              <span class="citation">AUTH-0921 · MATCH 0.94</span>
+            </div>
+            <div class="result">
+              <div class="result-label">Timeline</div>
+              <h4>18 material events reconstructed</h4>
+              <p>
+                Events were ordered from dated correspondence, filings,
+                agreements and other matter documents.
+              </p>
+              <span class="citation">TIMELINE · 18 EVENTS · 7 FLAGS</span>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+    </a>
+  </div>
+</section>
+
+<section class="section" id="architecture">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-num">01 / WHAT SETS ALIS APART</div>
+      <div>
+        <h2>Your record is the source of truth.</h2>
+        <p class="lead">
+          ALIS does not rely on a language model to generate a legal conclusion. It builds a structured representation of the matter, applies explicit rules and deterministic algorithms, and traces every conclusion back to the evidence that supports it.
+        </p>
+      </div>
+    </div>
+
+    <div class="architecture-statement reveal">
+      <div class="statement-mark">ALIS / CORE</div>
+      <div>
+        <strong>No language model generates the legal conclusion.</strong>
+        <p>
+          Drafts and redlines are assembled from approved templates and verified facts. Outcome assessments are calculated from explicit, weighted factors. Legal tests are broken down into their individual elements. Every result is designed to be inspectable, reproducible, and auditable.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="what">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-num">02 / WHAT IT IS</div>
+      <div>
+        <h2>A legal intelligence layer for your firm's record.</h2>
+        <p class="lead">
+          ALIS is designed around a simple constraint: every legal conclusion should be
+          traceable back to the evidence and authorities from which it was derived.
+        </p>
+      </div>
+    </div>
+
+    <div class="principles reveal">
+      <div class="principle">
+        <div class="principle-icon">01</div>
+        <h3>Grounded</h3>
+        <p>Facts and conclusions are tied to the documents and authorities available to the system, rather than invented from a blank context.</p>
+      </div>
+      <div class="principle">
+        <div class="principle-icon">02</div>
+        <h3>Auditable</h3>
+        <p>Every material finding can point back to its source — down to the document and page where possible.</p>
+      </div>
+      <div class="principle">
+        <div class="principle-icon">03</div>
+        <h3>Private</h3>
+        <p>ALIS is designed for self-hosted deployment, keeping sensitive matter data within the firm's own environment.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="capabilities">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-num">03 / WHAT IT DOES</div>
+      <div>
+        <h2>From a pile of documents to a structured matter.</h2>
+        <p class="lead">
+          ALIS turns unstructured legal material into facts, timelines,
+          authorities, conflicts and working drafts that lawyers can inspect.
+        </p>
+      </div>
+    </div>
+
+    <div class="capability-group reveal">
+      <div class="group-title">01 / MATTER INTELLIGENCE</div>
+      <div class="feature-list">
+        <article class="feature"><div class="feature-number">01</div><h3>Case reconstruction</h3><p>Extract dated facts, obligations, events and claims from case files, with every material fact tied back to its exact source.</p></article>
+        <article class="feature"><div class="feature-number">02</div><h3>Timeline + contradictions</h3><p>Build a chronological matter timeline, identify corroborated events, and surface conflicting dates, statuses and accounts with severity.</p></article>
+        <article class="feature"><div class="feature-number">03</div><h3>Evidence gaps</h3><p>Find documents, reports and other evidence referenced by the record but never actually supplied to the matter.</p></article>
+        <article class="feature"><div class="feature-number">04</div><h3>Case map</h3><p>Bring facts, events, contradictions and evidence gaps together in one inspectable representation of the matter.</p></article>
+        <article class="feature"><div class="feature-number">05</div><h3>Deposition intelligence</h3><p>Identify admissions, inconsistencies, hedging language and other material signals across transcripts and depositions.</p></article>
+      </div>
+    </div>
+
+    <div class="capability-group reveal">
+      <div class="group-title">02 / LEGAL INTELLIGENCE</div>
+      <div class="feature-list">
+        <article class="feature"><div class="feature-number">06</div><h3>Legal research</h3><p>Answer legal questions against an indexed case-law corpus and rank relevant precedent against the issue being examined.</p></article>
+        <article class="feature"><div class="feature-number">07</div><h3>Citation verification</h3><p>Check citations against the underlying case-law corpus and flag authorities where the citation, case or proposition does not match.</p></article>
+        <article class="feature"><div class="feature-number">08</div><h3>Formal legal tests</h3><p>Evaluate each element of a defined legal test against the case facts separately, so the lawyer can inspect every step.</p></article>
+      </div>
+    </div>
+
+    <div class="capability-group reveal">
+      <div class="group-title">03 / CONTRACT INTELLIGENCE</div>
+      <div class="feature-list">
+        <article class="feature"><div class="feature-number">09</div><h3>Clause risk analysis</h3><p>Extract clauses, classify their characteristics and score risk against the firm's configured rules and playbooks.</p></article>
+        <article class="feature"><div class="feature-number">10</div><h3>Redlines</h3><p>Generate proposed replacement language from approved clause templates rather than inventing contractual language from scratch.</p></article>
+        <article class="feature"><div class="feature-number">11</div><h3>Portfolio intelligence</h3><p>Roll contract risk, obligations, deadlines and renewal windows into a single portfolio view, including M&amp;A diligence.</p></article>
+      </div>
+    </div>
+
+    <div class="capability-group reveal">
+      <div class="group-title">04 / STRATEGIC INTELLIGENCE</div>
+      <div class="feature-list">
+        <article class="feature"><div class="feature-number">12</div><h3>Outcome assessment</h3><p>Estimate case outcomes from explicit weighted factors, expose the factor breakdown, and track calibration against real results.</p></article>
+        <article class="feature"><div class="feature-number">13</div><h3>Strategy builder</h3><p>Structure the key issues, arguments and counterarguments around the matter's actual facts and legal framework.</p></article>
+      </div>
+    </div>
+
+    <div class="capability-group reveal">
+      <div class="group-title">05 / FIRM INTELLIGENCE</div>
+      <div class="feature-list">
+        <article class="feature"><div class="feature-number">14</div><h3>Institutional memory</h3><p>Search the firm's memos, precedents and prior matters by question, with similar-case suggestions alongside the result.</p></article>
+        <article class="feature"><div class="feature-number">15</div><h3>Client intelligence</h3><p>Roll multiple matters into a client-level view of risk, exposure and opportunities.</p></article>
+        <article class="feature"><div class="feature-number">16</div><h3>Practice operations</h3><p>Track contractual deadlines and generate billing information from the matter activity already recorded by the system.</p></article>
+        <article class="feature"><div class="feature-number">17</div><h3>Firm controls</h3><p>Apply firm-specific playbooks, severity overrides and a human-reviewed terminology glossary on top of the base intelligence engine.</p></article>
+      </div>
+    </div>
+
+    <div class="capabilities-cta reveal">
+      <a href="see-it-in-action.html">See ALIS in action→</a>
+    </div>
+  </div>
+</section>
+
+<section class="workflow" id="workflow">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-num">04 / HOW IT WORKS</div>
+      <div>
+        <h2>Evidence in.<br>Reasoning out.</h2>
+        <p class="workflow-lead">
+          The system is built as a pipeline: acquire the record, structure it,
+          retrieve relevant authority, reason over the resulting evidence graph,
+          and expose the path back to the source.
+        </p>
+      </div>
+    </div>
+
+    <div class="pipeline reveal">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h3>Ingest</h3>
+        <p>Case files, contracts, correspondence, pleadings and firm knowledge.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h3>Structure</h3>
+        <p>Facts, entities, dates, claims, obligations and relationships become machine-readable.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h3>Retrieve</h3>
+        <p>Relevant authorities and prior firm work are located against the question.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <h3>Reason</h3>
+        <p>Rules, evidence, conflicts and relationships are evaluated against the matter.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">05</div>
+        <h3>Prove</h3>
+        <p>Findings remain connected to the record so a lawyer can inspect the basis.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-num">05 / WHO IT'S FOR</div>
+      <div>
+        <h2>Built for firms that cannot afford plausible answers.</h2>
+        <p class="lead">
+          One system for practices that want meaningful AI leverage without
+          surrendering control over sensitive matters or source verification.
+        </p>
+      </div>
+    </div>
+
+    <div class="audience-grid">
+      <article class="audience reveal">
+        <div class="audience-tag">Small practices</div>
+        <h3>More leverage per lawyer.</h3>
+        <p>Automate the tedious first pass across documents, research, chronology and matter administration without building an internal AI team.</p>
+      </article>
+      <article class="audience reveal">
+        <div class="audience-tag">Mid-size firms</div>
+        <h3>Turn institutional knowledge into infrastructure.</h3>
+        <p>Make prior matters, precedents and internal research searchable and reusable while maintaining firm-level control.</p>
+      </article>
+      <article class="audience reveal">
+        <div class="audience-tag">High-sensitivity matters</div>
+        <h3>Keep the record inside the perimeter.</h3>
+        <p>Self-hosted deployment is designed for firms that need sensitive client and matter information to remain on their own infrastructure.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="security">
+  <div class="container">
+    <div class="security">
+      <div class="reveal">
+        <div class="section-num">06 / CONTROL</div>
+        <h2 style="margin-top:24px">Your matters.<br>Your infrastructure.</h2>
+        <p class="lead" style="margin-top:25px">
+          ALIS is deployed once per firm and operated on infrastructure controlled
+          by the firm. The architecture is intended for legal environments where
+          confidentiality, traceability and operational control matter.
+        </p>
+      </div>
+      <div class="security-box reveal">
+        <h3>Designed around control.</h3>
+        <p>
+          No per-seat architecture. No requirement to send matter files to a
+          third-party hosted workspace. Deploy the system inside the firm's
+          environment and control access, storage and operational policy.
+        </p>
+        <div class="checks">
+          <div class="check"><span>Deployment</span><span>SELF-HOSTED</span></div>
+          <div class="check"><span>Matter data</span><span>FIRM CONTROLLED</span></div>
+          <div class="check"><span>Source traceability</span><span>BUILT-IN</span></div>
+          <div class="check"><span>Licensing</span><span>PER FIRM</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="pricing">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-num">07 / PRICING</div>
+      <div>
+        <h2>Priced per firm.<br>Not per lawyer.</h2>
+        <p class="lead">
+          ALIS is licensed once per firm, not once per lawyer. Every attorney
+          gets full access to the platform — no per-seat pricing, no metered
+          queries, no individual subscriptions to manage.
+        </p>
+      </div>
+    </div>
+
+    <div class="pricing-grid reveal">
+      <div class="pricing-card">
+        <span class="plan-tag">STARTER</span>
+        <h3 class="plan-title">Small Practice</h3>
+        <div class="plan-price">$10,000<span>/year</span></div>
+        <div class="plan-attorneys">Up to 10 attorneys</div>
+        <ul class="plan-features">
+          <li>Full ALIS platform, self-hosted</li>
+          <li>Firm knowledge base</li>
+          <li>Email support</li>
+          <li>Quarterly feature releases + security patches</li>
+        </ul>
+        <div class="plan-effective">As low as $83 / attorney / month</div>
+        <a class="plan-cta" href="#contact">Start a pilot →</a>
+      </div>
+
+      <div class="pricing-card">
+        <span class="plan-tag">GROWTH</span>
+        <h3 class="plan-title">Growing Firm</h3>
+        <div class="plan-price">$28,000<span>/year</span></div>
+        <div class="plan-attorneys">11–30 attorneys</div>
+        <ul class="plan-features">
+          <li>Everything in Starter</li>
+          <li>Priority support, 48-hour SLA</li>
+          <li>Implementation assistance + data migration</li>
+          <li>Custom guardrails, one playbook per practice area</li>
+        </ul>
+        <div class="plan-effective">As low as $78 / attorney / month</div>
+        <a class="plan-cta" href="#contact">Start a pilot →</a>
+      </div>
+
+      <div class="pricing-card featured">
+        <span class="plan-recommended">Recommended</span>
+        <span class="plan-tag">FIRM</span>
+        <h3 class="plan-title">Established Firm</h3>
+        <div class="plan-price">$65,000<span>/year</span></div>
+        <div class="plan-attorneys">31–75 attorneys</div>
+        <ul class="plan-features">
+          <li>Everything in Growth</li>
+          <li>Dedicated onboarding</li>
+          <li>Firm-wide playbooks + terminology glossary</li>
+          <li>Custom SLA</li>
+        </ul>
+        <div class="plan-effective">As low as $72 / attorney / month</div>
+        <a class="plan-cta" href="#contact">Start a pilot →</a>
+      </div>
+
+      <div class="pricing-card">
+        <span class="plan-tag">ENTERPRISE</span>
+        <h3 class="plan-title">Custom Deployment</h3>
+        <div class="plan-price">$100,000<span>+ /year</span></div>
+        <div class="plan-attorneys">75+ attorneys</div>
+        <ul class="plan-features">
+          <li>Everything in Firm</li>
+          <li>Custom integrations</li>
+          <li>On-call support, negotiated SLA</li>
+          <li>Multi-practice-area configuration</li>
+        </ul>
+        <div class="plan-effective">Scoped to deployment size</div>
+        <a class="plan-cta" href="#contact">Talk to us →</a>
+      </div>
+    </div>
+
+    <p class="pricing-note">
+      Implementation and deployment — infrastructure, data migration, firm
+      playbooks — are scoped and quoted separately from the annual license.
+    </p>
+
+    <div class="pricing-statement reveal">
+      <div class="statement-mark">ALIS / PRICING</div>
+      <div>
+        <strong>You're not buying AI seats. You're installing a firm wide intelligence system.</strong>
+        <p>
+          Attorney counts mark where a tier's capacity ends, not what's being
+          sold. The firm licenses ALIS once, and every attorney inside that
+          capacity gets full access to it.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta" id="contact">
+  <div class="container">
+    <div class="section-num"></div>
+    <h2>Give your firm an intelligence layer.</h2>
+    <p>
+      ALIS is deployed once per firm as a self-hosted system.
+      Start with a pilot and evaluate it against real matter workflows.
+    </p>
+    <div class="cta-actions">
+      <a class="hero-cta" href="mailto:rickclmntcorp@protonmail.com?subject=ALIS%20Pilot%20Request">Request a pilot →</a>
+      <a class="secondary" href="see-it-in-action.html">See it in action</a>
+    </div>
+    <a class="email" href="mailto:rickclmntcorp@protonmail.com">rickclmntcorp@protonmail.com</a>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="container footer-inner">
+    <div><span class="footer-logo">ALIS</span></div>
+    <div>© 2026 RICKCLMNT</div>
+  </div>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+},{threshold:.12});
+
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+document.querySelector('.menu').addEventListener('click', ()=>{
+  const nav = document.querySelector('.nav-links');
+  const open = nav.style.display === 'flex';
+  nav.style.display = open ? '' : 'flex';
+  if(!open){
+    nav.style.position='absolute';
+    nav.style.top='74px';
+    nav.style.left='0';
+    nav.style.right='0';
+    nav.style.padding='20px';
+    nav.style.background='var(--bg)';
+    nav.style.flexDirection='column';
+    nav.style.borderBottom='1px solid var(--line)';
+  }
+});
+</script>
+</body>
+</html>
